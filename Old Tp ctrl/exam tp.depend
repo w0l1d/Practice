@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1612087319 source:c:\users\salah\onedrive\desktop\exam tp\exam tp\main.c
+	<stdio.h>
+	<stdlib.h>
+	"filesPoint.h"
+
+1612087201 c:\users\salah\onedrive\desktop\exam tp\exam tp\filespoint.h
+

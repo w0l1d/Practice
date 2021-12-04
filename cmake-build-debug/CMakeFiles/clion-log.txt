@@ -1,0 +1,4 @@
+"E:\Program Files\JetBrains\CLion 2021.2.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" P:\Study\ILISI\S1\SDD\Practice
+-- Configuring done
+-- Generating done
+-- Build files have been written to: P:/Study/ILISI/S1/SDD/Practice/cmake-build-debug

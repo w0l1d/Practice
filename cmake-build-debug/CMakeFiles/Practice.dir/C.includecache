@@ -1,0 +1,82 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/SDD_manipulation.c
+stdio.h
+-
+stdlib.h
+-
+fonction_List_Tab.c
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/fonction_List_Tab.c
+fonction_List_Pt.c
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/fonction_List_Pt.c
+fonction_Pile_Tab.c
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/fonction_Pile_Tab.c
+fonction_Pile_Pt.c
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/fonction_Pile_Pt.c
+fonction_File_Tab.c
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/fonction_File_Tab.c
+fonction_File_Pt2.c
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/fonction_File_Pt2.c
+
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/fonction_File_Pt2.c
+stdio.h
+-
+stdlib.h
+-
+conio.h
+-
+structures.h
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/structures.h
+
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/fonction_File_Tab.c
+stdio.h
+-
+stdlib.h
+-
+conio.h
+-
+
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/fonction_List_Pt.c
+stdio.h
+-
+stdlib.h
+-
+conio.h
+-
+structures.h
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/structures.h
+
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/fonction_List_Tab.c
+stdio.h
+-
+stdlib.h
+-
+conio.h
+-
+
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/fonction_Pile_Pt.c
+stdio.h
+-
+stdlib.h
+-
+conio.h
+-
+structures.h
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/structures.h
+
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/fonction_Pile_Tab.c
+stdio.h
+-
+stdlib.h
+-
+conio.h
+-
+
+P:/Study/ILISI/S1/SDD/Practice/TP2 2/structures.h
+
