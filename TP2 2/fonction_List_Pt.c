@@ -279,7 +279,7 @@ void supp_first_occ(Cellule * list, int elm,int *etat)
     //liste n'exist pas
     if (!list) 	*etat=-2;
 
-    pos=(int)recherche_elem(list,elm );// utiliser la fonction recherche_elem() qui retourne
+    pos = (int)recherche_elem(list,elm );// utiliser la fonction recherche_elem() qui retourne
 
     // la position de la 1er occurence
     if(!pos) *etat=0 ; // si pos==0 ,la fct gestion erreur va afficher ue l'elm n'existe pas
