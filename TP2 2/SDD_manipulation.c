@@ -6,7 +6,7 @@
 #include "fonction_Pile_Tab.c"
 #include "fonction_Pile_Pt.c"
 #include "fonction_File_Tab.c"
-#include "fonction_File_Pt2.c"
+#include "fonction_File_Pt.c"
 
 void menu() {
     char choix;// stocke le choix de l'utilisateur

@@ -7,16 +7,6 @@
 
 
 
-
-void *initialiser_PFile (PFile *f)
-{
-    f->tete=NULL; // on initialise la tete du PFile a NULL
-    f->queue=NULL; // on initialise le queue du PFile a NULL
-    f->taille=0; // on initialise la taille du PFile a 0
-
-}
-
-
 PFile* createPFile()
 {
     PFile *pfile = (PFile*) malloc(sizeof(PFile));
@@ -26,13 +16,19 @@ PFile* createPFile()
         printf("Erreur de location de la memoire");
         exit(0);
     }
-
-    pfile = initialiser_PFile(pfile);
     return pfile;
 }
 
 
 
+PFile *initialiser_PFile ()
+{
+    PFile *f = createPFile();
+    f->tete=NULL; // on initialise la tete du PFile a NULL
+    f->queue=NULL; // on initialise le queue du PFile a NULL
+    f->taille=0; // on initialise la taille du PFile a 0
+    return ((PFile*) f);
+}
 
 int PFile_existe (PFile *f)
 {
@@ -51,34 +47,8 @@ int PFile_vide (PFile *f)
         return 1;
     return 0;
 }
-PFile *enfiler_PFile (PFile *f, int val)
-{
-    Cellule *e=NULL; // declaration et initialiastion a NULL de l'Cellule a ajouter
 
-    if (!PFile_existe(f)) // si la PFile n'existe pas on le cree
-        f=(PFile *)malloc (sizeof (PFile));
-
-    if (PFile_vide(f)) // si la PFile vide
-    {
-        e=(Cellule *)malloc(sizeof(Cellule)); // l'allocation du memeoire
-
-        e->val = val;
-        f->tete=e; // definition du nouveau tete
-        f->queue=e; // definition du nouveau queue
-        f->taille++; // l'incrementation du taille du file
-    }
-    else // si la PFile non vide
-    {
-        e=(Cellule *)malloc (sizeof(Cellule)); // l'allocation du memeoire
-
-        e->val = val;
-        f->queue->svt=e; // definition du nouveau tete
-        f->queue=e;
-        f->taille++; // l'incrementation du taille du file
-    }
-    return (PFile *)f;
-}
-int *enfiler_PFile2 (PFile *f, int val)
+int enfiler_PFile(PFile *f, int val)
 {
     Cellule *e=NULL; // declaration et initialiastion a NULL de l'Cellule a ajouter
 
@@ -106,32 +76,7 @@ int *enfiler_PFile2 (PFile *f, int val)
     return ((int) 1);
 }
 
-PFile *defiler_PFile (PFile *f)
-{
-    Cellule *tmp; // pointeur de type Cellule vers l'Cellule a supprimer
-    if (!PFile_existe(f))
-        printf("PFile n'existe pas\n");
-    if (PFile_vide(f))
-        printf("PFile deja vide\n");
-
-    // cas d'une seule Cellule
-    if (f->tete==f->queue)
-    {
-        f=initialiser_PFile(f);
-        return ((PFile *) f);
-    }
-        // cas de plusieurs Cellules
-    else
-    {
-        tmp=f->tete; // on pointe sur le premier Cellule du file
-        f->tete=f->tete->svt; // definition de la nouvelle tete du file
-        free(tmp); // on supprimer le premier Cellule du file
-        f->taille--; // decrimentation du taille du file
-        return ((PFile *)f);
-    }
-}
-
-int *defiler_PFile2 (PFile *f)
+int defiler_PFile(PFile *f)
 {
     Cellule *tmp; // pointeur de type Cellule vers l'Cellule a supprimer
     if (!PFile_existe(f)) //file n'existe pas
@@ -158,200 +103,144 @@ int *defiler_PFile2 (PFile *f)
     return ((int) 1);
 }
 
-PFile* enfiler_pos_PFIle(PFile* file, int val, int pos, int *status)
-{
-    PFile *tmp = createPFile();
 
-    int cmp = 1, val_defile;
-    *status = -4;
-
-    if (pos == file->taille+1)
-    {
-        *status = 1;
-        return enfiler_PFile(file, val);
-    }
-
-    while (!PFile_vide(file))
-    {
-        val_defile = file->tete->val;
-
-        file = defiler_PFile(file);
-
-        if (pos == cmp)
-        {
-            *status = 1;
-            tmp = enfiler_PFile(tmp, val);
-        }
-        tmp = enfiler_PFile(tmp, val_defile);
-        cmp++;
-    }
-
-    return ((PFile*) tmp);
-}
-
-int enfiler_pos_PFIle2(PFile* file, int val, int pos)
+int enfiler_pos_PFIle(PFile* file, int val, int pos)
 {
 
+    //File est vide
     if (!file)
         return ((int) -1);
-    int cmp = file->taille,
+    int cmp = 1,
+    size = file->taille,
     val_defile,
     status = -4;
 
     if (pos == file->taille+1)
-        return enfiler_PFile2(file, val);
+        return enfiler_PFile(file, val);
 
-    while (cmp)
+
+    while (cmp++ <= size)
     {
         val_defile = file->tete->val;
 
-        file = defiler_PFile(file);
-
-        if (pos == cmp)
+        if (pos == cmp-1)
         {
             status = 1;
-            file = enfiler_PFile(file, val);
+            enfiler_PFile(file, val);
         }
-        file = enfiler_PFile(file, val_defile);
-        cmp--;
+        enfiler_PFile(file, val_defile);
+        defiler_PFile(file);
+
+
     }
 
     return ((int) status);
 }
 
 
-PFile* supprimer_val_occur_PFile(PFile *file, int val, int *status) {
 
-    PFile *tmp = createPFile();
-    int val_defile;
 
-    *status = -2;
+int supprimer_val_occur_PFile(PFile *file, int val) {
 
-    while (!PFile_vide(file))
+    //File n'existe pas
+    if (!file)
+        return ((int) -1);
+    //File est vide
+    if (!file->taille)
+        return ((int) 0);
+
+
+    int val_defile,
+    cmp = file->taille,
+    status = -4;
+
+    while (cmp--)
     {
+
         val_defile = file->tete->val;
 
-        file = defiler_PFile(file);
+        defiler_PFile(file);
 
-        if (val_defile == val)
-        {
-            *status = 1;
-            continue;
-        }
-
-        tmp = enfiler_PFile(tmp, val_defile);
+        if (val_defile != val)
+            enfiler_PFile(file, val_defile);
+        else
+            status = 1;
     }
 
-    return ((PFile*) tmp);
+    return ((int) status);
 }
 
 
-
-int supprimer_val_occur_PFile2(PFile *file, int val) {
+int max_val_PFile(PFile *file, int *max_val) {
+    //File n'existe pas
+    if (!file)
+        return ((int) -1);
+    //File est vide
+    if (PFile_vide(file))
+        return ((int) 0);
 
     int val_defile,
-    status = -2,
-    cmp = file->taille;
+            cmp = file->taille;
 
-    while (cmp)
+    *max_val = file->tete->val;
+
+    while (cmp--)
     {
-        cmp --;
         val_defile = file->tete->val;
+        defiler_PFile(file);
+        enfiler_PFile(file, val_defile);
 
-        file = defiler_PFile(file);
-
-        if (val_defile == val){
-            file->taille--;
-            continue;
-        }
-        file = enfiler_PFile(file, val_defile);
+        if (*max_val < val_defile)
+            *max_val = val_defile;
     }
 
     return ((int) 1);
 }
 
 
-PFile* max_val_PFile(PFile *file, int *max_val, int *status) {
-
-    PFile *tmp = createPFile();
-    int val_defile;
-
-    *status = -2;
-
-    *max_val = file->tete->val;
-
-    while (!PFile_vide(file))
-    {
-        val_defile = file->tete->val;
-        file = defiler_PFile(file);
-        tmp = enfiler_PFile(tmp, val_defile);
-
-        if (*max_val < val_defile)
-            *max_val = val_defile;
-    }
-
-    return ((PFile*) tmp);
-}
+int min_val_PFile(PFile *file, int *min_val) {
 
 
-PFile* max_val_PFile2(PFile *file, int *max_val, int *status) {
+    if (!file)
+        return ((int) -1);
 
-    PFile *tmp = createPFile();
-    int val_defile;
+    if (PFile_vide(file))
+        return ((int) 0);
 
-    *status = -2;
-
-    *max_val = file->tete->val;
-
-    while (!PFile_vide(file))
-    {
-        val_defile = file->tete->val;
-        file = defiler_PFile(file);
-        tmp = enfiler_PFile(tmp, val_defile);
-
-        if (*max_val < val_defile)
-            *max_val = val_defile;
-    }
-
-    return ((PFile*) tmp);
-}
-
-
-PFile* min_val_PFile(PFile *file, int *min_val, int *status) {
-
-    PFile *tmp = createPFile();
-    int val_defile;
-
-    *status = -2;
+    int val_defile,
+            cmp = file->taille;
 
     *min_val = file->tete->val;
 
-    while (!PFile_vide(file))
+    while (cmp--)
     {
         val_defile = file->tete->val;
-        file = defiler_PFile(file);
-        tmp = enfiler_PFile(tmp, val_defile);
+        enfiler_PFile(file, val_defile);
+        defiler_PFile(file);
 
         if (*min_val > val_defile)
             *min_val = val_defile;
     }
 
-    return ((PFile*) tmp);
+    return ((int) 1);
 }
+
+
 
 void afficher_PFile (PFile *f)
 {
-    int i;
-    Cellule *crt; // declaration de pointeur pour parcourir la file
-    if (PFile_existe(f)==0)
+    if (!PFile_existe(f))
         printf("PFile n'existe pas\n");
-    if (PFile_vide(f)==1)
-        printf("PFile deja vide\n");
-    crt=f->tete; // on commance par le premier Cellule
-    for(i=0;i<f->taille;++i)
+    if (PFile_vide(f))
+        printf("PFile est vide\n");
+
+    int cmp = f->taille;
+
+    for(;cmp--;)
     {
-        printf("%d\t" ,crt->val);
-        crt = crt->svt;
+        printf("%d\t" , f->tete->val);
+        enfiler_PFile(f, f->tete->val);
+        defiler_PFile(f);
     }
     printf ("\n");
 }
@@ -361,13 +250,25 @@ void afficher_PFile (PFile *f)
 
 int menu_PFile_Pt()
 {
-    PFile *pfile = createPFile();
-    int choix, tmp, tmp2, *status;
+    PFile *pfile = initialiser_PFile();
+    int choix, tmp, tmp2, status;
 
-    status = (int*) malloc(sizeof(int));
+    enfiler_PFile(pfile, 12);
+    enfiler_PFile(pfile, 1);
+    enfiler_PFile(pfile, 0);
+    enfiler_PFile(pfile, 7);
+    enfiler_PFile(pfile, 15);
+    enfiler_PFile(pfile, 4);
+    enfiler_PFile(pfile, 3);
+    enfiler_PFile(pfile, 9);
+    enfiler_PFile(pfile, 0);
+    enfiler_PFile(pfile, 1);
+    enfiler_PFile(pfile, 22);
+    enfiler_PFile(pfile, 7);
 
     do
     {
+        fflush(stdin);
         //initialiser le choix
         choix = -1;
         printf("\n *****************************************************************************************************************\n "
@@ -385,48 +286,45 @@ int menu_PFile_Pt()
                "\n >>>>>  ");
 
         scanf("%d", &choix); getchar();
-
+        fflush(stdin);
         switch(choix)
         {
             case 0: break;
 
             case 1:
-                pfile = initialiser_PFile(pfile);
+                pfile = initialiser_PFile();
                 printf ("\nInitialisation bien faite.\n");
-                getch();
                 break;
             case 2:
                 printf("La taille de la pfile : %d", pfile->taille);
-                getch();
                 break;
 
             case 3:
                 printf ("\ndonner l'entier a ajouter : ");
-                scanf ("%d",&tmp); // lecture de l'Cellule a ajouter
-                pfile=enfiler_PFile(pfile, tmp);
-                getch();
+                // lecture de l'Cellule a ajouter
+                scanf ("%d",&tmp);getchar();
+                enfiler_PFile(pfile, tmp);
                 break;
 
             case 4:
-                pfile= defiler_PFile(pfile);
-                getch();
+                defiler_PFile(pfile);
                 break;
 
             case 5:
                 afficher_PFile(pfile);
-                getch();
                 break;
 
             case 6:
                 printf ("\nEntrer la valeur a supprimer : ");
                 scanf ("%d",&tmp); // lecture de l'Cellule a ajouter
 
-                pfile = supprimer_val_occur_PFile(pfile, tmp, status);
-                if (!(*status-1)) // status == 1
-                    printf("Suppression effectuer");
-                else
-                    printf("Valeur n'est pas trouve");
-                getch();
+                status = supprimer_val_occur_PFile(pfile, tmp);
+                if (!(status-1)) // status == 1
+                    printf("\nSuppression effectuer\n");
+                else if(status == -4)
+                    printf("\nValeur n'est pas trouve\n");
+                else if(!status)
+                    printf("\nfile est vide\n");
                 break;
 
             case 7:
@@ -435,41 +333,36 @@ int menu_PFile_Pt()
 
                 printf ("\nEntrer la position : ");
                 scanf ("%d",&tmp2); // lecture de l'Cellule a ajouter
-                pfile = enfiler_pos_PFIle(pfile, tmp, tmp2, status);
-                if (!(*status+4))
+                status = enfiler_pos_PFIle(pfile, tmp, tmp2);
+                if (!(status+4))
                     printf("\nPosition est incorrect");
-                else if (*status)
+                else if (status)
                     printf("\nEnfilement effectuer");
-                else if (!(*status))
+                else if (!status)
                     printf("\nLa file est vide");
 //                else if (*status)
 //                    printf("\nEnfilement effectuer");
-                getch();
                 break;
 
             case 8:
-                pfile = max_val_PFile(pfile, &tmp, status);
-                if (*status)
+                status = max_val_PFile(pfile, &tmp);
+                if (status)
                     printf("\nle maximum de la file est %d ", tmp);
-                else if (!(*status))
+                else if (!status)
                     printf("\nLa file est vide");
-                getch();
                 break;
 
             case 9:
-                pfile = min_val_PFile(pfile, &tmp, status);
-                if (*status)
+                status = min_val_PFile(pfile, &tmp);
+                if (status)
                     printf("\nle minimum de la file est %d ", tmp);
-                else if (!(*status))
+                else if (!status)
                     printf("\nLa file est vide");
-                getch();
                 break;
 
-
-
                 default :   printf("\n\nErreur : Choix Invalide\n\n");
-                getch();
         }
+        getch();
 
     }while(choix);
 }
