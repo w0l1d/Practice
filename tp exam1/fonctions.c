@@ -338,3 +338,38 @@ Cellule* supp_occ_elem_PList(Cellule *list,int val)
 //    return ((Cellule*) list);
 //
 //}//fin fct
+
+//fct qui supprime la 1er occurence d'un element
+Cellule* supp_pos_PList(Cellule * list, int pos)
+{
+    //liste n'exist pas
+    if (!list) 	return ((Cellule*) list);
+
+    int cpt = 1;
+
+    Cellule *curr, *tmp;
+    if (pos == 1)
+    {
+        tmp = list;
+        list = list->svt;
+        free(tmp);
+        return ((Cellule*) list);
+    }
+
+    curr = list;
+
+
+    while(curr)
+    {
+        cpt++;
+        if (cpt == pos) {
+            tmp = curr->svt;
+            curr->svt = tmp->svt;
+            free(tmp);
+        }
+        curr = curr->svt;
+
+    }
+
+    return ((Cellule*) list);
+}//fin fct

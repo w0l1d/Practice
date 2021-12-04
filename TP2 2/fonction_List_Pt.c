@@ -293,11 +293,34 @@ void supp_first_occ(Cellule * list, int elm,int *etat)
 Cellule* supp_pos_PList(Cellule * list, int pos)
 {
     //liste n'exist pas
-    if (!list) 	return ((Cellule*) liste);
+    if (!list) 	return ((Cellule*) list);
 
+    int cpt = 0;
 
+    Cellule *curr, *tmp;
+    if (pos == 1)
+    {
+        tmp = list;
+        list = list->svt;
+        free(tmp);
+        return ((Cellule*) list);
+    }
 
+    curr = list;
+    cpt--;
 
+    while(curr)
+    {
+        if (cpt == pos) {
+            tmp = curr->svt;
+            curr->svt = tmp->svt;
+            free(tmp);
+        }
+        curr = curr->svt;
+        cpt++;
+    }
+
+    return ((Cellule*) list);
 }//fin fct
 
 
@@ -319,7 +342,6 @@ Cellule* supp_occ_elem_PList(Cellule *list,int val)
         if (pt->svt->val == val) {
             tmp = pt->svt;
             pt->svt = tmp->svt;
-            tmp = NULL;
             free(tmp);
         }
         pt = pt->svt;

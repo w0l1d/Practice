@@ -90,6 +90,7 @@ void main() {
 
     plist = supp_occ_elem_PList(plist, 10);
 
+    plist = supp_pos_PList(plist, 3);
     printf("\naffichage 6: \n");
     affiche_plist(plist);
     printf("\n\n");
@@ -97,6 +98,9 @@ void main() {
 
 
     //****************** 7 ****************
+
+
+
 
     printf("\n\n");
     printf("\n\n");

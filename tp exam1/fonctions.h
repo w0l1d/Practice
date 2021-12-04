@@ -38,6 +38,7 @@ int taille_pliste(Cellule *list);
 int affiche_plist(Cellule *list);
 Cellule *trans_Tliste_Pliste(TListe *tl, Cellule *pl);
 Cellule* supp_occ_elem_PList(Cellule *list,int val);
+Cellule* supp_pos_PList(Cellule * list, int pos);
 
 
 #endif //PRACTICE_FONCTIONS_H
