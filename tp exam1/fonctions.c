@@ -373,3 +373,533 @@ Cellule* supp_pos_PList(Cellule * list, int pos)
 
     return ((Cellule*) list);
 }//fin fct
+
+
+/******************************
+ *
+ *      Pile avec pointeur
+ *
+ */
+
+
+Cellule* init_PPile(int val)
+{
+    Cellule *pile = (Cellule*) malloc(sizeof(Cellule));
+
+    if (!pile)
+    {
+        printf("\n\nErreur d'allocation de la memoire\n\n");
+        exit(0);
+    }
+
+    pile->val = val;
+    pile->svt = NULL;
+    return pile;
+}
+
+
+
+Cellule* empiler_PPile(Cellule *pile, int val)
+{
+    Cellule *nouveau = init_PPile(val);
+
+    nouveau->svt = pile;
+    return ((Cellule*) nouveau);
+}
+
+
+
+Cellule* depiler_PPile(Cellule *pile)
+{
+    if (!pile) // si la pile n'exist pas
+        return ((Cellule*) NULL);
+
+    Cellule *tmp;
+    //sauvegarder la valeur a depile
+    tmp = pile;
+    //detacher la valeur depile de la pile
+    pile = pile->svt;
+    //liberer la mermoire alloue a la valeur depilee
+    free(tmp);
+
+    return ((Cellule*) pile);
+}
+
+Cellule* inverser_PPile(Cellule *pile)
+{
+    Cellule *tmp = NULL;
+
+    while (pile)
+    {
+        tmp = empiler_PPile(tmp, pile->val);
+        pile = depiler_PPile(pile);
+    }
+    return tmp;
+}
+
+
+Cellule* affiche_PPile(Cellule *pile)
+{
+    //si la pile vide
+    if (!pile)
+    {
+        printf("\nla Pile est vide\n");
+        return pile;
+    }
+    Cellule *tmp = NULL;
+
+    printf("\nles elements de la pile : \n");
+    while (pile)
+    {
+        printf("%d\t", pile->val);
+        tmp = empiler_PPile(tmp, pile->val);
+        pile = depiler_PPile(pile);
+    }
+
+    printf("\n");
+    return inverser_PPile(tmp);
+}
+
+
+
+
+Cellule *trans_Pliste_PPile(Cellule *list) {
+    if (!list)
+        return ((Cellule*) NULL);
+
+    Cellule *curLst = list;
+    Cellule *pile = NULL;
+
+    while(curLst) {
+        pile = empiler_PPile(pile, curLst->val);
+        curLst = curLst->svt;
+    }
+    pile = inverser_PPile(pile);
+    return ((Cellule*) pile);
+}
+
+
+Cellule* supprimer_pos_PPile(Cellule *pile, int pos) {
+    //pile n'exist pas
+    if (!pile)
+        return ((Cellule*) pile);
+
+    //supprimer le premier element
+    if (pos == 1)
+        return ((Cellule*) depiler_PPile(pile));
+
+
+    int indice = 1;
+    Cellule *tmp = NULL;
+
+    while (indice < pos)
+    {
+        tmp = empiler_PPile(tmp, pile->val);
+        pile = depiler_PPile(pile);
+        indice++;
+    }
+
+    //l'element est trouve
+    if (indice == pos)
+        pile = depiler_PPile(pile);
+
+    while (tmp)
+    {
+        pile = empiler_PPile(pile, tmp->val);
+        tmp = depiler_PPile(tmp);
+    }
+
+    return ((Cellule*) pile);
+}
+
+
+Cellule* supprimer_all_val_PPile(Cellule *pile, int val)
+{
+    Cellule *tmp = NULL;
+    int val_depile;
+
+    while (pile)
+    {
+        tmp = empiler_PPile(tmp, pile->val);
+        pile = depiler_PPile(pile);
+        if (tmp->val == val)
+            tmp = depiler_PPile(tmp);
+
+    }
+
+    while (tmp)
+    {
+        val_depile = tmp->val;
+        tmp = depiler_PPile(tmp);
+        pile = empiler_PPile(pile, val_depile);
+    }
+
+
+    return ((Cellule*) pile);
+}
+
+
+
+
+/******************************
+ *
+ *      File avec pointeur
+ *
+ */
+
+
+
+PFile* createPFile()
+{
+    PFile *pfile = (PFile*) malloc(sizeof(PFile));
+
+    if (!pfile)
+    {
+        printf("Erreur de location de la memoire");
+        exit(0);
+    }
+    return pfile;
+}
+
+PFile *initialiser_PFile()
+{
+    PFile *f = createPFile();
+    f->tete=NULL; // on initialise la tete du PFile a NULL
+    f->queue=NULL; // on initialise le queue du PFile a NULL
+    f->taille=0; // on initialise la taille du PFile a 0
+    return ((PFile*) f);
+}
+
+
+int PFile_existe(PFile *f)
+{
+    // 1 existe
+    // 0 n'existe pas
+    if (!f)
+        return 0;
+    return 1;
+}
+
+int PFile_vide(PFile *f)
+{
+    // 1 PFile vide
+    // 0 PFile non vide
+    if ((f->tete==NULL)&&(f->queue==NULL))
+        return 1;
+    return 0;
+}
+
+int enfiler_PFile(PFile *f, int val)
+{
+    Cellule *e=NULL; // declaration et initialiastion a NULL de l'Cellule a ajouter
+
+    if (!PFile_existe(f)) // si la PFile n'existe pas
+        return ((int) -1);
+
+    if (PFile_vide(f)) // si la PFile vide
+    {
+        e=(Cellule *)malloc(sizeof(Cellule)); // l'allocation du memeoire
+
+        e->val = val;
+        f->tete=e; // definition du nouveau tete
+        f->queue=e; // definition du nouveau queue
+        f->taille++; // l'incrementation du taille du file
+    }
+    else // si la PFile non vide
+    {
+        e=(Cellule *)malloc (sizeof(Cellule)); // l'allocation du memeoire
+
+        e->val = val;
+        f->queue->svt=e; // definition du nouveau tete
+        f->queue=e;
+        f->taille++; // l'incrementation du taille du file
+    }
+    return ((int) 1);
+}
+
+int defiler_PFile(PFile *f)
+{
+    Cellule *tmp; // pointeur de type Cellule vers l'Cellule a supprimer
+    if (!PFile_existe(f)) //file n'existe pas
+        return((int) -1);
+    if (PFile_vide(f)) //file est vide
+        return((int) 0);
+
+    // cas d'une seule Cellule
+    if (f->taille == 1)
+    {
+        tmp = f->tete;
+        f->tete= f->queue = NULL;
+        f->taille--;
+        free(tmp);
+    }
+    // cas de plusieurs Cellules
+    else
+    {
+        tmp=f->tete; // on pointe sur le premier Cellule du file
+        f->tete=f->tete->svt; // definition de la nouvelle tete du file
+        free(tmp); // on supprimer le premier Cellule du file
+        f->taille--; // decrimentation du taille du file
+    }
+    return ((int) 1);
+}
+
+void trans_PPile_PFile(Cellule* pile, PFile *file) {
+    if (!pile || !file)
+        return;
+
+    while (pile) {
+        enfiler_PFile(file, pile->val);
+        pile = depiler_PPile(pile);
+    }
+
+}
+
+void afficher_PFile (PFile *f)
+{
+    if (!PFile_existe(f))
+        printf("PFile n'existe pas\n");
+    if (PFile_vide(f))
+        printf("PFile est vide\n");
+
+    int cmp = f->taille;
+
+    for(;cmp--;)
+    {
+        printf("%d\t" , f->tete->val);
+        enfiler_PFile(f, f->tete->val);
+        defiler_PFile(f);
+    }
+    printf ("\n");
+}
+
+int supprimer_val_occur_PFile(PFile *file, int val) {
+
+    //File n'existe pas
+    if (!file)
+        return ((int) -1);
+    //File est vide
+    if (!file->taille)
+        return ((int) 0);
+
+
+    int val_defile,
+        cmp = file->taille,
+        status = -4;
+
+    while (cmp--)
+    {
+        val_defile = file->tete->val;
+
+        defiler_PFile(file);
+
+        if (val_defile != val)
+            enfiler_PFile(file, val_defile);
+        else
+            status = 1;
+    }
+
+    return ((int) status);
+}
+
+
+/******************************
+ *
+ *      Arbre binaire avec pointeur
+ *
+ */
+
+PNode* create_PNodePt(int val)
+{
+    PNode *ne = (PNode*) malloc(sizeof(PNode));
+    if (!ne)
+    {
+        printf("\n\n Erreur d'allocation de memoire\n");
+        exit(0);
+    }
+
+    ne->drt = ne->gch = NULL;
+    ne->info = val;
+    ne->cpt = 1;
+    return ((PNode*) ne);
+}
+
+PNode* insert_Pt(PNode *root, int val)
+{
+    if (!root)
+    {
+        PNode *ne = create_PNodePt(val);
+        return ((PNode*) ne);
+    }
+    if (root->info > val)
+        root->gch = insert_Pt(root->gch, val);
+    else if (root->info < val)
+        root->drt = insert_Pt(root->drt, val);
+    else
+        root->cpt++;
+
+    return ((PNode*)root);
+}
+
+
+
+PNode* trans_PFile_Arb(PFile *file) {
+    PNode *arb = NULL;
+    if (!file)
+        return ((PNode*) arb);
+
+    while (!PFile_vide(file)) {
+        arb = insert_Pt(arb, file->tete->val);
+        defiler_PFile(file);
+
+    }
+    return ((PNode*) arb);
+
+}
+
+void affiche_prefixer(PNode *root)
+{
+    if (!root)
+        return;
+
+    printf("%d (%d)\t", root->info, root->cpt);
+    affiche_prefixer(root->gch);
+    affiche_prefixer(root->drt);
+}
+
+PNode *min_noeud_arbrePt(PNode *root) {
+    if (!root)
+        return ((PNode*) NULL);
+    if (!root->gch)
+        return root;
+    return min_noeud_arbrePt(root->gch);
+}
+
+PNode *supp_arbrePt(PNode *root, int val)
+{
+    //si la valeur n'est pas trouve
+    if (!root)
+    {
+        printf("\nValeur n'est pas trouve\n");
+        return ((PNode*) root);
+    }
+
+    if (val < root->info)
+        //on cherche sur l'à gauche de l'arbre
+        root->gch = supp_arbrePt(root->gch, val);
+
+    else if (val > root->info)
+        //on cherche sur l'à droite de l'arbre
+        root->drt = supp_arbrePt(root->drt, val);
+
+    else //si le PNode courant a info == val
+    {
+        //si la valeur est repetee : compteur > 1
+        if (root->cpt > 1) {
+            root->cpt--; //supprimer une des repetition
+            return ((PNode*) root);
+        }
+        PNode *tmp = NULL;
+
+        //PNode n'a pas de fils
+        if (!root->drt && !root->gch)
+        {
+            free(root);
+            return ((PNode*) tmp);
+        }
+
+            //PNode n'a pas de fils Droit
+        else if (!root->drt)
+        {
+            //On Remplace ce PNode par son fils Gauche
+            tmp = root->gch;
+            free(root);
+            return ((PNode*) tmp);
+        }
+
+            //PNode n'a pas de fils Gauche
+        else if (!root->gch)
+        {
+            //On Remplace ce PNode par son fils Droit
+            tmp = root->drt;
+            free(root);
+            return ((PNode*) tmp);
+        }
+            //Si le PNode a les fils droit et gauche
+        else
+        {
+            //on cherche le minimun dans sous arbre du fils droit
+            tmp = min_noeud_arbrePt(root->drt);
+            //on replace le Nœud a supprimé par le minimum
+            root->info = tmp->info;
+            root->cpt = tmp->cpt;
+
+            //pour eviter le decalage du compteur
+            tmp->cpt = 1;
+            //supprimer le minimum deja deplace
+            root->drt = supp_arbrePt(root->drt, tmp->info);
+        }
+    }
+    return ((PNode *) root);
+}
+
+
+
+
+PNode *supp_def_arbrePt(PNode *root, int val) {
+    //si la valeur n'est pas trouve
+    if (!root) {
+        printf("\nValeur n'est pas trouve\n");
+        return ((PNode *) root);
+    }
+
+    if (val < root->info)
+        //on cherche sur l'à gauche de l'arbre
+        root->gch = supp_arbrePt(root->gch, val);
+
+    else if (val > root->info)
+        //on cherche sur l'à droite de l'arbre
+        root->drt = supp_arbrePt(root->drt, val);
+
+    else //si le PNode courant a info == val
+    {
+
+        PNode *tmp = NULL;
+
+        //PNode n'a pas de fils
+        if (!root->drt && !root->gch) {
+            free(root);
+            return ((PNode *) tmp);
+        }
+
+            //PNode n'a pas de fils Droit
+        else if (!root->drt) {
+            //On Remplace ce PNode par son fils Gauche
+            tmp = root->gch;
+            free(root);
+            return ((PNode *) tmp);
+        }
+
+            //PNode n'a pas de fils Gauche
+        else if (!root->gch) {
+            //On Remplace ce PNode par son fils Droit
+            tmp = root->drt;
+            free(root);
+            return ((PNode *) tmp);
+        }
+            //Si le PNode a les fils droit et gauche
+        else {
+            //on cherche le minimun dans sous arbre du fils droit
+            tmp = min_noeud_arbrePt(root->drt);
+
+
+            //on replace le Nœud a supprimé par le minimum
+            root->info = tmp->info;
+            root->cpt = tmp->cpt;
+
+            //supprimer le minimum deja deplace
+            root->drt = supp_def_arbrePt(root->drt, tmp->info);
+        }
+    }
+    return ((PNode *) root);
+}

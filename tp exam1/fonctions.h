@@ -20,6 +20,22 @@ typedef struct Cellule
 }Cellule;
 
 
+typedef struct PFile
+{
+    struct Cellule *tete;
+    struct Cellule *queue;
+    int taille;
+}PFile;
+
+
+
+typedef struct Nd {
+    int info; //information du noeud
+    int cpt; //nombre de repetition de cette info
+    struct Nd *gch; //pointeur sur le fils gauche
+    struct Nd *drt; //pointeur sur le fils gauche
+}PNode;
+
 
 TListe* create_TListe();
 TListe* init_TListe(TListe *liste);
@@ -40,5 +56,34 @@ Cellule *trans_Tliste_Pliste(TListe *tl, Cellule *pl);
 Cellule* supp_occ_elem_PList(Cellule *list,int val);
 Cellule* supp_pos_PList(Cellule * list, int pos);
 
+
+Cellule* init_PPile(int val);
+Cellule* empiler_PPile(Cellule *pile, int val);
+Cellule* depiler_PPile(Cellule *pile);
+Cellule* inverser_PPile(Cellule *pile);
+Cellule* affiche_PPile(Cellule *pile);
+Cellule* supprimer_pos_PPile(Cellule *pile, int pos);
+Cellule* supprimer_all_val_PPile(Cellule *pile, int val);
+Cellule *trans_Pliste_PPile(Cellule *list);
+
+
+PFile* createPFile();
+PFile *initialiser_PFile();
+int PFile_existe (PFile *f);
+int PFile_vide (PFile *f);
+int enfiler_PFile(PFile *f, int val);
+int defiler_PFile(PFile *f);
+void trans_PPile_PFile(Cellule* pile, PFile *file);
+void afficher_PFile (PFile *f);
+int supprimer_val_occur_PFile(PFile *file, int val);
+
+
+PNode* create_PNodePt(int val);
+PNode* insert_Pt(PNode *root, int val);
+PNode* trans_PFile_Arb(PFile *file);
+void affiche_prefixer(PNode *root);
+PNode *min_noeud_arbrePt(PNode *root);
+PNode *supp_arbrePt(PNode *root, int val);
+PNode *supp_def_arbrePt(PNode *root, int val);
 
 #endif //PRACTICE_FONCTIONS_H

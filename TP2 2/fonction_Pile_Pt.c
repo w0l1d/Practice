@@ -298,7 +298,7 @@ void affiche_PPile(Cellule *pile, int *status)
     //si la pile vide
     if (!pile)
     {
-        printf("\nla liste est vide\n");
+        printf("\nla Pile est vide\n");
         *status = 0;
         return;
     }

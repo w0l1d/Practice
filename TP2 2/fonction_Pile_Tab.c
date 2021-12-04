@@ -8,35 +8,35 @@
 
 
 // la fct creer liste 
-TSmtCel* createTPile()
+TPile* createTPile()
 {// declaration + allocation de la memoire
-    TSmtCel *pile = (TSmtCel*) malloc(sizeof(TSmtCel));
+    TPile *pile = (TPile*) malloc(sizeof(TPile));
     pile->sommet = -1;//
     if (!pile)//si liste existe
     {
         printf("Erreur de location de la memoire");
         exit(0);
     }
-    return((TSmtCel *)pile) ;
+    return((TPile *)pile) ;
 }//fin fct
 
 // fct qui initialise la pile
-TSmtCel* init_TPile(TSmtCel *pile)
+TPile* init_TPile(TPile *pile)
 {//si pile existe 
     if (pile)
         free(pile);
   //sinon creer une pile
     pile = createTPile();
-    return ((TSmtCel*)pile);
+    return ((TPile*)pile);
 }//fin fct
 
 // taille pile  
-int taille_TPile(TSmtCel pile)
+int taille_TPile(TPile pile)
   { return ((int)pile.sommet+1);
   }//fin fct
 
 // fct qui vide la pile
-int vider_pile(TSmtCel *pile, int *status)
+int vider_pile(TPile *pile, int *status)
 {
     *status = 1;// valeur pour gerer les erreur
     if (!pile) // pile n'existe pas
@@ -49,13 +49,13 @@ int vider_pile(TSmtCel *pile, int *status)
 
 // fct verifier si la pile est vide retourne 1 si vide
 // et 1 sinon
-int est_TPile_vide(TSmtCel pile)
+int est_TPile_vide(TPile pile)
 {
     return !(pile.sommet+1);
 }//fin fct
 
 //Fct empile une valeur dans la pile
-int empiler_Tab(TSmtCel *pile, int val, int *status)
+int empiler_Tab(TPile *pile, int val, int *status)
 {
     *status = 1;// pour la gestion des erreurs
     if (!pile) // pile n'existe pas
@@ -78,7 +78,7 @@ int empiler_Tab(TSmtCel *pile, int val, int *status)
 
 
 // fct depile la pile retourne nombre element si l'element est depiler sinon 0
-int depiler_Tab(TSmtCel *pile, int *status)
+int depiler_Tab(TPile *pile, int *status)
 {
     *status = 1;
     if (!pile) // pile n'existe pas
@@ -99,22 +99,22 @@ int depiler_Tab(TSmtCel *pile, int *status)
 }//fin fct
 
 //fct inverese l'ordre des elements de la pile et retourne la liste apres modification ,null sinon
-TSmtCel* inverser_TPile(TSmtCel *pile, int *status)
+TPile* inverser_TPile(TPile *pile, int *status)
 {
     //pile n'exist pas
     if (!pile)
     {
         *status = -1;
-        return((TSmtCel*) NULL);
+        return((TPile*) NULL);
     }
     // TPile est vide
     if (!(pile->sommet+1))
     {
         *status = 0;
-        return ((TSmtCel*)pile);
+        return ((TPile*)pile);
     }
 // utiliser une pile tmp pour empiler les elements depiler de liste
-    TSmtCel *tmp = createTPile();
+    TPile *tmp = createTPile();
     int val_depile;
 
     while (!est_TPile_vide(*pile))//tant que pile n'est pas vide
@@ -123,12 +123,12 @@ TSmtCel* inverser_TPile(TSmtCel *pile, int *status)
         empiler_Tab(tmp, val_depile, status);
     }
 
-    return ((TSmtCel*)tmp);//retourne la pile tmp
+    return ((TPile*)tmp);//retourne la pile tmp
 }//fin fct
 
 // fct qui trouve si un element se trouve dans une pile
 //retourne sa position si existe, sinon retourne un zero
-int trouver_val_TPile(TSmtCel *pile, int val, int *status)
+int trouver_val_TPile(TPile *pile, int val, int *status)
 {
     *status = 1;
 
@@ -145,7 +145,7 @@ int trouver_val_TPile(TSmtCel *pile, int val, int *status)
         return((int) 0); //pile est vide
     }
 
-    TSmtCel *tmp;
+    TPile *tmp;
     int indice = -1,//declaration des variables
         val_depiler;
     tmp = createTPile();
@@ -172,7 +172,7 @@ int trouver_val_TPile(TSmtCel *pile, int val, int *status)
 }//fin fct
 
 //fct qui donne l'element max dans la pile
-int max_val_TPile(TSmtCel *pile, int *status)
+int max_val_TPile(TPile *pile, int *status)
 {
     *status = 1;
     if (!pile)
@@ -188,7 +188,7 @@ int max_val_TPile(TSmtCel *pile, int *status)
         return ((int)0);
     }
 // pile tmp pour empiler les element depiler par pile principale 
-    TSmtCel *tmp;
+    TPile *tmp;
     int val_depiler, max_elem;
 
     tmp = createTPile();
@@ -216,7 +216,7 @@ int max_val_TPile(TSmtCel *pile, int *status)
 
 
 // fct qui retourne l'element min de la pile
-int min_val_TPile(TSmtCel *pile, int *status)
+int min_val_TPile(TPile *pile, int *status)
 {
     *status = 1;
 
@@ -233,7 +233,7 @@ int min_val_TPile(TSmtCel *pile, int *status)
         return ((int)0);
     }
 
-    TSmtCel *tmp;
+    TPile *tmp;
     int val_depiler, min_elem;
 
     tmp = createTPile();
@@ -262,7 +262,7 @@ int min_val_TPile(TSmtCel *pile, int *status)
 
 
 // fct qui retourne le nombre d'occurence d'un element
-int nbr_occur_TPile(TSmtCel *pile, int val, int *status)
+int nbr_occur_TPile(TPile *pile, int val, int *status)
 {
     *status = 1;
 
@@ -279,7 +279,7 @@ int nbr_occur_TPile(TSmtCel *pile, int val, int *status)
         return 0;
     }
 
-    TSmtCel *tmp;
+    TPile *tmp;
     int val_depiler, nbr_occur;
 
     tmp = createTPile();
@@ -306,7 +306,7 @@ int nbr_occur_TPile(TSmtCel *pile, int val, int *status)
 } //FIN de fonction nbr_occur_TPile
 
 //affcher l'element qui se trouve a la position p
-int trouver_pos_TPile(TSmtCel *pile, int pos, int *status)
+int trouver_pos_TPile(TPile *pile, int pos, int *status)
 {
     *status = 1;
 
@@ -323,7 +323,7 @@ int trouver_pos_TPile(TSmtCel *pile, int pos, int *status)
         return 0;
     }
 
-    TSmtCel *tmp;
+    TPile *tmp;
     int val_depiler, val_pos;
 
     tmp = createTPile();
@@ -355,7 +355,7 @@ int trouver_pos_TPile(TSmtCel *pile, int pos, int *status)
 
 
 //supprimer le premier occurence du val
-void supprimer_val_TPILE(TSmtCel *pile, int val, int *status)
+void supprimer_val_TPILE(TPile *pile, int val, int *status)
 {
     *status = 1;
 
@@ -372,7 +372,7 @@ void supprimer_val_TPILE(TSmtCel *pile, int val, int *status)
         return;
     }
 
-    TSmtCel *tmp;
+    TPile *tmp;
     int val_depiler, val_pos;
 
     tmp = createTPile();
@@ -404,7 +404,7 @@ void supprimer_val_TPILE(TSmtCel *pile, int val, int *status)
 
 
 //supprimer toutes les occurences du val
-void supprimer_all_occur_TPILE(TSmtCel *pile, int val, int *status)
+void supprimer_all_occur_TPILE(TPile *pile, int val, int *status)
 {
     *status = 1;
 
@@ -421,7 +421,7 @@ void supprimer_all_occur_TPILE(TSmtCel *pile, int val, int *status)
         return;
     }
 
-    TSmtCel *tmp;
+    TPile *tmp;
     int val_depiler, val_pos;
 
     tmp = createTPile();
@@ -450,7 +450,7 @@ void supprimer_all_occur_TPILE(TSmtCel *pile, int val, int *status)
 
 
 //supprimer le premier occurence du val
-void supprimer_pos_TPILE(TSmtCel *pile, int pos, int *status)
+void supprimer_pos_TPILE(TPile *pile, int pos, int *status)
 {
     *status = -4;
 
@@ -467,7 +467,7 @@ void supprimer_pos_TPILE(TSmtCel *pile, int pos, int *status)
         return;
     }
 
-    TSmtCel *tmp;
+    TPile *tmp;
     int val_depiler;
 
     tmp = createTPile();
@@ -499,7 +499,7 @@ void supprimer_pos_TPILE(TSmtCel *pile, int pos, int *status)
 
 
 // fct affiche tout les elements de la pile
-void affiche_TPile(TSmtCel *pile, int *status)
+void affiche_TPile(TPile *pile, int *status)
 {int i;
     //pile n'exist pas
     if (!pile)
@@ -557,7 +557,7 @@ int handle_errors_TPile(int cd)
 // menu
 int menu_TPile_Tab()
 {
-    TSmtCel *pile = createTPile();
+    TPile *pile = createTPile();
     int choix; // choix de l'utilisateur
 
     int *status = (int*) malloc(sizeof(int)); // status de l'operation effectuee par la fonction

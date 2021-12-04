@@ -32,11 +32,11 @@ typedef struct FileTab
 } FileTab;
 
 
-typedef struct TSmtCel
+typedef struct TPile
 {
     int tab[MAX_ELEMS];
     int sommet; // indique l'index du dernier element
-} TSmtCel;
+} TPile;
 
 
 typedef struct TListe

@@ -90,7 +90,7 @@ void main() {
 
     plist = supp_occ_elem_PList(plist, 10);
 
-    plist = supp_pos_PList(plist, 3);
+
     printf("\naffichage 6: \n");
     affiche_plist(plist);
     printf("\n\n");
@@ -98,6 +98,65 @@ void main() {
 
 
     //****************** 7 ****************
+    Cellule *ppile = NULL;
+    ppile = trans_Pliste_PPile(plist);
+
+    printf("\naffichage 7: \n");
+    ppile = affiche_PPile(ppile);
+    printf("\n\n");
+
+
+
+    //****************** 8 ****************
+    ppile = supprimer_pos_PPile(ppile, 6);
+
+    printf("\naffichage 8: \n");
+    ppile = affiche_PPile(ppile);
+    printf("\n\n");
+
+
+    //****************** 9 ****************
+    ppile = supprimer_all_val_PPile(ppile, -1);
+
+    printf("\naffichage 9: \n");
+    ppile = affiche_PPile(ppile);
+    printf("\n\n");
+
+
+    //****************** 10 ****************
+    PFile *pfile = NULL;
+    pfile = initialiser_PFile();
+
+    trans_PPile_PFile(ppile, pfile);
+
+    printf("\naffichage 10: \n");
+    afficher_PFile(pfile);
+    printf("\n\n");
+
+    //****************** 11 ****************
+
+    supprimer_val_occur_PFile( pfile, 7);
+
+    printf("\naffichage 11: \n");
+    afficher_PFile(pfile);
+    printf("\n\n");
+
+
+    //****************** 12 ****************
+    PNode *arb = NULL;
+    arb = trans_PFile_Arb(pfile);
+
+    printf("\naffichage 12: \n");
+    affiche_prefixer(arb);
+    printf("\n\n");
+
+
+    //****************** 13 ****************
+    arb = supp_def_arbrePt(arb, 4);
+
+    printf("\naffichage 13: \n");
+    affiche_prefixer(arb);
+    printf("\n\n");
 
 
 
