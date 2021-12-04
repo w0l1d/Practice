@@ -40,16 +40,16 @@ void main() {
 
 
     printf("\naffichage 1: \n");
-    affiche_liste(tlist);
+    affiche_tliste(tlist);
     printf("\n\n");
 
     //****************** 2 ****************
-    supprimer_position(tlist, 1);
-    supprimer_position(tlist, tlist->nbr_elem/2);
-    supprimer_position(tlist, tlist->nbr_elem);
+    supprimer_position_TListe(tlist, 1);
+    supprimer_position_TListe(tlist, tlist->nbr_elem/2);
+    supprimer_position_TListe(tlist, tlist->nbr_elem);
 
     printf("\naffichage 2: \n");
-    affiche_liste(tlist);
+    affiche_tliste(tlist);
     printf("\n\n");
 
     //****************** 3 ****************
@@ -58,16 +58,46 @@ void main() {
     inserer_queue_TListe(tlist, -3);
 
     printf("\naffichage 3: \n");
-    affiche_liste(tlist);
+    affiche_tliste(tlist);
     printf("\n\n");
 
 
     //****************** 4 ****************
 
     Cellule *plist = NULL;
+    
+    plist = trans_Tliste_Pliste(tlist, plist);
+
+
+    printf("\naffichage 4: \n");
+    affiche_plist(plist);
+    printf("\n\n");
+
+
+    //****************** 5 ****************
+
+    inserer_tete_PList(plist, 15);
+    inserer_queue_PList(plist, -1);
+
+    printf("\naffichage 5: \n");
+    affiche_plist(plist);
+    printf("\n\n");
 
 
 
 
+    //****************** 6 ****************
+
+    supp_occ_elem_PList(plist, 10);
+
+    printf("\naffichage 6: \n");
+    affiche_plist(plist);
+    printf("\n\n");
+
+
+
+    printf("\n\n");
+    printf("\n\n");
+    printf("\n\n");
     printf("\n\n");
 }

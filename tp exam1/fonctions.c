@@ -51,7 +51,7 @@ int inserer_queue_TListe(TListe *liste, int val)
 
 
 // fct qui supprime  l'element qui se trouve dans une position p donnee
-int supprimer_position(TListe *liste, int pos)
+int supprimer_position_TListe(TListe *liste, int pos)
 {
     int i ;
     //liste n'exist pas
@@ -69,7 +69,7 @@ int supprimer_position(TListe *liste, int pos)
 
 
 // fct affiche le contenu de la liste
-int affiche_liste(TListe *liste)
+int affiche_tliste(TListe *liste)
 {     int i ;
     //liste n'exist pas
     if (!liste) return((int) -1);
@@ -85,7 +85,7 @@ int affiche_liste(TListe *liste)
 
 
 /// fct inserer un elemet a une posotion donnee
-int inserer_position(TListe *liste, int val, int pos)
+int inserer_position_TList(TListe *liste, int val, int pos)
 {
     int i;
     //liste n'exist pas
@@ -105,7 +105,7 @@ int inserer_position(TListe *liste, int val, int pos)
     liste->nbr_elem++;
 
     return ((int)1);
-}//fin fct inserer_position
+}//fin fct inserer_position_TList
 
 
 // fct inserer un elemet en tete
@@ -137,7 +137,7 @@ int inserer_tete_TListe(TListe *liste, int val)
  *
  */
 // la fct creer liste
-Cellule * creer_Pliste(int elem,int *etat)
+Cellule * creer_Pliste(int elem)
 {
 // declarer une variable de type pt
     Cellule* NE;
@@ -145,26 +145,24 @@ Cellule * creer_Pliste(int elem,int *etat)
     NE=(Cellule*)malloc(sizeof(Cellule));
 //si il y a un probleme d'allocation
     if(!NE)
-    {*etat=-1; // stocker dans une variable et l'utiliser dans la fct de gestion d'erreur
         return((Cellule*)NULL);//retourner null
-    }
+
 //si l'allocatin est bien passer
 //initialisation
     NE->val=elem;
     NE->svt=NULL;
-    *etat=1;
+
     //retourner l'element de type Cellule
     return((Cellule*)NE);
 }//fin fct
 
-Cellule *inserer_queue_PList(Cellule *list, int val, int *etat) {
+Cellule *inserer_queue_PList(Cellule *list, int val) {
     Cellule *ne;
-    ne = creer_Pliste(val, etat);
+    ne = creer_Pliste(val);
 
     //cas ou la liste n'existe pas
     if(!list)
     {
-        *etat=1;
         return((Cellule*) ne);
     }
 
@@ -178,13 +176,13 @@ Cellule *inserer_queue_PList(Cellule *list, int val, int *etat) {
 
 
 // fct inserer un elemet a une position p donnee
-Cellule * inserer_pos_PList(Cellule* list,int pos, int elem,int *etat)
+Cellule * inserer_pos_PList(Cellule* list,int pos, int elem)
 {
     Cellule *NE,*pt;
     int compt;
     //cas ou la liste n'existe pas
     if(!list)
-    { *etat=-2;
+    {
         return((Cellule*)NULL);
     }
     // liste existe
@@ -192,14 +190,14 @@ Cellule * inserer_pos_PList(Cellule* list,int pos, int elem,int *etat)
     if(pos==1)
     {
         // creer un NE et le donner comme suivant la liste
-        NE=(Cellule*)creer_Pliste(elem,etat) ;*etat=1	;
+        NE=(Cellule*)creer_Pliste(elem);
         NE->svt=list;
         //retourner l NE
         return((Cellule*)NE);
     }
     // si une position p est en dehors de la liste
     if ((pos<1 ) || ( taille_pliste(list)+1<pos))
-    { *etat=-3;
+    {
         return((Cellule*)NULL);
     }
     // position est > a 1 et < nombre d'element
@@ -211,10 +209,10 @@ Cellule * inserer_pos_PList(Cellule* list,int pos, int elem,int *etat)
     }
 
     //creer l'element NE
-    NE=(Cellule*)creer_Pliste(elem,etat) ;
+    NE=(Cellule*)creer_Pliste(elem) ;
     NE->svt=pt->svt;
     pt->svt=NE;
-    *etat=1;// pour l'utiliser a la fct gestion erreur
+
     return((Cellule*)list);
 }//fin fct
 
@@ -246,17 +244,67 @@ int taille_pliste(Cellule *list)
 }//fin fct
 
 
+// Fct affiche tout les element de la liste
+int affiche_plist(Cellule *list)
+{
+    // declaration des variable
+    Cellule *pt;//pour parcourir la liste
+    int compt;// donner les positions des elements
+    //list n'exist pas
+    if (!list)
+        return -2 ;
+    //Liste existe
+    pt=list;
+    compt=1;
+    while(pt)//tant que ot n'est pas null
+    {
+        printf("%d\t", pt->val);
+        compt++;
+        pt=pt->svt;
+    }
+    return 1;// pour la gestion des erreurs
+}//fin fct
 
 Cellule *trans_Tliste_Pliste(TListe *tl, Cellule *pl) {
     if (!tl)
         return ((Cellule*) NULL);
 
     int size = tl->nbr_elem,
-    val_supp ,status;
+        status;
 
     while(size--) {
-        pl = inserer_queue_PList(pl, tl->tab[0], &status);
-        supprimer_position(tl,0);
+        pl = inserer_queue_PList(pl, tl->tab[0]);
+        supprimer_position_TListe(tl,1);
     }
+    return ((Cellule*) pl);
+}
+
+
+
+Cellule *inserer_tete_PList(Cellule *list, int val) {
+    Cellule *ne;
+    ne = creer_Pliste(val);
+
+    ne->svt = list;
+
+    return ((Cellule*) ne);
 
 }
+
+// fct qui supprime tout les occurences d'un element
+Cellule* supp_occ_elem_PList(Cellule *list,int val)
+{
+
+    Cellule *pt = list, tmp;
+    if (!list)
+        return ((Cellule*) NULL);
+    while(pt) {
+        if (pt->val == val) {
+
+        }
+    }
+
+
+    return ((Cellule*) list);
+
+}//fin fct

@@ -11,26 +11,26 @@
 
 
 
-// la fct creer liste 
-Cellule * creer_liste(int elem,int *etat)
-{ 
+// la fct creer liste
+Cellule * creer_PListe(int elem,int *etat)
+{
 // declarer une variable de type pt
-Cellule* NE;
+    Cellule* NE;
 // allocation de la memoire
-NE=(Cellule*)malloc(sizeof(Cellule));
-//si il y a un probleme d'allocation 
-if(!NE)
-	{*etat=-1; // stocker dans une variable et l'utiliser dans la fct de gestion d'erreur
- 	 return((Cellule*)NULL);//retourner null
- 	}
+    NE=(Cellule*)malloc(sizeof(Cellule));
+//si il y a un probleme d'allocation
+    if(!NE)
+    {*etat=-1; // stocker dans une variable et l'utiliser dans la fct de gestion d'erreur
+        return((Cellule*)NULL);//retourner null
+    }
 //si l'allocatin est bien passer
 //initialisation
- NE->val=elem; 
- NE->svt=NULL;
- *etat=1;
- //retourner l'element de type Cellule
-  return((Cellule*)NE);
-}//fin fct 
+    NE->val=elem;
+    NE->svt=NULL;
+    *etat=1;
+    //retourner l'element de type Cellule
+    return((Cellule*)NE);
+}//fin fct
 
 
 // fct taille liste
@@ -59,7 +59,7 @@ int taille_pliste(Cellule *list)
 
 Cellule *inserer_queue_PList(Cellule *list, int val, int *etat) {
     Cellule *ne;
-    ne = creer_liste(val, etat);
+    ne = creer_PListe(val, etat);
 
     //cas ou la liste n'existe pas
     if(!list)
@@ -73,6 +73,17 @@ Cellule *inserer_queue_PList(Cellule *list, int val, int *etat) {
 
     pt->svt = ne;
     return ((Cellule*) list);
+
+}
+
+
+Cellule *inserer_tete_PList(Cellule *list, int val, int *etat) {
+    Cellule *ne;
+    ne = creer_PListe(val, etat);
+
+    ne->svt = list;
+
+    return ((Cellule*) ne);
 
 }
 
@@ -92,7 +103,7 @@ Cellule * inserer_pos_PList(Cellule* list,int pos, int elem,int *etat)
     if(pos==1)
     {
         // creer un NE et le donner comme suivant la liste
-        NE=(Cellule*)creer_liste(elem,etat) ;*etat=1	;
+        NE=(Cellule*)creer_PListe(elem,etat) ;*etat=1	;
         NE->svt=list;
         //retourner l NE
         return((Cellule*)NE);
@@ -111,12 +122,12 @@ Cellule * inserer_pos_PList(Cellule* list,int pos, int elem,int *etat)
     }
 
     //creer l'element NE
-    NE=(Cellule*)creer_liste(elem,etat) ;
+    NE=(Cellule*)creer_PListe(elem,etat) ;
     NE->svt=pt->svt;
     pt->svt=NE;
     *etat=1;// pour l'utiliser a la fct gestion erreur
     return((Cellule*)list);
-}//fin fct 
+}//fin fct
 
 // fct gestion des erreur ,pas de retour ,que des affichage des msg
 void gestion_errp(int val)
@@ -141,10 +152,9 @@ void gestion_errp(int val)
         case  1 :
             printf("\n votre operation est bien effectuer   !! \n");
             break;
-        default :break;
 
     }
-}//fin fct 
+}//fin fct
 
 // fct qui supprime l'element qui se trouve a une position p donnee
 int supprimer_pos_PtList(Cellule *list, int pos)
@@ -177,92 +187,92 @@ int supprimer_pos_PtList(Cellule *list, int pos)
     free(tmp);
     return((int)1) ;
 }//fin fct
-    
+
 // Fct affiche tout les element de la liste
-void afficher_plist(Cellule *list,int *etat)
+int afficher_plist(Cellule *list)
 {
     // declaration des variable
-	Cellule *pt;//pour parcourir la liste
-	int compt;// donner les positions des elements
-	//list n'exist pas
+    Cellule *pt;//pour parcourir la liste
+    int compt;// donner les positions des elements
+    //list n'exist pas
     if (!list)
-        *etat=-2 ;
+        return -2 ;
     //Liste existe
     pt=list;
     compt=1;
     while(pt)//tant que ot n'est pas null
     {
-        printf("l'element qui se trouve a la position %d est %d \n" , compt,pt->val);
+        printf("%d\t", pt->val);
         compt++;
         pt=pt->svt;
-	}
-	*etat=1;// pour la gestion des erreurs
-}//fin fct 
+    }
+    return 1;// pour la gestion des erreurs
+}//fin fct
 
 // fonction affichel'element qui se trouve dans une position p
- int affiche_pos(Cellule *list,int pos,int *etat)
- {
-     int indice;
-     Cellule *pt;
-     //liste n'exist pas
-     if (!list) return((*etat)=-2);
-     //liste existe
-     indice=1;
-     pt=list;
-     // si une position p est en dehors de la liste
-     if ((pos<1 ) || ( taille_pliste(list)<pos))	 return((*etat)=-3);
-     //sinon
-     while (indice!=pos)  // tant que on a pas arriver a la position
-     {
-         pt=pt->svt;
-         indice++;
-     }
-     printf("\n l'element %d a la position %d",pt->val,pos);
-     return((*etat)=2);
+int affiche_pos(Cellule *list,int pos,int *etat)
+{
+    int indice;
+    Cellule *pt;
+    //liste n'exist pas
+    if (!list) return((*etat)=-2);
+    //liste existe
+    indice=1;
+    pt=list;
+    // si une position p est en dehors de la liste
+    if ((pos<1 ) || ( taille_pliste(list)<pos))	 return((*etat)=-3);
+    //sinon
+    while (indice!=pos)  // tant que on a pas arriver a la position
+    {
+        pt=pt->svt;
+        indice++;
+    }
+    printf("\n l'element %d a la position %d",pt->val,pos);
+    return((*etat)=2);
 
- }//fin fct 
- 
- //fonction qui recherche si un element existe dans la liste
- int recherche_elem(Cellule *list,int elm )
- {
-     //liste n'exist pas
-     if (!list)
-     {
-         printf("\n liste n'existe pas!");
-         return((int)-2);
-     }
-     // liste existe
-     Cellule *pt=list;// pour parcourir la liste
-     int compt=0;//pour donner la position de l'element
-     while(pt)//tant que ot n'est pas null
-     {
-         compt++;
-         if((pt->val)==elm)return((int)compt);// element trouver
-         pt=pt->svt;
-     }
-     // element n'existe pas dans laliste
-     return((int)0);
- }//fin fct 
- 
- // fct compte le nombre d'occurence d'un element dans une lste
- int nb_occ_elem(Cellule *list,int elm )
- {
-     Cellule *pt=list;
-     int compt=0;
-     //liste n'exist pas
-     if (!list)
-     {printf("\n liste n'existe pas!");
-         return((int)-2);
-     }
-     // LISTE EXISTE
-     while(pt)//tant que ot n'est pas null parcourir la liste
-     { if((pt->val)==elm) compt++;	// si l'element existe incrementer le compteur
-         pt=pt->svt;
-     }
-     return((int)compt);// returner le nombre ,zero si il n'existe pas
- } //fin fct
- 
- //fct qui supprime la 1er occurence d'un element
+}//fin fct
+
+//fonction qui recherche si un element existe dans la liste
+int recherche_elem(Cellule *list,int elm )
+{
+    //liste n'exist pas
+    if (!list)
+    {
+        printf("\n liste n'existe pas!");
+        return((int)-2);
+    }
+    // liste existe
+    Cellule *pt=list;// pour parcourir la liste
+    int compt=0;//pour donner la position de l'element
+    while(pt)//tant que ot n'est pas null
+    {
+        compt++;
+        if((pt->val)==elm)return((int)compt);// element trouver
+        pt=pt->svt;
+    }
+    // element n'existe pas dans laliste
+    return((int)0);
+}//fin fct
+
+// fct compte le nombre d'occurence d'un element dans une lste
+int nb_occ_elem(Cellule *list,int elm )
+{
+    Cellule *pt=list;
+    int compt=0;
+    //liste n'exist pas
+    if (!list)
+    {printf("\n liste n'existe pas!");
+        return((int)-2);
+    }
+    // LISTE EXISTE
+    while(pt)//tant que ot n'est pas null parcourir la liste
+    { if((pt->val)==elm) compt++;	// si l'element existe incrementer le compteur
+        pt=pt->svt;
+    }
+    return((int)compt);// returner le nombre ,zero si il n'existe pas
+} //fin fct
+
+//fct qui supprime la 1er occurence d'un element
 void supp_first_occ(Cellule * list, int elm,int *etat)
 {
     int pos;
@@ -278,36 +288,32 @@ void supp_first_occ(Cellule * list, int elm,int *etat)
         *etat=(int)(supprimer_pos_PtList(list, pos)) ;
 
 }//fin fct
- 
- 
- // fct qui supprime tout les occurences d'un element
-int supp_occ_elem(Cellule *list,int elm)
- {
-     int  pos,compt;
-     Cellule *pt;//pour parcourir la liste
-     //liste n'exist pas
-     if (!list) 	 return((int)-2) ;
-     //si il y un seul element dans la liste (on ne peut pas supprimer le 1er element)
-     if ((taille_pliste(list))==1)    return((int)-4);
-     // IL EXISTE AU MOINS UN ELEM
-     pt=list->svt;
-     compt=((int)nb_occ_elem(pt,elm ));// stocker le nombre d'occurence de l'element a partir du 2eme position
-     if(!compt)  return((int)0); // si compt==0 alors l'element n'existe pas
-     // sinon tant compte != de zero chercher la position et supprimer l'element
-     while (compt)
-     {
-         pt=list->svt;
-         pos=(int)recherche_elem(pt,elm );
-         pos=(int)(supprimer_pos_PtList(list, pos+1));// utiliser pos pour que le compilateur accepte la fct supprimer_pos_PtList()
-         compt--;
-     }
-     return((int)1);//suppression bien passer
- }//fin fct 
+
+
+// fct qui supprime tout les occurences d'un element
+Cellule* supp_occ_elem_PList(Cellule *list,int val)
+{
+
+    Cellule *pt;
+    if (!list)
+        return ((Cellule*) NULL);
+    if (list->val != val)
+         list->svt = supp_occ_elem_PList(list->svt, val);
+    else {
+        pt = list;
+        list = supp_occ_elem_PList(list->svt, val);
+        free(pt);
+    }
+    return ((Cellule*) list);
+
+}//fin fct
+
+
 
 // menu
 int menu_Liste_pt()
 {
- //declaration des variable
+    //declaration des variable
     int  etat,val,pos,result,choix = -1;
     Cellule* list = NULL;
     list = inserer_queue_PList(list, 0, &etat);
@@ -348,105 +354,105 @@ int menu_Liste_pt()
         switch(choix)
         {
             case 1:// creer une liste
-            	 printf (" \n entrer votre 1er element pour creer  la liste \n");
-               	scanf("%d",&val);
-            	list=creer_liste(val,&etat);
-            	gestion_errp(etat);
-               	getch();
+                printf (" \n entrer votre 1er element pour creer  la liste \n");
+                scanf("%d",&val);
+                list=creer_PListe(val,&etat);
+                gestion_errp(etat);
+                getch();
                 break;
-                
+
             case 2:// affichage de la taille
-			       printf("la taille de la liste est :%d", taille_pliste(list));
-            	   getch();
-             	   break;
-            case 3: 
-            	 printf (" \n entrer l'element a inserer et sa position dans la liste \n");
-               	scanf("%d%d",&val,&pos);
-               	// inserer 
-              	 inserer_pos_PList(list,pos,val,&etat);
-              	 //si il y a un erreur un msg va afficher
-              	 gestion_errp(etat);
-              	 getch();
+                printf("la taille de la liste est :%d", taille_pliste(list));
+                getch();
+                break;
+            case 3:
+                printf (" \n entrer l'element a inserer et sa position dans la liste \n");
+                scanf("%d%d",&val,&pos);
+                // inserer
+                inserer_pos_PList(list,pos,val,&etat);
+                //si il y a un erreur un msg va afficher
+                gestion_errp(etat);
+                getch();
                 break;
             case 4:
-            	 printf (" \n entrer l'element a inserer dans la liste \n");
-               	scanf("%d",&val);
-               	// inserer en queue
-              	 inserer_pos_PList(list,((taille_pliste(list))+1),val,&etat);
-              	 //si il y a un erreur un msg va afficher
-              	 gestion_errp(etat);
-              	 getch();
-             
+                printf (" \n entrer l'element a inserer dans la liste \n");
+                scanf("%d",&val);
+                // inserer en queue
+                inserer_pos_PList(list,((taille_pliste(list))+1),val,&etat);
+                //si il y a un erreur un msg va afficher
+                gestion_errp(etat);
+                getch();
+
                 break;
             case 5://afficher la liste
-             	   afficher_plist(list,&etat);
-                	//si il y a un erreur un msg va afficher
-                	 gestion_errp(etat);
-                	 getch();
-                	break;
-            case 6: 
-           			 printf (" \n entrer  l'element a chercher \n");
-        			scanf("%d",&val);
-               		//stocker le retour du fct recherche_elem
-        			result=(int)	recherche_elem(list,val);
-              		 // afficher selon le resultat du retour
-          			 (!result)?
-                       printf("element n''existe pas !")
-                       :
-                       printf("element %d existe a la position %d :",val,result);
-					 getch();	   	 
-            		 break;
-              
-            case 7: 
-					printf (" \n entrer la position de l'element que vous voulez afficher\n");
-              	 	scanf("%d",&pos);
-              	 	// afficher l'element qui se trouve a la position p
-            		affiche_pos(list,pos,&etat);
-            		//si il y a un erreur un msg va afficher
-            		gestion_errp(etat);
-              		 getch();
-             		break;
-             		
-            case 8:
-					printf (" \n entrer  l'element a chercher \n");
-               	    scanf("%d",&val);
-               	    //stocker le retour du fct nb_occ_elem()
-               	    result=(int)(nb_occ_elem(list,val ));
-               	    //afficher selon le resultat du retour
-            		(!result)?
-                    printf("element n''existe pas !")
-                    :
-                    printf("element %d existe %d fois ",val,result);
-	                break;
-	                
-            case 9:
-			 		printf (" \n entrer  l'element a supprimer \n");
-               	    scanf("%d",&val);
-               	    //supprimer 1er occurrence d'un element
-               	    supp_first_occ(list, val,&etat);
-               	    //si il y a un erreur un msg va afficher
-					gestion_errp(etat);
-              	 	getch();
-             	    break;
-             	    
-            case 10:
-            	printf("entrer la position \n");
-            	scanf("%d",&pos);
-            	//si il y a un erreur un msg va afficher sinon l'element egal a val va etre supprimer
-				gestion_errp((int)supprimer_pos_PtList(list,pos));
-              	getch();
+                afficher_plist(list);
+                //si il y a un erreur un msg va afficher
+                gestion_errp(etat);
+                getch();
                 break;
-                
+            case 6:
+                printf (" \n entrer  l'element a chercher \n");
+                scanf("%d",&val);
+                //stocker le retour du fct recherche_elem
+                result=(int)	recherche_elem(list,val);
+                // afficher selon le resultat du retour
+                (!result)?
+                printf("element n''existe pas !")
+                         :
+                printf("element %d existe a la position %d :",val,result);
+                getch();
+                break;
+
+            case 7:
+                printf (" \n entrer la position de l'element que vous voulez afficher\n");
+                scanf("%d",&pos);
+                // afficher l'element qui se trouve a la position p
+                affiche_pos(list,pos,&etat);
+                //si il y a un erreur un msg va afficher
+                gestion_errp(etat);
+                getch();
+                break;
+
+            case 8:
+                printf (" \n entrer  l'element a chercher \n");
+                scanf("%d",&val);
+                //stocker le retour du fct nb_occ_elem()
+                result=(int)(nb_occ_elem(list,val ));
+                //afficher selon le resultat du retour
+                (!result)?
+                printf("element n''existe pas !")
+                         :
+                printf("element %d existe %d fois ",val,result);
+                break;
+
+            case 9:
+                printf (" \n entrer  l'element a supprimer \n");
+                scanf("%d",&val);
+                //supprimer 1er occurrence d'un element
+                supp_first_occ(list, val,&etat);
+                //si il y a un erreur un msg va afficher
+                gestion_errp(etat);
+                getch();
+                break;
+
+            case 10:
+                printf("entrer la position \n");
+                scanf("%d",&pos);
+                //si il y a un erreur un msg va afficher sinon l'element egal a val va etre supprimer
+                gestion_errp((int)supprimer_pos_PtList(list,pos));
+                getch();
+                break;
+
             case 11:
-            	printf (" \n entrer  l'element a supprimer \n");
+                printf (" \n entrer  l'element a supprimer \n");
                 scanf("%d",&val);
                 //si il y a un erreur un msg va afficher
                 // sinon tout les element egal a val vont etre supprimer
-               	gestion_errp((supp_occ_elem(list,val)));
-              	getch();
+                gestion_errp((supp_occ_elem_PList(list,val)));
+                getch();
                 break;
-            // si le choix est <0 ou >11
-		    default :   printf("\n\nErreur : Choix Invalide\n\n");
+                // si le choix est <0 ou >11
+            default :   printf("\n\nErreur : Choix Invalide\n\n");
 
                 getch();
         }
