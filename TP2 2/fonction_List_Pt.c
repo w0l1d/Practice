@@ -289,21 +289,42 @@ void supp_first_occ(Cellule * list, int elm,int *etat)
 
 }//fin fct
 
+//fct qui supprime la 1er occurence d'un element
+Cellule* supp_pos_PList(Cellule * list, int pos)
+{
+    //liste n'exist pas
+    if (!list) 	return ((Cellule*) liste);
+
+
+
+
+}//fin fct
+
 
 // fct qui supprime tout les occurences d'un element
 Cellule* supp_occ_elem_PList(Cellule *list,int val)
 {
-
-    Cellule *pt;
+    Cellule *pt = list, *tmp;
     if (!list)
         return ((Cellule*) NULL);
-    if (list->val != val)
-         list->svt = supp_occ_elem_PList(list->svt, val);
-    else {
-        pt = list;
-        list = supp_occ_elem_PList(list->svt, val);
-        free(pt);
+
+    while (pt->val == val) {
+        tmp = pt;
+        pt = pt->svt;
+        free(tmp);
     }
+
+    list = pt;
+    while(pt->svt) {
+        if (pt->svt->val == val) {
+            tmp = pt->svt;
+            pt->svt = tmp->svt;
+            tmp = NULL;
+            free(tmp);
+        }
+        pt = pt->svt;
+    }
+
     return ((Cellule*) list);
 
 }//fin fct

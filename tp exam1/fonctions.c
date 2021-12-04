@@ -255,11 +255,10 @@ int affiche_plist(Cellule *list)
         return -2 ;
     //Liste existe
     pt=list;
-    compt=1;
     while(pt)//tant que ot n'est pas null
     {
         printf("%d\t", pt->val);
-        compt++;
+
         pt=pt->svt;
     }
     return 1;// pour la gestion des erreurs
@@ -294,17 +293,48 @@ Cellule *inserer_tete_PList(Cellule *list, int val) {
 // fct qui supprime tout les occurences d'un element
 Cellule* supp_occ_elem_PList(Cellule *list,int val)
 {
-
-    Cellule *pt = list, tmp;
+    Cellule *pt = list, *tmp;
     if (!list)
         return ((Cellule*) NULL);
-    while(pt) {
-        if (pt->val == val) {
 
-        }
+    while (pt->val == val) {
+        tmp = pt;
+        pt = pt->svt;
+        free(tmp);
     }
 
+    list = pt;
+    while(pt->svt) {
+        if (pt->svt->val == val) {
+            tmp = pt->svt;
+            pt->svt = tmp->svt;
+            tmp = NULL;
+            free(tmp);
+        }
+        pt = pt->svt;
+    }
 
     return ((Cellule*) list);
 
 }//fin fct
+
+
+//// fct qui supprime tout les occurences d'un element
+//Cellule* supp_occ_elem_PList(Cellule *list,int val, int *occ)
+//{
+//    Cellule *pt = list, tmp;
+//    *occ = 0;
+//
+//    if (!list)
+//        return ((Cellule*) NULL);
+//
+//    while(pt) {
+//        if (pt->val == val)
+//            (*occ)++;
+//        pt = pt->svt;
+//    }
+//
+//
+//    return ((Cellule*) list);
+//
+//}//fin fct

@@ -88,13 +88,15 @@ void main() {
 
     //****************** 6 ****************
 
-    supp_occ_elem_PList(plist, 10);
+    plist = supp_occ_elem_PList(plist, 10);
 
     printf("\naffichage 6: \n");
     affiche_plist(plist);
     printf("\n\n");
 
 
+
+    //****************** 7 ****************
 
     printf("\n\n");
     printf("\n\n");
