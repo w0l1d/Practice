@@ -33,27 +33,27 @@ if(!NE)
 }//fin fct 
 
 
-// fct taille liste 
+// fct taille liste
 int taille_pliste(Cellule *list)
- { // declaration d'un pt 
-Cellule *pt;
- 	// initialiser la variable compt a zero
- int compt=0;  
- //cas ou la iste n'existe pas
-if(!list)
-	{ printf("liste n'existe pas !! \n");
-  return((int)-2);
-	}
+{ // declaration d'un pt
+    Cellule *pt;
+    // initialiser la variable compt a zero
+    int compt=0;
+    //cas ou la iste n'existe pas
+    if(!list)
+    { printf("liste n'existe pas !! \n");
+        return((int)-2);
+    }
 // si la liste existe
-pt=list;
+    pt=list;
 //tant que pt est != de null
-while(pt) 
-{
+    while(pt)
+    {
 // incrementer le compteur
-compt++;
-pt=pt->svt;
-}
-return((int)compt);
+        compt++;
+        pt=pt->svt;
+    }
+    return((int)compt);
 }//fin fct
 
 

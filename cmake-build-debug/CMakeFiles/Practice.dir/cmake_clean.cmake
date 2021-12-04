@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Practice.dir/TP2_2/SDD_manipulation.c.obj"
+  "CMakeFiles/Practice.dir/tp_exam1/main.c.obj"
   "Practice.exe"
   "Practice.exe.manifest"
   "Practice.pdb"

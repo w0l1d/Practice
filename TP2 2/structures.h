@@ -5,6 +5,9 @@
 #ifndef PRACTICE_STRUCTURES_H
 #define PRACTICE_STRUCTURES_H
 
+#define MAX_ELEMS 30
+
+
 typedef struct Cellule
 {
     int val;
@@ -19,6 +22,26 @@ typedef struct PFile
 }PFile;
 
 
+typedef struct FileTab
+{
+    int tab[MAX_ELEMS]; // les elements de la file
+    int tete; //indique la tete de la file
+    int queue; //indique le queue de la file
+    int taille; //indique la taille de la file
+
+} FileTab;
 
 
+typedef struct TSmtCel
+{
+    int tab[MAX_ELEMS];
+    int sommet; // indique l'index du dernier element
+} TSmtCel;
+
+
+typedef struct TListe
+{
+    int tab[MAX_ELEMS];
+    int nbr_elem;
+} TListe;
 #endif //PRACTICE_STRUCTURES_H

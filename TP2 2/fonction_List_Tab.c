@@ -3,23 +3,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
-#define MAX_ELEMS 30
 
-// definir la structure
+#include "structures.h"
 
-typedef struct ListeTab
+
+
+
+// la fct creer liste
+TNbrCel* createListe()
 {
-    int tab[MAX_ELEMS];
-    int nbr_elem;
-} ListeTab;
-
-
-// la fct creer liste 
-ListeTab* createListe()
-{
-    ListeTab *liste = (ListeTab*) malloc(sizeof(ListeTab)); // allocation de la memoire
+    TNbrCel *liste = (TNbrCel*) malloc(sizeof(TNbrCel)); // allocation de la memoire
     liste->nbr_elem = 0;  // initialiser le nombre des element a 0
-    if (!liste)  //si liste n'existe pas 
+    if (!liste)  //si liste n'existe pas
     {
         printf("Erreur de location de la memoire");
         exit(-1);//sortir du prog
@@ -29,33 +24,33 @@ ListeTab* createListe()
 
 
 // la fct initialiser liste
-ListeTab* init_Liste(ListeTab *liste)
+TNbrCel* init_Liste(TNbrCel *liste)
 {
     if (liste) //si liste existe
         free(liste);
-    liste = createListe(); //creer une autre liste a l'aide de la fct createListe 
+    liste = createListe(); //creer une autre liste a l'aide de la fct createListe
     return liste; //retourne la nouvelle liste
 }//fin fct init_Liste
 
 
-// taille liste 
+// taille liste
 
-int taille_liste(ListeTab liste)
- { printf ("\n La taille de la liste : %d \n", liste.nbr_elem);
- return ((int)liste.nbr_elem);
- }// fin fct taille_liste
- 
- // fct vider liste
-int vider_liste(ListeTab *liste)
+int taille_liste(TNbrCel liste)
+{ printf ("\n La taille de la liste : %d \n", liste.nbr_elem);
+    return ((int)liste.nbr_elem);
+}// fin fct taille_liste
+
+// fct vider liste
+int vider_liste(TNbrCel *liste)
 {
     if (!liste) return ((int)-1); //liste n'existe pas
-   //liste existe 
-    liste->nbr_elem = 0; //modifier nombre des element 
+    //liste existe
+    liste->nbr_elem = 0; //modifier nombre des element
 }// fin fct vider_liste
 
 
-// fct inserer un elemet en queue 
-int inserer_queue(ListeTab *liste, int val)
+// fct inserer un elemet en queue
+int inserer_queue(TNbrCel *liste, int val)
 {
     //liste n'exist pas
     if (!liste) return ((int)-1);
@@ -63,11 +58,31 @@ int inserer_queue(ListeTab *liste, int val)
     if (MAX_ELEMS == liste->nbr_elem) return((int)-2);
     // inserer dans la fin du tableau
     liste->tab[liste->nbr_elem++] = val;
-    return((int) 1); 
+    return((int) 1);
 }//fin fct inserer_queue
 
+// fct inserer un elemet en tete
+int inserer_tete(TNbrCel *liste, int val)
+{
+    //liste n'exist pas
+    if (!liste) return ((int)-1);
+    //Liste est saturee
+    if (MAX_ELEMS == liste->nbr_elem) return((int)-2);
+
+    int size = liste->nbr_elem;
+
+    while(size--){
+        liste->tab[size+1] = liste->tab[size];
+    }
+
+    // inserer au debut du tableau
+    liste->tab[0] = val;
+    liste->nbr_elem++;
+    return((int) 1);
+}//fin fct inserer_tete
+
 /// fct inserer un elemet a une posotion donnee
-int inserer_position(ListeTab *liste, int val, int pos)
+int inserer_position(TNbrCel *liste, int val, int pos)
 { int i;
     //liste n'exist pas
     if (!liste) return ((int)-1);
@@ -76,8 +91,8 @@ int inserer_position(ListeTab *liste, int val, int pos)
     //position non valide
     if ((pos < 1) || (liste->nbr_elem+1 < pos)) return((int)-3) ;
     //sinon
-	pos--;// pour trouver l'indice
-	//faire une boucle pour decaler les elemet du tableau
+    pos--;// pour trouver l'indice
+    //faire une boucle pour decaler les elemet du tableau
     for( i = liste->nbr_elem; i > pos; --i)
         liste->tab[i] = liste->tab[i-1];
     // inserer le nouveau element
@@ -90,8 +105,8 @@ int inserer_position(ListeTab *liste, int val, int pos)
 
 
 
-// fct qui supprime  l'element qui se trouve dans une position p donnee 
-int supprimer_position(ListeTab *liste, int pos)
+// fct qui supprime  l'element qui se trouve dans une position p donnee
+int supprimer_position(TNbrCel *liste, int pos)
 { int i ;
     //liste n'exist pas
     if (!liste) return((int)-1) ;
@@ -100,53 +115,53 @@ int supprimer_position(ListeTab *liste, int pos)
     //faire une boucle pour decaler les elemet du tableau
     for( i = pos-1; i < liste->nbr_elem; i++)
         liste->tab[i] = liste->tab[i+1];
-   // decrementer le nombre d'element
+    // decrementer le nombre d'element
     liste->nbr_elem--;
     return((int)1) ;//supprition effectuer
 }// fin fct supprimer_position
 
 
-/// fonction qui supprime le 1er element dans la liste egal a val 
-int supprimer_first_elem(ListeTab *liste, int val)
+/// fonction qui supprime le 1er element dans la liste egal a val
+int supprimer_first_elem(TNbrCel *liste, int val)
 { int i ;
     //liste n'exist pas
     if (!liste) return((int)-1) ;
-   //liste existe
-   //faire une boucle qui cherche le 1er element egale a val 
+    //liste existe
+    //faire une boucle qui cherche le 1er element egale a val
     for(i = 0; i < liste->nbr_elem; i++)
-        if (liste->tab[i] == val) 
-		{
-            supprimer_position(liste, i+1);// utiliser la fct  supprimer_position pour supprimer l'element 
+        if (liste->tab[i] == val)
+        {
+            supprimer_position(liste, i+1);// utiliser la fct  supprimer_position pour supprimer l'element
             return ((int)1);
         }
-        //element n'existe pas
-      return ((int)-4);
+    //element n'existe pas
+    return ((int)-4);
 } //fin fct supprimer_first_elem
 
 
-/// fonction qui supprime tout les elements egal a val 
-int supprimer_elems(ListeTab *liste, int val)
+/// fonction qui supprime tout les elements egal a val
+int supprimer_elems(TNbrCel *liste, int val)
 {int i ;
     //liste n'exist pas
     if (!liste) return ((int)-1);
     //liste existe
-    //faire une boucle pour trouver tout les element egal a val et les supprimer 
+    //faire une boucle pour trouver tout les element egal a val et les supprimer
     for( i = 0; i < liste->nbr_elem; i++)
-      {
-		  supprimer_first_elem(liste,val);
-            
-	   } 		
-		return  ((int)1); // ELEMENT supprime
-      
+    {
+        supprimer_first_elem(liste,val);
+
+    }
+    return  ((int)1); // ELEMENT supprime
+
 }// fin fct supprimer_elems
 
 
 // fonction qui inverse l'ordre d'une liste
-int inverser_liste(ListeTab *liste)
+int inverser_liste(TNbrCel *liste)
 {int i ;
     //liste n'exist pas
     if (!liste) return ((int)-1);
-   // liste existe
+    // liste existe
     int tmp;
     //faire une boucle du 1er element du tableau jusqu'a nombre_element sur 2
     for (i = 0; i < liste->nbr_elem/2; ++i)
@@ -155,13 +170,13 @@ int inverser_liste(ListeTab *liste)
         liste->tab[i] = liste->tab[liste->nbr_elem-i-1];
         liste->tab[liste->nbr_elem-i-1] = tmp;
     }
-    
-     return ((int)1);        
+
+    return ((int)1);
 }//fin fct inverser_liste
 
 
-int get_max_val(ListeTab *liste) {
-	int i ;
+int get_max_val(TNbrCel *liste) {
+    int i ;
     //liste n'exist pas
     if (!liste) return -1;
 
@@ -178,8 +193,8 @@ int get_max_val(ListeTab *liste) {
     return max;
 }
 // fct retourne la position de l'element max
-int get_max_pos(ListeTab *liste) {
-	int i ;
+int get_max_pos(TNbrCel *liste) {
+    int i ;
     //liste n'exist pas
     if (!liste) return -1;
 
@@ -197,8 +212,8 @@ int get_max_pos(ListeTab *liste) {
 }// fin fct
 
 //fonction qui retourne l'element min dans le tableau
-int get_min_val(ListeTab *liste) {
-	int i ;
+int get_min_val(TNbrCel *liste) {
+    int i ;
     //liste n'exist pas
     if (!liste) return -1;
 
@@ -215,9 +230,9 @@ int get_min_val(ListeTab *liste) {
     return min;
 }// fin fct
 
-//// fct retourne la position de l'element min 
-int get_min_pos(ListeTab *liste) {
-	int i ;
+//// fct retourne la position de l'element min
+int get_min_pos(TNbrCel *liste) {
+    int i ;
     //liste n'exist pas
     if (!liste) return -1;
 
@@ -235,29 +250,29 @@ int get_min_pos(ListeTab *liste) {
 }// fin fct
 
 
-///fonction qui retourne le nombre d'occurence d'un element  
-int get_nbr_repetition(ListeTab *liste, int val)
+///fonction qui retourne le nombre d'occurence d'un element
+int get_nbr_repetition(TNbrCel *liste, int val)
 {	//liste n'existe pas
-	int i ;
-    if (!liste) return((int) -1); 
+    int i ;
+    if (!liste) return((int) -1);
     //Liste est vide
     if (!liste->nbr_elem) return((int) 0);
 
     // compteur de repetition de la valeur donnee
     // intialiser a 0
     int compteur_rep = 0;
-//boucle pour compter le nombre de fois 
+//boucle pour compter le nombre de fois
     for (i = 0; i < liste->nbr_elem; ++i)
         if (liste->tab[i] == val)
             compteur_rep++;
-            //afficher 
-            printf("l'element %d existe %d fois dans la liste",val,compteur_rep);
-            getch();//pour ne pas retourner le menu jusqu'a inserer un caractere
-      return  ((int)compteur_rep);
+    //afficher
+    printf("l'element %d existe %d fois dans la liste",val,compteur_rep);
+    getch();//pour ne pas retourner le menu jusqu'a inserer un caractere
+    return  ((int)compteur_rep);
 }// fin fct get_nbr_repetition
- 
- // fct retourne la valeur de la position p donnee
-int acceder_val(ListeTab *liste, int pos)
+
+// fct retourne la valeur de la position p donnee
+int acceder_val(TNbrCel *liste, int pos)
 {
     //Liste n'existe pas
     if (!liste) return((int)-1) ;
@@ -266,88 +281,92 @@ int acceder_val(ListeTab *liste, int pos)
     //position non valide
     if ((pos < 1) || (liste->nbr_elem < pos)) return((int) -3);
     // affichage de l'element
-   printf ("l'element %d",liste->tab[pos-1]);
+    printf ("l'element %d",liste->tab[pos-1]);
     return ((int)liste->tab[pos-1]);
 
 }// fin fct
- 
- 
- // fct affiche le contenu de la liste 
-int affiche_liste(ListeTab *liste)
-{     int i ;
+
+
+// fct affiche le contenu de la liste
+int affiche_liste(TNbrCel *liste)
+{
+    int i ;
     //liste n'exist pas
     if (!liste) return((int) -1);
     // Liste est vide
     if (!liste->nbr_elem) return((int)0) ;
-	// boucle pour afficher elementpar element
+    // boucle pour afficher elementpar element
     for (i = 0; i < liste->nbr_elem; ++i)
-       {
-		 printf(" l'element a la position  %d est: %d",i+1, liste->tab[i]);
-         printf("\n"); 
-      }	getch();
+    {
+        printf(" l'element a la position  %d est: %d",i+1, liste->tab[i]);
+        printf("\n");
+    }
+    return ((int) 1);
 }
+
+
 // fct pour gerer les erreurs retourne 1 si il a un erreur et 0 sinon
 int gestion_err(int val)
- { //si liste n'existe pas
-  	if(val==-1)
+{ //si liste n'existe pas
+    if(val==-1)
     {
-    	printf(" \n liste n'existe pas\n");
-    	getch();
-    	return ((int)1);//  il  y a pas d'erreur 
+        printf(" \n liste n'existe pas\n");
+        getch();
+        return ((int)1);//  il  y a pas d'erreur
     }
     // si la liste est vide
-  if(val==0)
+    if(val==0)
     {
         printf(" \n liste vide \n");
         getch();
-        return ((int)1);//  il  y a pas d'erreur            
+        return ((int)1);//  il  y a pas d'erreur
     }
-  // si la Liste est saturee
-  if(val==-2)
+    // si la Liste est saturee
+    if(val==-2)
     {
-	  printf(" \n Liste est saturee \n");
-	  getch();
-      return ((int)1);//  il  y a pas d'erreur   
-     }          
+        printf(" \n Liste est saturee \n");
+        getch();
+        return ((int)1);//  il  y a pas d'erreur
+    }
     // si la entrer position non valide
-   if(val==-3)
+    if(val==-3)
     {
-	  printf(" \n position non valide \n");
-	  getch();
-      return ((int)1); //  il  y a pas d'erreur  
-     }    
+        printf(" \n position non valide \n");
+        getch();
+        return ((int)1); //  il  y a pas d'erreur
+    }
     //si l'element n'esxiste pas dans la liste
-	if(val==-4)
+    if(val==-4)
     {
-	  printf(" \n l element n'esxiste pas dans la liste" );
-	  getch();
-      return ((int)1); //  il  y a pas d'erreur 
-     }      
-  
-  return ((int)0);  //   il n'y a pas d'erreur
- 
-  }//fin fct
-  
-  
-  /// rechercher si un element existe dans la liste  
-int rechercher_elem(ListeTab liste,int elem)
+        printf(" \n l element n'esxiste pas dans la liste" );
+        getch();
+        return ((int)1); //  il  y a pas d'erreur
+    }
+
+    return ((int)0);  //   il n'y a pas d'erreur
+
+}//fin fct
+
+
+/// rechercher si un element existe dans la liste
+int rechercher_elem(TNbrCel liste,int elem)
 {int i;
 // verifier si la liste est vide
- if(liste.nbr_elem==0)
-   { // printf("\n liste vide !!");
-     return((int)0);
-   }
-   //boucle pour comparer chaque element de la liste avec la valeur entree
-for(i=0;i<liste.nbr_elem;i++)
- {   if (liste.tab[i]==elem)// trouver le 1er element = val
-      {
-	  //afficher sa position 
-       return ((int)(i+1));
-	  }
- }//fin fct
+    if(liste.nbr_elem==0)
+    { // printf("\n liste vide !!");
+        return((int)0);
+    }
+    //boucle pour comparer chaque element de la liste avec la valeur entree
+    for(i=0;i<liste.nbr_elem;i++)
+    {   if (liste.tab[i]==elem)// trouver le 1er element = val
+        {
+            //afficher sa position
+            return ((int)(i+1));
+        }
+    }//fin fct
 
-//element n'esxiste pas dans la liste 
-return ((int)-4);
+//element n'esxiste pas dans la liste
+    return ((int)-4);
 
 }//fin fct
 
@@ -355,7 +374,7 @@ return ((int)-4);
 // le menu
 int menu_Liste_Tab()
 {
-    ListeTab *liste = createListe();
+    TNbrCel *liste = createListe();
     int val,p,choix;
     do
     {
@@ -391,111 +410,111 @@ int menu_Liste_Tab()
             case 1:
                 liste = init_Liste(liste);
                 printf(" \n Liste bien Initialise \n");
-                getch();//pour que le resultat reste afficher jusqu'a entrer un caractere 
+                getch();//pour que le resultat reste afficher jusqu'a entrer un caractere
                 break;
             case 2:
-            	// si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
-            	if( ! gestion_err(taille_liste(*liste))) 
-            	//sinon afficher la taille
-                getch();
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if( ! gestion_err(taille_liste(*liste)))
+                    //sinon afficher la taille
+                    getch();
                 break;
-            case 3: 
-              	printf (" \n entrer l'element a inserer et sa position dans la liste \n");
-            	scanf("%d%d",&val,&p);
-            	// si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
-            	if(! gestion_err(inserer_position(liste,val,p) ))
-            	//sinon inserer dans la liste et afficher que l'insetion est bien effectuer
-				printf(" \n insertion effectuer  \n");
-            	getch();
-             
+            case 3:
+                printf (" \n entrer l'element a inserer et sa position dans la liste \n");
+                scanf("%d%d",&val,&p);
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if(! gestion_err(inserer_position(liste,val,p) ))
+                    //sinon inserer dans la liste et afficher que l'insetion est bien effectuer
+                    printf(" \n insertion effectuer  \n");
+                getch();
+
                 break;
             case 4:
-            	printf (" \n entrer l'element a inserer en queue de la liste \n");
-            	scanf("%d",&val);
-            	// si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
-            	if(! gestion_err(inserer_queue(liste, val))) 
-            		//sinon inserer dans la liste et afficher  que l'insetion est bien effectuer
-            	printf(" \n insertion effectuer  \n");
-            	getch();
+                printf (" \n entrer l'element a inserer en queue de la liste \n");
+                scanf("%d",&val);
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if(! gestion_err(inserer_queue(liste, val)))
+                    //sinon inserer dans la liste et afficher  que l'insetion est bien effectuer
+                    printf(" \n insertion effectuer  \n");
+                getch();
                 break;
             case 5:
-            	// afficher la liste sinon si il y a un erreur va etre afficher
-               if( gestion_err(affiche_liste(liste))) break;
-               
+                // afficher la liste sinon si il y a un erreur va etre afficher
+                if( gestion_err(affiche_liste(liste))) break;
+
                 break;
-            case 6: 
-				   	 printf (" \n entrer L'element a chercher  \n");
-            	     scanf("%d",&val);
-            	     // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
-					  if(! gestion_err(rechercher_elem(*liste,val)) ) 
-					  //sinon afficher que l'element existe
-                     printf("\n l element %d existe dans la liste");
-                     break;
-              
+            case 6:
+                printf (" \n entrer L'element a chercher  \n");
+                scanf("%d",&val);
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if(! gestion_err(rechercher_elem(*liste,val)) )
+                    //sinon afficher que l'element existe
+                    printf("\n l element %d existe dans la liste");
+                break;
+
             case 7:
-            	printf (" \n entrer une position  \n");
-            	scanf("%d",&p);
-            	// si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
-            	 if( ! gestion_err(acceder_val(liste,p)))  
-            	 //sinon afficher la valeur 
-            	 
-            	getch();
-                 break;
-            case 8:
-				printf (" \n entrer l'element a chercher \n");
-				scanf("%d",&val);
-				// si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
-				if(! gestion_err(get_nbr_repetition(liste, val))) 
-				//sinon afficher le nombre de repetition
-            
+                printf (" \n entrer une position  \n");
+                scanf("%d",&p);
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if( ! gestion_err(acceder_val(liste,p)))
+                    //sinon afficher la valeur
+
+                    getch();
                 break;
+            case 8:
+                printf (" \n entrer l'element a chercher \n");
+                scanf("%d",&val);
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if(! gestion_err(get_nbr_repetition(liste, val)))
+                    //sinon afficher le nombre de repetition
+
+                    break;
             case 9:	printf (" \n entrer l'element a supprimer \n");
-			    	scanf("%d",&val);
-			    	// si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
-			 	 if(! gestion_err( supprimer_first_elem(liste,  val)))  
-			 	 //sinon supprimer la 1er occurence et afficher un msg 		  
-           printf("\n element supprime");
+                scanf("%d",&val);
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if(! gestion_err( supprimer_first_elem(liste,  val)))
+                    //sinon supprimer la 1er occurence et afficher un msg
+                    printf("\n element supprime");
                 break;
             case 10:printf (" \n entrer la position  \n");
-					scanf("%d",&p);
-					// si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
-					if(! gestion_err(supprimer_position(liste,p)))  
-					 //sinon supprimer l'element  et afficher un msg
-            		printf("\n element supprime");	
-	                break;
-	                
+                scanf("%d",&p);
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if(! gestion_err(supprimer_position(liste,p)))
+                    //sinon supprimer l'element  et afficher un msg
+                    printf("\n element supprime");
+                break;
+
             case 11:printf (" \n entrer l'element a supprimer \n");
-			    	scanf("%d",&val);
-			    	// si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
-			 	   if(! gestion_err(supprimer_elems(liste, val)))  
-			 	    //sinon supprimer tout les occurences  et afficher 	un msg
-          		    printf("\n element supprime");
-	                break;
-	                
-	        case 12: 	printf (" \n la valeur max dans la liste est %d " ,get_max_val(liste));
-	       		    	getch();
-		   			    break;
-		   	case 13:	printf (" \n la valeur max dans la liste est %d " ,get_min_val(liste));
-	       				getch();
-		   				break;
-		   				
-	        case 14:    printf (" \n la position du valeur max dans la liste est %d " ,get_max_pos(liste));
-	       				getch();
-		   				break;
-		    case 15:    printf (" \n la position du valeur min dans la liste est %d " ,get_min_pos(liste));
-	       				getch();
-		   				break;
-	        
-	        case 16:    
-						if (gestion_err(inverser_liste(liste))) break;
-						// si il n'y a pas d'erreur  la liste va etre inverser 
-			 			printf (" \n la liste est inverser " );
-			 			// afficher la liste  inversee
-			 			if (gestion_err(affiche_liste(liste)) )break;
-	       				getch();
-		   				break;
-		   			// si le choix est <0 ou >16
-		    default :   printf("\n\nErreur : Choix Invalide\n\n");
+                scanf("%d",&val);
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if(! gestion_err(supprimer_elems(liste, val)))
+                    //sinon supprimer tout les occurrences et afficher un msg
+                    printf("\n element supprime");
+                break;
+
+            case 12: 	printf (" \n la valeur max dans la liste est %d " ,get_max_val(liste));
+                getch();
+                break;
+            case 13:	printf (" \n la valeur max dans la liste est %d " ,get_min_val(liste));
+                getch();
+                break;
+
+            case 14:    printf (" \n la position du valeur max dans la liste est %d " ,get_max_pos(liste));
+                getch();
+                break;
+            case 15:    printf (" \n la position du valeur min dans la liste est %d " ,get_min_pos(liste));
+                getch();
+                break;
+
+            case 16:
+                if (gestion_err(inverser_liste(liste))) break;
+                // si il n'y a pas d'erreur  la liste va etre inverser
+                printf (" \n la liste est inverser " );
+                // afficher la liste  inversee
+                if (gestion_err(affiche_liste(liste)) )break;
+                getch();
+                break;
+                // si le choix est <0 ou >16
+            default :   printf("\n\nErreur : Choix Invalide\n\n");
 
                 getch();
         }

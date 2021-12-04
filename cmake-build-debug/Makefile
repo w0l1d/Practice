@@ -128,29 +128,29 @@ Practice/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/build
 .PHONY : Practice/fast
 
-TP2_2/SDD_manipulation.obj: TP2_2/SDD_manipulation.c.obj
-.PHONY : TP2_2/SDD_manipulation.obj
+tp_exam1/main.obj: tp_exam1/main.c.obj
+.PHONY : tp_exam1/main.obj
 
 # target to build an object file
-TP2_2/SDD_manipulation.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/TP2_2/SDD_manipulation.c.obj
-.PHONY : TP2_2/SDD_manipulation.c.obj
+tp_exam1/main.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/tp_exam1/main.c.obj
+.PHONY : tp_exam1/main.c.obj
 
-TP2_2/SDD_manipulation.i: TP2_2/SDD_manipulation.c.i
-.PHONY : TP2_2/SDD_manipulation.i
+tp_exam1/main.i: tp_exam1/main.c.i
+.PHONY : tp_exam1/main.i
 
 # target to preprocess a source file
-TP2_2/SDD_manipulation.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/TP2_2/SDD_manipulation.c.i
-.PHONY : TP2_2/SDD_manipulation.c.i
+tp_exam1/main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/tp_exam1/main.c.i
+.PHONY : tp_exam1/main.c.i
 
-TP2_2/SDD_manipulation.s: TP2_2/SDD_manipulation.c.s
-.PHONY : TP2_2/SDD_manipulation.s
+tp_exam1/main.s: tp_exam1/main.c.s
+.PHONY : tp_exam1/main.s
 
 # target to generate assembly for a file
-TP2_2/SDD_manipulation.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/TP2_2/SDD_manipulation.c.s
-.PHONY : TP2_2/SDD_manipulation.c.s
+tp_exam1/main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/tp_exam1/main.c.s
+.PHONY : tp_exam1/main.c.s
 
 # Help Target
 help:
@@ -161,9 +161,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Practice
-	@echo ... TP2_2/SDD_manipulation.obj
-	@echo ... TP2_2/SDD_manipulation.i
-	@echo ... TP2_2/SDD_manipulation.s
+	@echo ... tp_exam1/main.obj
+	@echo ... tp_exam1/main.i
+	@echo ... tp_exam1/main.s
 .PHONY : help
 
 

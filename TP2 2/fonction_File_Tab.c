@@ -2,17 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
+#include "structures.h"
 
-#define MAX_ELEMS 30
 
-typedef struct FileTab
-{
-    int tab[MAX_ELEMS]; // les elements de la file
-    int tete; //indique la tete de la file
-    int queue; //indique le queue de la file
-    int taille; //indique la taille de la file
-
-} FileTab;
 
 
 void tasser_FileTab(FileTab *pTab, int pos);
