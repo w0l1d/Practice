@@ -10,9 +10,9 @@
 
 
 // la fct creer liste
-TNbrCel* createListe()
+TListe* createListe()
 {
-    TNbrCel *liste = (TNbrCel*) malloc(sizeof(TNbrCel)); // allocation de la memoire
+    TListe *liste = (TListe*) malloc(sizeof(TListe)); // allocation de la memoire
     liste->nbr_elem = 0;  // initialiser le nombre des element a 0
     if (!liste)  //si liste n'existe pas
     {
@@ -24,7 +24,7 @@ TNbrCel* createListe()
 
 
 // la fct initialiser liste
-TNbrCel* init_Liste(TNbrCel *liste)
+TListe* init_Liste(TListe *liste)
 {
     if (liste) //si liste existe
         free(liste);
@@ -35,13 +35,13 @@ TNbrCel* init_Liste(TNbrCel *liste)
 
 // taille liste
 
-int taille_liste(TNbrCel liste)
+int taille_liste(TListe liste)
 { printf ("\n La taille de la liste : %d \n", liste.nbr_elem);
     return ((int)liste.nbr_elem);
 }// fin fct taille_liste
 
 // fct vider liste
-int vider_liste(TNbrCel *liste)
+int vider_liste(TListe *liste)
 {
     if (!liste) return ((int)-1); //liste n'existe pas
     //liste existe
@@ -50,7 +50,7 @@ int vider_liste(TNbrCel *liste)
 
 
 // fct inserer un elemet en queue
-int inserer_queue(TNbrCel *liste, int val)
+int inserer_queue(TListe *liste, int val)
 {
     //liste n'exist pas
     if (!liste) return ((int)-1);
@@ -62,7 +62,7 @@ int inserer_queue(TNbrCel *liste, int val)
 }//fin fct inserer_queue
 
 // fct inserer un elemet en tete
-int inserer_tete(TNbrCel *liste, int val)
+int inserer_tete(TListe *liste, int val)
 {
     //liste n'exist pas
     if (!liste) return ((int)-1);
@@ -82,7 +82,7 @@ int inserer_tete(TNbrCel *liste, int val)
 }//fin fct inserer_tete
 
 /// fct inserer un elemet a une posotion donnee
-int inserer_position(TNbrCel *liste, int val, int pos)
+int inserer_position(TListe *liste, int val, int pos)
 { int i;
     //liste n'exist pas
     if (!liste) return ((int)-1);
@@ -106,7 +106,7 @@ int inserer_position(TNbrCel *liste, int val, int pos)
 
 
 // fct qui supprime  l'element qui se trouve dans une position p donnee
-int supprimer_position(TNbrCel *liste, int pos)
+int supprimer_position(TListe *liste, int pos)
 { int i ;
     //liste n'exist pas
     if (!liste) return((int)-1) ;
@@ -122,7 +122,7 @@ int supprimer_position(TNbrCel *liste, int pos)
 
 
 /// fonction qui supprime le 1er element dans la liste egal a val
-int supprimer_first_elem(TNbrCel *liste, int val)
+int supprimer_first_elem(TListe *liste, int val)
 { int i ;
     //liste n'exist pas
     if (!liste) return((int)-1) ;
@@ -140,7 +140,7 @@ int supprimer_first_elem(TNbrCel *liste, int val)
 
 
 /// fonction qui supprime tout les elements egal a val
-int supprimer_elems(TNbrCel *liste, int val)
+int supprimer_elems(TListe *liste, int val)
 {int i ;
     //liste n'exist pas
     if (!liste) return ((int)-1);
@@ -157,7 +157,7 @@ int supprimer_elems(TNbrCel *liste, int val)
 
 
 // fonction qui inverse l'ordre d'une liste
-int inverser_liste(TNbrCel *liste)
+int inverser_liste(TListe *liste)
 {int i ;
     //liste n'exist pas
     if (!liste) return ((int)-1);
@@ -175,7 +175,7 @@ int inverser_liste(TNbrCel *liste)
 }//fin fct inverser_liste
 
 
-int get_max_val(TNbrCel *liste) {
+int get_max_val(TListe *liste) {
     int i ;
     //liste n'exist pas
     if (!liste) return -1;
@@ -193,7 +193,7 @@ int get_max_val(TNbrCel *liste) {
     return max;
 }
 // fct retourne la position de l'element max
-int get_max_pos(TNbrCel *liste) {
+int get_max_pos(TListe *liste) {
     int i ;
     //liste n'exist pas
     if (!liste) return -1;
@@ -212,7 +212,7 @@ int get_max_pos(TNbrCel *liste) {
 }// fin fct
 
 //fonction qui retourne l'element min dans le tableau
-int get_min_val(TNbrCel *liste) {
+int get_min_val(TListe *liste) {
     int i ;
     //liste n'exist pas
     if (!liste) return -1;
@@ -231,7 +231,7 @@ int get_min_val(TNbrCel *liste) {
 }// fin fct
 
 //// fct retourne la position de l'element min
-int get_min_pos(TNbrCel *liste) {
+int get_min_pos(TListe *liste) {
     int i ;
     //liste n'exist pas
     if (!liste) return -1;
@@ -251,7 +251,7 @@ int get_min_pos(TNbrCel *liste) {
 
 
 ///fonction qui retourne le nombre d'occurence d'un element
-int get_nbr_repetition(TNbrCel *liste, int val)
+int get_nbr_repetition(TListe *liste, int val)
 {	//liste n'existe pas
     int i ;
     if (!liste) return((int) -1);
@@ -272,7 +272,7 @@ int get_nbr_repetition(TNbrCel *liste, int val)
 }// fin fct get_nbr_repetition
 
 // fct retourne la valeur de la position p donnee
-int acceder_val(TNbrCel *liste, int pos)
+int acceder_val(TListe *liste, int pos)
 {
     //Liste n'existe pas
     if (!liste) return((int)-1) ;
@@ -288,7 +288,7 @@ int acceder_val(TNbrCel *liste, int pos)
 
 
 // fct affiche le contenu de la liste
-int affiche_liste(TNbrCel *liste)
+int affiche_liste(TListe *liste)
 {
     int i ;
     //liste n'exist pas
@@ -349,7 +349,7 @@ int gestion_err(int val)
 
 
 /// rechercher si un element existe dans la liste
-int rechercher_elem(TNbrCel liste,int elem)
+int rechercher_elem(TListe liste,int elem)
 {int i;
 // verifier si la liste est vide
     if(liste.nbr_elem==0)
@@ -374,7 +374,7 @@ int rechercher_elem(TNbrCel liste,int elem)
 // le menu
 int menu_Liste_Tab()
 {
-    TNbrCel *liste = createListe();
+    TListe *liste = createListe();
     int val,p,choix;
     do
     {
