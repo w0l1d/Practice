@@ -516,7 +516,7 @@ void affiche_TPile(TPile *pile, int *status)
     }
 
     TPile *tmp;
-    int val_depiler;
+    int val_depile;
 
     tmp = createTPile();
 
@@ -524,17 +524,17 @@ void affiche_TPile(TPile *pile, int *status)
 
     while (!est_TPile_vide(*pile))// tant que la pile n'est pas vide
     {
-        val_depiler = getSommet_TPile(*pile);
+        val_depile = getSommet_TPile(*pile);
         depiler_Tab(pile);
-        empiler_Tab(tmp, val_depiler);
+        empiler_Tab(tmp, val_depile);
         printf("%d\t", val_depile);
     }
 
 
     while (!est_TPile_vide(*tmp)) {
-        val_depiler = getSommet_TPile(*tmp);
+        val_depile = getSommet_TPile(*tmp);
         depiler_Tab(tmp);
-        empiler_Tab(pile, val_depiler);
+        empiler_Tab(pile, val_depile);
     }
 }
 

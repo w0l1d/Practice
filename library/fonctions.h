@@ -23,14 +23,14 @@ typedef struct PFile
 }PFile;
 
 
-typedef struct FileTab
+typedef struct TFile
 {
     int tab[MAX_ELEMS]; // les elements de la file
     int tete; //indique la tete de la file
     int queue; //indique le queue de la file
     int taille; //indique la taille de la file
 
-} FileTab;
+} TFile;
 
 
 typedef struct TPile
@@ -110,8 +110,17 @@ int handle_errors_TPile(int cd);
  *  FILE avec POINTEURS
  *  ***************************
  */
-
-
+PFile* createPFile();
+PFile *initialiser_PFile();
+int PFile_existe (PFile *f);
+int PFile_vide (PFile *f);
+int enfiler_PFile(PFile *f, int val);
+int defiler_PFile(PFile *f);
+int enfiler_pos_PFIle(PFile* file, int val, int pos);
+int supprimer_val_occur_PFile(PFile *file, int val);
+int max_val_PFile(PFile *file, int *max_val);
+int min_val_PFile(PFile *file, int *min_val);
+void afficher_PFile (PFile *f);
 
 /******************************     END
  *  FILE avec POINTEURS
@@ -125,8 +134,25 @@ int handle_errors_TPile(int cd);
  *  FILE avec TABLEAUx
  *  ***************************
  */
-
-
+TFile* createTFile();
+TFile* init_TFile(TFile *tFile);
+int get_tete_TFile(TFile *tfile);
+int Taille_TFile(TFile tFile);
+int vider_TFile(TFile *tFile);
+int est_saturee_TFile(TFile tab);
+int est_vide_TFile(TFile tab);
+void tasser_TFile(TFile *pTab, int pos);
+int enfiler_TFile(TFile *tFile, int val);
+int defiler_TFile(TFile *tFile);
+//int enfiler_pos_TFile(TFile *tFile, int val, int *status, int pos);
+int enfiler_pos_TFile(TFile *file, int pos, int val);
+int max_val_TFile(TFile *tFile, int *status);
+int min_val_TFile(TFile *tFile, int *status);
+int supp_val_occurs_TFile(TFile *file, int val);
+int supp_val_first_occur_TFile(TFile *file, int val);
+int supp_pos_TFile(TFile *file, int pos);
+void affiche_TFile(TFile *tFile);
+int handle_errors_TFile(int cd);
 
 /******************************     END
  *  FILE avec TABLEAUx
@@ -140,6 +166,15 @@ int handle_errors_TPile(int cd);
  *  LIST avec POINTEURS
  *  ***************************
  */
+Cellule * creer_PListe(int elem);
+int taille_pliste(Cellule *list);
+Cellule *inserer_queue_PList(Cellule *list, int val);
+Cellule *inserer_tete_PList(Cellule *list, int val);
+
+
+
+
+
 
 
 
