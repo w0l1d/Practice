@@ -47,6 +47,15 @@ typedef struct TListe
 } TListe;
 
 
+
+typedef struct Nd {
+    int info; //information du noeud
+    int cpt; //nombre de repetition de cette info
+    struct Nd *gch; //pointeur sur le fils gauche
+    struct Nd *drt; //pointeur sur le fils gauche
+}PNode;
+
+
 /******************************     START
  *  PILE avec POINTEURs
  *  ***************************
@@ -231,9 +240,29 @@ int rechercher_elem_TListe(TListe liste,int elem);
  *  ARBRE BINAIRE avec POINTEURS
  *  ***************************
  */
-
-
-
+PNode* create_PNode_Ord(int val);
+PNode* insert_PNode_Ord(PNode *root, int val);
+void affiche_prefixer_iter_PNode_Ord(PNode *root);
+void affiche_prefixer_PNode_Ord(PNode *root);
+void affiche_postfixer_PNode_Ord(PNode *root);
+void affiche_infixer_PNode_Ord(PNode *root);
+int profondeur_PNode_Ord(PNode *root);
+void largeur_par_niveau_PNode_Ord(PNode *root , int *niveaux,
+                                  int ligne);
+int largeur_max_PNode_Ord(PNode *root);
+int max_val_PNode_Ord(PNode *root);
+int min_val_PNode_Ord(PNode *root);
+PNode *min_noeud_PNode_Ord(PNode *root);
+PNode *parent_de_PNode_Ord(PNode *root, int val);
+int largeur_PNode_Ord(PNode *root, const int *niveaux,
+                      int profondeur);
+int size_PNode_Ord(PNode *root);
+PNode *supp_PNode_Ord(PNode *root, int val);
+PNode *supp_def_PNode_Ord(PNode *root, int val);
+void assign_val_to_Mtx_PNode_Ord(PNode *root, int *matrice,
+                                 int cols, int line,
+                                 int col, int ss);
+void affiche_arbre_Real_PNode_Ord(PNode *root);
 /******************************     END
  *  ARBRE BINAIRE avec POINTEURS
  *  ***************************

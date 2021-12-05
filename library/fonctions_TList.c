@@ -53,9 +53,17 @@ int vider_TListe(TListe *liste)
 int inserer_queue_TListe(TListe *liste, int val)
 {
     //liste n'exist pas
-    if (!liste) return ((int)-1);
+    if (!liste)
+    {
+        printf("liste n'exist pas");
+        return ((int)-1);
+    }
     //Liste est saturee
-    if (MAX_ELEMS == liste->nbr_elem) return((int)-2);
+    if (MAX_ELEMS == liste->nbr_elem)
+    {
+        printf("Liste est saturee");
+        return((int)-2);
+    }
     // inserer dans la fin du tableau
     liste->tab[liste->nbr_elem++] = val;
     return((int) 1);
@@ -65,9 +73,17 @@ int inserer_queue_TListe(TListe *liste, int val)
 int inserer_tete_TListe(TListe *liste, int val)
 {
     //liste n'exist pas
-    if (!liste) return ((int)-1);
+    if (!liste)
+    {
+        printf("liste n'exist pas");
+        return ((int)-1);
+    }
     //Liste est saturee
-    if (MAX_ELEMS == liste->nbr_elem) return((int)-2);
+    if (MAX_ELEMS == liste->nbr_elem)
+    {
+        printf("Liste est saturee");
+        return((int)-2);
+    }
 
     int size = liste->nbr_elem;
 
@@ -85,11 +101,23 @@ int inserer_tete_TListe(TListe *liste, int val)
 int inserer_position_TListe(TListe *liste, int val, int pos)
 { int i;
     //liste n'exist pas
-    if (!liste) return ((int)-1);
+    if (!liste)
+    {
+        printf("liste n'exist pas");
+        return ((int)-1);
+    }
     //Liste est saturee
-    if (MAX_ELEMS == liste->nbr_elem) return((int) -2);
+    if (MAX_ELEMS == liste->nbr_elem)
+    {
+        printf("Liste est saturee");
+        return((int)-2);
+    }
     //position non valide
-    if ((pos < 1) || (liste->nbr_elem+1 < pos)) return((int)-3) ;
+    if ((pos < 1) || (liste->nbr_elem+1 < pos))
+    {
+        printf("position non valide");
+        return((int)-3) ;
+    }
     //sinon
     pos--;// pour trouver l'indice
     //faire une boucle pour decaler les elemet du tableau
@@ -109,11 +137,19 @@ int inserer_position_TListe(TListe *liste, int val, int pos)
 int supprimer_position_TListe(TListe *liste, int pos)
 { int i ;
     //liste n'exist pas
-    if (!liste) return((int)-1) ;
+    if (!liste)
+    {
+        printf("liste n'exist pas");
+        return ((int)-1);
+    }
     //position non valide
-    if ((pos < 1) || ((liste->nbr_elem)+ 1< pos)) return((int)-3) ;
+    if ((pos < 1) || ((liste->nbr_elem)+ 1< pos))
+    {
+        printf("position non valide");
+        return((int)-3) ;
+    }
     //faire une boucle pour decaler les elemet du tableau
-    for( i = pos-1; i < liste->nbr_elem; i++)
+    for( i = pos-1; i < (liste->nbr_elem ); i++)
         liste->tab[i] = liste->tab[i+1];
     // decrementer le nombre d'element
     liste->nbr_elem--;
@@ -292,14 +328,19 @@ int affiche_TListe(TListe *liste)
 {
     int i ;
     //liste n'exist pas
-    if (!liste) return((int) -1);
+    if (!liste)
+    {printf("liste n'exist pas");
+        return((int) -1);
+    }
     // Liste est vide
-    if (!liste->nbr_elem) return((int)0) ;
+    if (!liste->nbr_elem)
+    {printf("Liste est vide");
+        return((int)0) ;
+    }
     // boucle pour afficher elementpar element
     for (i = 0; i < liste->nbr_elem; ++i)
     {
-        printf(" l'element a la position  %d est: %d",i+1, liste->tab[i]);
-        printf("\n");
+        printf("%d\t" ,  liste->tab[i]);
     }
     return ((int) 1);
 }
@@ -343,7 +384,7 @@ int gestion_err_TListe(int val)
 }//fin fct
 
 
-/// rechercher si un element existe dans la liste
+/// rechercher si un element existe dans la liste et donner sa position
 int rechercher_elem_TListe(TListe liste,int elem)
 {int i;
 // verifier si la liste est vide
@@ -364,3 +405,4 @@ int rechercher_elem_TListe(TListe liste,int elem)
     return ((int)-4);
 
 }//fin fct
+
