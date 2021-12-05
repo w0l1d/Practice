@@ -25,7 +25,7 @@ Cellule * creer_PListe(int elem)
 
 
 // fct taille liste
-int taille_pliste(Cellule *list)
+int taille_PListe(Cellule *list)
 { // declaration d'un pt
     Cellule *pt;
     // initialiser la variable compt a zero
@@ -87,7 +87,7 @@ Cellule * inserer_pos_PList(Cellule* list,int pos, int elem,int *etat)
 
 
     // si une position p est en dehors de la liste
-    if ((pos < 1) || (taille_pliste(list)+1 < pos)) {
+    if ((pos < 1) || (taille_PListe(list)+1 < pos)) {
         *etat=-3;
         return((Cellule*)NULL);
     }
@@ -118,8 +118,11 @@ Cellule * inserer_pos_PList(Cellule* list,int pos, int elem,int *etat)
     return((Cellule*)list);
 }
 
+
+
+
 // fct gestion des erreur ,pas de retour ,que des affichage des msg
-void gestion_errp(int val)
+void gestion_errp_PListe(int val)
 {
     switch(val)
     {
@@ -145,18 +148,25 @@ void gestion_errp(int val)
     }
 }
 
-// fct qui supprime l'element qui se trouve a une position p donnee
-int supprimer_pos_PtList(Cellule *list, int pos)
+
+/*// fct qui supprime l'element qui se trouve a une position p donnee
+Cellule* supprimer_pos_PtList(Cellule *list, int pos)
 {   //list n'exist pas
     if (!list)
-        return ((int)-1);
-    //liste existe
-    //on ne peut pas supprimer le premier element
-    if (pos == 1)
-        return ((int)-4);
-    //else
+        return ((Cellule*)NULL);
+
+
     Cellule *curr = list,// utiliser un pt :" curr " pour parcourir la liste
     *tmp;// pour libérer l'espace occupee par l element qu'on veut supprimer
+
+    if (pos == 1) {
+        tmp = list;
+        list = list->svt;
+        free(tmp);
+        return ((Cellule *)list);
+    }
+
+
     int indice = 1; // pour trouver la position
 
     while (curr->svt)// tant que on a pas arriver a la fin du liste
@@ -168,38 +178,37 @@ int supprimer_pos_PtList(Cellule *list, int pos)
     }
     //element n'est pas trouver
     // position donnee est erronee
-    if ((indice+1) != pos)
-        return((int)-3) ;
+    if ((indice+1) != pos) {
+        printf("\nposition incorrecte\n");
+        return((Cellule*)list);
+    }
 
     tmp = curr->svt; // tmp == element a supprimer
     curr->svt = tmp->svt;
     free(tmp);
-    return((int)1) ;
-}
+    return((Cellule*)list);
+}*/
 
 // Fct affiche tout les element de la liste
-int afficher_plist(Cellule *list)
+int afficher_PListe(Cellule *list)
 {
     // declaration des variable
     Cellule *pt;//pour parcourir la liste
-    int compt;// donner les positions des elements
-    //list n'exist pas
+    //list n'existe pas
     if (!list)
         return -2 ;
     //Liste existe
     pt=list;
-    compt=1;
     while(pt)//tant que ot n'est pas null
     {
         printf("%d\t", pt->val);
-        compt++;
         pt=pt->svt;
     }
     return 1;// pour la gestion des erreurs
 }
 
 // fonction affichel'element qui se trouve dans une position p
-int affiche_pos(Cellule *list,int pos,int *etat)
+int affiche_pos_PListe(Cellule *list,int pos,int *etat)
 {
     int indice;
     Cellule *pt;
@@ -209,7 +218,7 @@ int affiche_pos(Cellule *list,int pos,int *etat)
     indice=1;
     pt=list;
     // si une position p est en dehors de la liste
-    if ((pos<1 ) || ( taille_pliste(list)<pos))	 return((*etat)=-3);
+    if ((pos<1 ) || ( taille_PListe(list)<pos))	 return((*etat)=-3);
     //sinon
     while (indice!=pos)  // tant que on a pas arriver a la position
     {
@@ -222,7 +231,7 @@ int affiche_pos(Cellule *list,int pos,int *etat)
 }
 
 //fonction qui recherche si un element existe dans la liste
-int recherche_elem(Cellule *list,int elm)
+int recherche_elem_PListe(Cellule *list,int elm)
 {
     //liste n'exist pas
     if (!list)
@@ -244,7 +253,7 @@ int recherche_elem(Cellule *list,int elm)
 }
 
 // fct compte le nombre d'occurence d'un element dans une lste
-int nb_occ_elem(Cellule *list,int elm)
+int nb_occ_elem_PListe(Cellule *list,int elm)
 {
     Cellule *pt=list;
     int compt=0;
@@ -261,60 +270,12 @@ int nb_occ_elem(Cellule *list,int elm)
     return((int)compt);// returner le nombre ,zero si il n'existe pas
 }
 
-//fct qui supprime la 1er occurence d'un element
-void supp_first_occ(Cellule * list, int elm,int *etat)
-{
-    int pos;
-    //liste n'exist pas
-    if (!list) 	*etat=-2;
 
-    pos = (int)recherche_elem(list,elm );// utiliser la fonction recherche_elem() qui retourne
 
-    // la position de la 1er occurence
-    if(!pos) *etat=0 ; // si pos==0 ,la fct gestion erreur va afficher ue l'elm n'existe pas
-    else
-        //sinon supprimer l'element avec la fct supprimer_pos_PtList()
-        *etat=(int)(supprimer_pos_PtList(list, pos)) ;
-
-}
-
-//fct qui supprime la 1er occurence d'un element
-Cellule* supp_pos_PList(Cellule *list, int pos)
-{
-    //liste n'exist pas
-    if (!list) 	return ((Cellule*) list);
-
-    int cpt = 0;
-
-    Cellule *curr, *tmp;
-    if (pos == 1)
-    {
-        tmp = list;
-        list = list->svt;
-        free(tmp);
-        return ((Cellule*) list);
-    }
-
-    curr = list;
-    cpt--;
-
-    while(curr)
-    {
-        if (cpt == pos) {
-            tmp = curr->svt;
-            curr->svt = tmp->svt;
-            free(tmp);
-        }
-        curr = curr->svt;
-        cpt++;
-    }
-
-    return ((Cellule*) list);
-}
 
 
 // fct qui supprime tout les occurences d'un element
-Cellule* supp_occ_elem_PList(Cellule *list,int val)
+Cellule* supp_all_occ_PList(Cellule *list,int val)
 {
     Cellule *pt = list, *tmp;
     if (!list)
@@ -332,6 +293,38 @@ Cellule* supp_occ_elem_PList(Cellule *list,int val)
             tmp = pt->svt;
             pt->svt = tmp->svt;
             free(tmp);
+
+        } else
+            pt = pt->svt;
+    }
+
+    return ((Cellule*) list);
+
+}
+
+
+
+// fct qui supprime le premier occurrence d'un element
+Cellule* supp_fst_occ_PList(Cellule *list,int val)
+{
+    Cellule *pt = list, *tmp;
+    if (!list)
+        return ((Cellule*) NULL);
+
+    if (pt->val == val) {
+        tmp = pt;
+        pt = pt->svt;
+        free(tmp);
+        return ((Cellule*) pt);
+    }
+
+
+    while(pt->svt) {
+        if (pt->svt->val == val) {
+            tmp = pt->svt;
+            pt->svt = tmp->svt;
+            free(tmp);
+            return ((Cellule*) list);
         }
         pt = pt->svt;
     }
@@ -339,3 +332,45 @@ Cellule* supp_occ_elem_PList(Cellule *list,int val)
     return ((Cellule*) list);
 
 }
+
+
+//fct qui supprime un element par position
+Cellule* supp_pos_PList(Cellule * list, int pos)
+{
+    //liste n'exist pas
+    if (!list) 	return ((Cellule*) list);
+
+    if (pos < 1)
+    {
+        printf("\nPosition incorrecte\n");
+        return ((Cellule *) list);
+    }
+
+    int cpt = 1;
+
+    Cellule *curr, *tmp;
+    if (pos == 1) {
+        tmp = list;
+        list = list->svt;
+        free(tmp);
+        return ((Cellule*) list);
+    }
+
+    curr = list;
+
+    while(curr->svt)
+    {
+        cpt++;
+        if (cpt == pos) {
+            tmp = curr->svt;
+            curr->svt = tmp->svt;
+            free(tmp);
+            return ((Cellule*) list);
+        }
+        curr = curr->svt;
+
+    }
+    printf("\nPosition incorrecte\n");
+
+    return ((Cellule*) list);
+}//fin fct

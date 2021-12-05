@@ -105,8 +105,16 @@ Cellule* supprimer_pos_PPile(Cellule *pile, int pos)
     if (pos == 1)
         return ((Cellule*) pile->svt);
 
-    int indice = 1;
+
+    int indice = 1, size;
     Cellule *tmp = NULL;
+
+    size = taille_PPile(pile);
+    if ((pos < 1) || (size < pos))
+    {
+        printf("\nPosition est incorrecte\n");
+        return ((Cellule*)pile);
+    }
 
     while (indice < pos)
     {
@@ -115,12 +123,8 @@ Cellule* supprimer_pos_PPile(Cellule *pile, int pos)
         indice++;
     }
 
-    //element n'est pas trouver
-    // position donnee est incorrecte
-    if (indice != pos)
-        printf("\nPosition est incorrecte\n");
-    else
-        pile = depiler_PPile(pile);
+
+    pile = depiler_PPile(pile);
 
 
     while (tmp)
@@ -267,7 +271,7 @@ Cellule* min_val_PPile(Cellule *pile, int *min)
 
     while (pile)
     {
-        if (min_val < pile->val)
+        if (min_val > pile->val)
             min_val = pile->val;
 
         tmp = empiler_PPile(tmp, pile->val);

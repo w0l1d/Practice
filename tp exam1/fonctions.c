@@ -892,7 +892,6 @@ PNode *supp_def_arbrePt(PNode *root, int val) {
             //on cherche le minimun dans sous arbre du fils droit
             tmp = min_noeud_arbrePt(root->drt);
 
-
             //on replace le Nœud a supprimé par le minimum
             root->info = tmp->info;
             root->cpt = tmp->cpt;

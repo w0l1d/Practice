@@ -240,3 +240,78 @@ void afficher_PFile (PFile *f)
     printf ("\n");
 }
 
+
+int supp_pos_PFile(PFile *f, int pos) {
+
+    //File n'existe pas
+    if (!f)
+        return ((int) -1);
+    //File est vide
+    if (! f->taille)
+        return ((int) 0);
+
+
+    int val_defile,
+            cmp1 = f->taille,
+            cmp2=1;
+    if(pos==1)
+    { defiler_PFile( f);
+        return ((int) 1);
+    }
+    if((pos<1)||(pos>f->taille))
+    { printf("psition invalide");
+        return ((int) -4);
+    }
+    else
+    {
+        while(cmp2<pos)
+        { val_defile=f->tete->val;
+            defiler_PFile( f);
+            enfiler_PFile(f,val_defile);
+            cmp2++;cmp1--;
+        }
+        defiler_PFile( f);
+        cmp1--;
+        while(cmp1)
+        {val_defile=f->tete->val;
+            defiler_PFile( f);
+            enfiler_PFile(f,val_defile);
+            cmp1--;
+        }
+        return ((int) 1);
+
+    }
+}
+
+int supp_elem_PFile(PFile *f, int val)
+{
+
+    //File n'existe pas
+    if (!f)
+        return ((int) -1);
+    //File est vide
+    if (! f->taille)
+        return ((int) 0);
+
+
+    int val_defile,
+            cmp1 = f->taille,
+            cmp2=0;
+
+    while(cmp1)
+    {
+        val_defile=f->tete->val;
+        if(!cmp2)
+            if(val_defile== val)
+            {defiler_PFile( f);
+                cmp2=1;cmp1--;
+                val_defile=f->tete->val;
+            }
+        defiler_PFile( f);
+        enfiler_PFile(f,val_defile);
+        cmp1--;
+    }
+    if(!cmp2) return((int)-3);
+
+    return ((int) 1);
+}

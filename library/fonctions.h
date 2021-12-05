@@ -78,25 +78,28 @@ int handle_errors_PPile(int cd);
  *  ***************************
  */
 
-TPile* createTPile();
+
+TPile* create_TPile();
 TPile* init_TPile(TPile *pile);
 int taille_TPile(TPile pile);
-int vider_pile(TPile *pile);
-int est_TPile_vide(TPile pile);
-int empiler_Tab(TPile *pile, int val);
-int depiler_Tab(TPile *pile);
+int vider_TPile(TPile *pile);
+int est_vide_TPile(TPile pile);
+int empiler_TPile(TPile *pile, int val);
+int depiler_TPile(TPile *pile);
 int getSommet_TPile(TPile pile);
 TPile* inverser_TPile(TPile *pile);
-int trouver_val_TPile(TPile *pile, int val, int *status);
-int max_val_TPile(TPile *pile, int *status);
-int min_val_TPile(TPile *pile, int *status);
-int nbr_occur_TPile(TPile *pile, int val, int *status);
-int trouver_pos_TPile(TPile *pile, int pos, int *status);
-void supprimer_val_TPILE(TPile *pile, int val, int *status);
-void supprimer_all_occur_TPILE(TPile *pile, int val, int *status);
-void supprimer_pos_TPILE(TPile *pile, int pos, int *status);
-void affiche_TPile(TPile *pile, int *status);
+int trouver_val_TPile(TPile *pile, int val );
+int max_val_TPile(TPile *pile );
+int min_val_TPile(TPile *pile );
+int nbr_occur_TPile(TPile *pile, int val );
+int trouver_pos_TPile(TPile *pile, int pos );
+void supprimer_val_TPILE(TPile *pile, int val );
+void supprimer_all_occur_TPILE(TPile *pile, int val );
+void supprimer_pos_TPILE(TPile *pile, int pos );
+void affiche_TPile(TPile *pile );
 int handle_errors_TPile(int cd);
+
+
 
 /******************************     END
  *  PILE avec TABLEAUx
@@ -121,6 +124,8 @@ int supprimer_val_occur_PFile(PFile *file, int val);
 int max_val_PFile(PFile *file, int *max_val);
 int min_val_PFile(PFile *file, int *min_val);
 void afficher_PFile (PFile *f);
+int supp_pos_PFile(PFile *f, int pos);
+int supp_elem_PFile(PFile *f, int val);
 
 /******************************     END
  *  FILE avec POINTEURS
@@ -167,19 +172,18 @@ int handle_errors_TFile(int cd);
  *  ***************************
  */
 Cellule * creer_PListe(int elem);
-int taille_pliste(Cellule *list);
+int taille_PListe(Cellule *list);
 Cellule *inserer_queue_PList(Cellule *list, int val);
 Cellule *inserer_tete_PList(Cellule *list, int val);
 Cellule * inserer_pos_PList(Cellule* list,int pos, int elem,int *etat);
-void gestion_errp(int val);
-int supprimer_pos_PtList(Cellule *list, int pos);
-int afficher_plist(Cellule *list);
-int affiche_pos(Cellule *list,int pos,int *etat);
-int recherche_elem(Cellule *list,int elm);
-int nb_occ_elem(Cellule *list,int elm);
-void supp_first_occ(Cellule * list, int elm,int *etat);
+void gestion_errp_PListe(int val);
+int afficher_PListe(Cellule *list);
+int affiche_pos_PListe(Cellule *list,int pos,int *etat);
+int recherche_elem_PListe(Cellule *list,int elm);
+int nb_occ_elem_PListe(Cellule *list,int elm);
+Cellule* supp_fst_occ_PList(Cellule *list,int val);
 Cellule* supp_pos_PList(Cellule *list, int pos);
-Cellule* supp_occ_elem_PList(Cellule *list,int val);
+Cellule* supp_all_occ_PList(Cellule *list,int val);
 
 
 /******************************     END

@@ -4,147 +4,154 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<conio.h>
-#include "fonctions_TFile.c"
+#include "fonctions_TList.c"
 
-
-int menu_TFile_Tab()
+// le menu
+int menu_Liste_Tab()
 {
-    TFile *tFile = createTFile();
-    int choix, *status, tmp, tmp2;
-
-    status = (int*) malloc(sizeof(int));
-
-    enfiler_TFile(tFile, 2);
-    enfiler_TFile(tFile, 5);
-    enfiler_TFile(tFile, 7);
-    enfiler_TFile(tFile, 2);
-    enfiler_TFile(tFile, 21);
-    enfiler_TFile(tFile, 0);
-    enfiler_TFile(tFile, 3);
-    enfiler_TFile(tFile, 8);
-    enfiler_TFile(tFile, 10);
-    enfiler_TFile(tFile, 11);
-    enfiler_TFile(tFile, 13);
-    enfiler_TFile(tFile, 4);
-    enfiler_TFile(tFile, 9);
-    enfiler_TFile(tFile, 99);
-
-    do {
+    TListe *liste = create_TListe();
+    int val,p,tmp,choix;
+    do
+    {
         //initialiser le choix
         choix = -1;
+        //declaration du variable
         printf("\n *****************************************************************************************************************\n "
-               "\n 1  : Reinitialiser/Vider la File \n"
-               "\n 2  : Taille de la File \n"
-               "\n 3  : Enfiler \n"
-               "\n 4  : Defiler \n"
-               "\n 5  : Affichage de la File \n"
-               "\n 6  : Maximum de la file \n "
-               "\n 7  : Minimum de la file \n "
-               //               "\n 8  : Inverser la file \n "
-               //               "\n 9  : Trouver la position d'element par valeur \n"
-               //               "\n 10 : Trouver la valeur d'une position \n "
-               //               "\n 11 : Nombre d'occurrence d'un element \n "
-               "\n 11 : Enfiler position \n "
-               "\n 12 : supprimer la 1ER occurrence d'une valeur \n "
-               "\n 13 : supprimer l'element a une position \n "
-               "\n 14 : supprimer tout les occurrences d'un element \n "
-               "\n 15 : supprimer par position \n "
-               "\n 0  : retour vers menu principal \n"
+               " 1  : reinitialiser/vider votre liste \n"
+               " 2  : taille de liste \n"
+               " 3  : inserer un element a une position p\n"
+               " 4  : inserer un element en queue de liste  \n"
+               " 5  : affichage de la liste \n"
+               " 6  : rechercher si un element existe dans la liste \n"
+               " 7  : afficher l'element qui existe dans la position p \n "
+               " 8  : afficher nombre occurence d'un element \n "
+               " 9  : supprimer la 1ER occurence d'un element \n "
+               " 10 : supprimer l'element a la position p \n "
+               " 11 : supprimer tout les occurences d'un element \n "
+               " 12 : afficher le max dans la liste \n "
+               " 13 : afficher le min dans la liste \n "
+               " 14 : afficher la position de la valeur max dans la liste \n "
+               " 15 : afficher la position de la valeur min dans la liste \n "
+               " 16 : inverser la  liste \n "
+               " 0 : retour vers menu principal \n"
                "\n **********************************************************************************************************************\n "
                "\n >>>>>  ");
 
-        scanf("%d", &choix); getchar();
+        scanf("%d%*c", &choix);
 
         switch(choix)
         {
-            case 0: break;
-
             case 1:
-                tFile = init_TFile(tFile);
-                printf("TFile bien Initialise");
+                liste = init_TListe(liste);
+                printf(" \n Liste bien Initialise \n");
                 break;
             case 2:
-                printf("La taille de la tFile : %d", Taille_TFile(*tFile));
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if( ! gestion_err_TListe(tmp = taille_TListe(*liste)))
+                    //sinon afficher la taille
+                    printf("La taille de la liste est %d.", tmp);
                 break;
-
             case 3:
-                printf("\n\nEntrer la valeur : ");
-                scanf("%d", &tmp);
-                if (handle_errors_TFile(enfiler_TFile(tFile, tmp)))
-                    printf("enfilage est effectué");
+                printf (" \n entrer l'element a inserer et sa position dans la liste \n");
+                scanf("%d%d",&val,&p);
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if(! gestion_err_TListe(inserer_position_TListe(liste,val,p) ))
+                    //sinon inserer dans la liste et afficher que l'insetion est bien effectuer
+                    printf(" \n insertion effectuer  \n");
+
                 break;
             case 4:
-                if (handle_errors_TFile(defiler_TFile(tFile)))
-                    printf("defilage est effectué");
+                printf (" \n entrer l'element a inserer en queue de la liste \n");
+                scanf("%d",&val);
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if(! gestion_err_TListe(inserer_queue_TListe(liste, val)))
+                    //sinon inserer dans la liste et afficher  que l'insetion est bien effectuer
+                    printf(" \n insertion effectuer  \n");
                 break;
-
             case 5:
-                affiche_TFile(tFile);
-                break;
+                // afficher la liste sinon si il y a un erreur va etre afficher
+                if( gestion_err_TListe(affiche_TListe(liste))) break;
 
+                break;
             case 6:
-                tmp = max_val_TFile(tFile, status);
-                if (handle_errors_TFile(*status))
-                    printf("\nLe Maximum de la file est %d.\n", tmp);
+                printf (" \n entrer L'element a chercher  \n");
+                scanf("%d",&val);
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if(! gestion_err_TListe(tmp = rechercher_elem_TListe(*liste,val)) )
+                    //sinon afficher que l'element existe
+                    printf("\n l element %d existe dans la liste", tmp);
                 break;
+
             case 7:
+                printf (" \n entrer une position  \n");
+                scanf("%d",&p);
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if( ! gestion_err_TListe(tmp = acceder_val_TListe(liste,p)))
+                    //sinon afficher la valeur
 
-                tmp = min_val_TFile(tFile, status);
-                if (handle_errors_TFile(*status))
-                    printf("\nLe Minimum de la file est %d.\n", tmp);
+
+                break;
+            case 8:
+                printf (" \n entrer l'element a chercher \n");
+                scanf("%d",&val);
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if(! gestion_err_TListe(get_nbr_repetition_TListe(liste, val)))
+                    //sinon afficher le nombre de repetition
+
+                    break;
+            case 9:	printf (" \n entrer l'element a supprimer \n");
+                scanf("%d",&val);
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if(! gestion_err_TListe( supprimer_first_elem_TListe(liste,  val)))
+                    //sinon supprimer la 1er occurence et afficher un msg
+                    printf("\n element supprime");
+                break;
+            case 10:printf (" \n entrer la position  \n");
+                scanf("%d",&p);
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if(! gestion_err_TListe(supprimer_position_TListe(liste,p)))
+                    //sinon supprimer l'element  et afficher un msg
+                    printf("\n element supprime");
                 break;
 
-            case 11:
-                printf("\n\nEntrer la valeur a enfiler : ");
-                scanf("%d", &tmp);
-                printf("\n\nEntrer la position : ");
-                scanf("%d", &tmp2);
-                tmp2 = enfiler_pos_TFile(tFile, tmp2, tmp);
-                if (handle_errors_TFile(tmp2))
-                    printf("\n\nL'enfilement est bien effectuee\n\n");
+            case 11:printf (" \n entrer l'element a supprimer \n");
+                scanf("%d",&val);
+                // si il y a un erreur la fct getion_err() va retourner 1,on aura un msg d'err et va sortir vers le menu_liste_tab
+                if(! gestion_err_TListe(supprimer_elems_TListe(liste, val)))
+                    //sinon supprimer tout les occurrences et afficher un msg
+                    printf("\n element supprime");
                 break;
 
-            case 12:
-                printf("\n\nEntrer la valeur a supprimer : ");
-                scanf("%d", &tmp);
-                tmp2 = supp_val_first_occur_TFile(tFile, tmp);
-                if (handle_errors_TFile(tmp2))
-                    printf("\n\nLa suppression est bien effectuee\n\n");
+            case 12: 	printf (" \n la valeur max dans la liste est %d " ,get_max_val_TListe(liste));
+                break;
+            case 13:	printf (" \n la valeur max dans la liste est %d " ,get_min_val_TListe(liste));
                 break;
 
-            case 13:
-                printf("\n\nEntrer la position du valeur : ");
-                scanf("%d", &tmp);
-                tmp2 = supp_pos_TFile(tFile, tmp);
-                if (handle_errors_TFile(tmp2))
-                    printf("\n\nLa suppression est bien effectuee\n\n");
+            case 14:    printf (" \n la position du valeur max dans la liste est %d " ,get_max_pos_TListe(liste));
+                break;
+            case 15:    printf (" \n la position du valeur min dans la liste est %d " ,get_min_pos_TListe(liste));
                 break;
 
-            case 14:
-                printf("\n\nEntrer la valeur a supprimer : ");
-                scanf("%d", &tmp);
-                tmp2 = supp_val_occurs_TFile(tFile, tmp);
-                if (handle_errors_TFile(tmp2))
-                    printf("\n\nLa suppression est bien effectuee\n\n");
-                break;
+            case 16:
+                if (gestion_err_TListe(inverser_TListe(liste))) break;
+                // si il n'y a pas d'erreur  la liste va etre inverser
+                printf (" \n la liste est inverser " );
+                // afficher la liste  inversee
+                if (gestion_err_TListe(affiche_TListe(liste)) )break;
 
-            case 15:
-                printf("\n\nEntrer la position : ");
-                scanf("%d", &tmp2);
-                tmp2 = supp_pos_TFile(tFile, tmp2);
-                if (handle_errors_TFile(tmp2))
-                    printf("\n\nLa suppression est bien effectuee\n\n");
                 break;
-
+                // si le choix est <0 ou >16
             default :   printf("\n\nErreur : Choix Invalide\n\n");
+
 
         }
         getch();
-
     }while(choix);
 }
 
 
+
+
 void main() {
-   menu_TFile_Tab();
+   menu_Liste_Tab();
 }

@@ -1,6 +1,3 @@
-//
-// Created by W0L1D on 12/5/2021.
-//
 #include <stdio.h>
 #include <stdlib.h>
 #include "fonctions.h"
@@ -36,7 +33,7 @@ int taille_TPile(TPile pile)
 }//fin fct
 
 // fct qui vide la pile
-int vider_pile(TPile *pile)
+int vider_TPile(TPile *pile)
 {
     if (!pile)
         return 0;
@@ -46,30 +43,31 @@ int vider_pile(TPile *pile)
 
 // fct verifier si la pile est vide retourne 1 si vide
 // et 1 sinon
-int est_TPile_vide(TPile pile)
+int est_vide_TPile(TPile pile)
 {
     return !(pile.sommet+1);
 }//fin fct
 
 //Fct empile une valeur dans la pile
-int empiler_Tab(TPile *pile, int val)
+int empiler_TPile(TPile *pile, int val)
 {
     if (!pile) // pile n'existe pas
         return ((int) -1);
-    //pile existe pas
+    //pile existe
     if ((pile->sommet+1) == MAX_ELEMS) //pile est saturee
         return ((int) -2);
 
 
     // empilage et incrementation du sommet
+
     pile->tab[++(pile->sommet)] = val;
 
-    return((int)1); // empilage est bien effectuÃ©e
+    return((int)1); // empilage est bien effectuée
 }//fin fct
 
 
 // fct depile la pile retourne nombre element si l'element est depiler sinon 0
-int depiler_Tab(TPile *pile)
+int depiler_TPile(TPile *pile)
 {
     if (!pile) // pile n'existe pas
         return ((int)-1);
@@ -79,6 +77,7 @@ int depiler_Tab(TPile *pile)
         return ((int)0); //pile est vide
 
     // depilage et decrementation du sommet
+    pile->sommet--;
     return 1; // retourne la valeur depiler
 
 }//fin fct
@@ -103,12 +102,12 @@ TPile* inverser_TPile(TPile *pile)
     TPile *tmp = createTPile();
     int val_depile;
 
-    while (!est_TPile_vide(*pile))//tant que pile n'est pas vide
+    while (!est_vide_TPile(*pile))//tant que pile n'est pas vide
     {
 
         val_depile = getSommet_TPile(*pile);
-        depiler_Tab(pile);
-        empiler_Tab(tmp, val_depile);
+        depiler_TPile(pile);
+        empiler_TPile(tmp, val_depile);
     }
 
     free(pile);
@@ -118,42 +117,42 @@ TPile* inverser_TPile(TPile *pile)
 // fct qui trouve si un element se trouve dans une pile
 //retourne sa position si existe, sinon retourne un zero
 //affcher l'element qui se trouve a la position p
-int trouver_val_TPile(TPile *pile, int val, int *status)
+int trouver_val_TPile(TPile *pile, int val)
 {
-    *status = 1;
+
 
     if (!pile) //pile n'exist pas
     {
         printf("\nListe n'est pas initialisee\n");
-        *status = -1;
+
         return ((int)0);
     }
     //pile existe
-    if (est_TPile_vide(*pile))
+    if (est_vide_TPile(*pile))
     {
-        *status = 0;
+
         return((int) 0); //pile est vide
     }
 
     TPile *tmp;
     int indice = -1,
-    val_depiler;
+            val_depiler;
     tmp = createTPile();
 
-    while (!est_TPile_vide(*pile))
+    while (!est_vide_TPile(*pile))
     {
         val_depiler = getSommet_TPile(*pile);
-        depiler_Tab(pile);
-        empiler_Tab(tmp, val_depiler);
+        depiler_TPile(pile);
+        empiler_TPile(tmp, val_depiler);
         //si indice != -1 et val donne == valeur depile
         if ((val_depiler == val) && !(indice+1))
             indice = pile->sommet +2; //le sommet point sur l'indice la valeur au desous du val
     }
-    while (!est_TPile_vide(*tmp))
+    while (!est_vide_TPile(*tmp))
     {
         val_depiler = getSommet_TPile(*tmp);
-        depiler_Tab(tmp);
-        empiler_Tab(pile, val_depiler);
+        depiler_TPile(tmp);
+        empiler_TPile(pile, val_depiler);
     }
 
     return indice;
@@ -161,20 +160,20 @@ int trouver_val_TPile(TPile *pile, int val, int *status)
 
 
 
-int max_val_TPile(TPile *pile, int *status)
+int max_val_TPile(TPile *pile )
 {
-    *status = 1;
+
     if (!pile)
     {   //pile n'exist pas
         printf("\nListe n'est pas initialisee\n");
-        *status = -1;
+
         return ((int)0);
     }
 
-    if (est_TPile_vide(*pile))
+    if (est_vide_TPile(*pile))
     {   //pile est vide
-        *status = 0;
-        return ((int)0);
+        printf("\n PILE VIDE\n");
+        return ((int)-3);
     }
 // pile tmp pour empiler les element depiler par pile principale
     TPile *tmp;
@@ -184,20 +183,20 @@ int max_val_TPile(TPile *pile, int *status)
 
     max_elem = getSommet_TPile(*pile);
 
-    while (!est_TPile_vide(*pile))// tant que la pile n'est pas vide
+    while (!est_vide_TPile(*pile))// tant que la pile n'est pas vide
     {
         val_depiler = getSommet_TPile(*pile);
-        depiler_Tab(pile);
-        empiler_Tab(tmp, val_depiler);
+        depiler_TPile(pile);
+        empiler_TPile(tmp, val_depiler);
         //si indice != -1 et val donne == valeur depile
         if (max_elem < getSommet_TPile(*tmp))
             max_elem = getSommet_TPile(*tmp);// stocker le nouveau element max
     }
 
-    while (!est_TPile_vide(*tmp)) {
+    while (!est_vide_TPile(*tmp)) {
         val_depiler = getSommet_TPile(*tmp);
-        depiler_Tab(tmp);
-        empiler_Tab(pile, val_depiler);
+        depiler_TPile(tmp);
+        empiler_TPile(pile, val_depiler);
     }
 
     return max_elem;
@@ -206,20 +205,20 @@ int max_val_TPile(TPile *pile, int *status)
 
 
 // fct qui retourne l'element min de la pile
-int min_val_TPile(TPile *pile, int *status)
+int min_val_TPile(TPile *pile )
 {
-    *status = 1;
+
 
     if (!pile)
     {   //pile n'exist pas
         printf("\nListe n'est pas initialisee\n");
-        *status = -1;
-        return ((int)0);
+
+        return ((int)-1);
     }
 
-    if (est_TPile_vide(*pile))
+    if (est_vide_TPile(*pile))
     {   //pile est vide
-        *status = 0;
+        printf("\nPILE VIDE\n");
         return ((int)0);
     }
 
@@ -230,21 +229,21 @@ int min_val_TPile(TPile *pile, int *status)
 // considerer le min = l'element qui se trouve au sommet
     min_elem = getSommet_TPile(*pile);
 
-    while (!est_TPile_vide(*pile))// tant que la pile n'est pas vide
+    while (!est_vide_TPile(*pile))// tant que la pile n'est pas vide
     {
         val_depiler = getSommet_TPile(*pile);
-        depiler_Tab(pile);
-        empiler_Tab(tmp, val_depiler);
+        depiler_TPile(pile);
+        empiler_TPile(tmp, val_depiler);
         //si indice != -1 et val donne == valeur depile
         if (min_elem > getSommet_TPile(*tmp))
             min_elem = getSommet_TPile(*tmp);
     }
 
 
-    while (!est_TPile_vide(*tmp)) {
+    while (!est_vide_TPile(*tmp)) {
         val_depiler = getSommet_TPile(*tmp);
-        depiler_Tab(tmp);
-        empiler_Tab(pile, val_depiler);
+        depiler_TPile(tmp);
+        empiler_TPile(pile, val_depiler);
     }
 
 
@@ -255,20 +254,20 @@ int min_val_TPile(TPile *pile, int *status)
 
 
 // fct qui retourne le nombre d'occurence d'un element
-int nbr_occur_TPile(TPile *pile, int val, int *status)
+int nbr_occur_TPile(TPile *pile, int val )
 {
-    *status = 1;
+
 
     if (!pile)
     {   //pile n'exist pas
         printf("\nListe n'est pas initialisee\n");
-        *status = -1;
+
         return 0;
     }
 
-    if (est_TPile_vide(*pile))
+    if (est_vide_TPile(*pile))
     {   //pile est vide
-        *status = 0;
+        printf("\nPILE VIDE\n");
         return 0;
     }
 
@@ -279,20 +278,20 @@ int nbr_occur_TPile(TPile *pile, int val, int *status)
 
     nbr_occur = 0;
 
-    while (!est_TPile_vide(*pile))// tant que la pile n'est pas vide
+    while (!est_vide_TPile(*pile))// tant que la pile n'est pas vide
     {
         val_depiler = getSommet_TPile(*pile);
-        depiler_Tab(pile);
-        empiler_Tab(tmp, val_depiler);
+        depiler_TPile(pile);
+        empiler_TPile(tmp, val_depiler);
         //si indice != -1 et val donne == valeur depile
         if (val == getSommet_TPile(*tmp))
             nbr_occur++;
     }
 
-    while (!est_TPile_vide(*tmp)) {
+    while (!est_vide_TPile(*tmp)) {
         val_depiler = getSommet_TPile(*tmp);
-        depiler_Tab(tmp);
-        empiler_Tab(pile, val_depiler);
+        depiler_TPile(tmp);
+        empiler_TPile(pile, val_depiler);
     }
 
 
@@ -300,20 +299,20 @@ int nbr_occur_TPile(TPile *pile, int val, int *status)
 } //FIN de fonction nbr_occur_TPile
 
 //affcher l'element qui se trouve a la position p
-int trouver_pos_TPile(TPile *pile, int pos, int *status)
+int trouver_pos_TPile(TPile *pile, int pos )
 {
-    *status = 1;
+
 
     if (!pile)
     {   //pile n'exist pas
         printf("\nListe n'est pas initialisee\n");
-        *status = -1;
+
         return 0;
     }
 
-    if (est_TPile_vide(*pile))
+    if (est_vide_TPile(*pile))
     {   //pile est vide
-        *status = 0;
+        printf("\n PILE VIDE\n");
         return 0;
     }
 
@@ -324,11 +323,11 @@ int trouver_pos_TPile(TPile *pile, int pos, int *status)
 
     val_pos = -1;
 
-    while (!est_TPile_vide(*pile))// tant que la pile n'est pas vide
+    while (!est_vide_TPile(*pile))// tant que la pile n'est pas vide
     {
         val_depiler = getSommet_TPile(*pile);
-        depiler_Tab(pile);
-        empiler_Tab(tmp, val_depiler);
+        depiler_TPile(pile);
+        empiler_TPile(tmp, val_depiler);
         //si sommet == position donnee
         if (pos == tmp->sommet)
         {
@@ -337,10 +336,10 @@ int trouver_pos_TPile(TPile *pile, int pos, int *status)
         }
     }
 
-    while (!est_TPile_vide(*tmp)) {
+    while (!est_vide_TPile(*tmp)) {
         val_depiler = getSommet_TPile(*tmp);
-        depiler_Tab(tmp);
-        empiler_Tab(pile, val_depiler);
+        depiler_TPile(tmp);
+        empiler_TPile(pile, val_depiler);
     }
 
 
@@ -350,20 +349,20 @@ int trouver_pos_TPile(TPile *pile, int pos, int *status)
 
 
 //supprimer le premier occurence du val
-void supprimer_val_TPILE(TPile *pile, int val, int *status)
+void supprimer_val_TPILE(TPile *pile, int val )
 {
-    *status = 1;
+
 
     if (!pile)
     {   //pile n'exist pas
         printf("\nListe n'est pas initialisee\n");
-        *status = -1;
+
         return;
     }
 
-    if (est_TPile_vide(*pile))
+    if (est_vide_TPile(*pile))
     {   //pile est vide
-        *status = 0;
+        printf("\n PILE VIDE\n");
         return;
     }
 
@@ -374,21 +373,21 @@ void supprimer_val_TPILE(TPile *pile, int val, int *status)
 
     val_pos = -1;
 
-    while (!est_TPile_vide(*pile))// tant que la pile n'est pas vide
+    while (!est_vide_TPile(*pile))// tant que la pile n'est pas vide
     {
         val_depiler = getSommet_TPile(*pile);
-        depiler_Tab(pile);
+        depiler_TPile(pile);
         if (val == val_depiler)
             break;
 
-        empiler_Tab(tmp, val_depiler);
+        empiler_TPile(tmp, val_depiler);
     }
 
 
-    while (!est_TPile_vide(*tmp)) {
+    while (!est_vide_TPile(*tmp)) {
         val_depiler = getSommet_TPile(*tmp);
-        depiler_Tab(tmp);
-        empiler_Tab(pile, val_depiler);
+        depiler_TPile(tmp);
+        empiler_TPile(pile, val_depiler);
     }
 
 
@@ -400,20 +399,20 @@ void supprimer_val_TPILE(TPile *pile, int val, int *status)
 
 
 //supprimer toutes les occurences du val
-void supprimer_all_occur_TPILE(TPile *pile, int val, int *status)
+void supprimer_all_occur_TPILE(TPile *pile, int val )
 {
-    *status = 1;
+
 
     if (!pile)
     {   //pile n'exist pas
         printf("\nListe n'est pas initialisee\n");
-        *status = -1;
+
         return;
     }
 
-    if (est_TPile_vide(*pile))
+    if (est_vide_TPile(*pile))
     {   //pile est vide
-        *status = 0;
+        printf("\nPILE VIDE\n");
         return;
     }
 
@@ -424,19 +423,19 @@ void supprimer_all_occur_TPILE(TPile *pile, int val, int *status)
 
     val_pos = -1;
 
-    while (!est_TPile_vide(*pile))// tant que la pile n'est pas vide
+    while (!est_vide_TPile(*pile))// tant que la pile n'est pas vide
     {
         val_depiler = getSommet_TPile(*pile);
-        depiler_Tab(pile);
+        depiler_TPile(pile);
         if (val != val_depiler)
-            empiler_Tab(tmp, val_depiler);
+            empiler_TPile(tmp, val_depiler);
     }
 
 
-    while (!est_TPile_vide(*tmp)) {
+    while (!est_vide_TPile(*tmp)) {
         val_depiler = getSommet_TPile(*tmp);
-        depiler_Tab(tmp);
-        empiler_Tab(pile, val_depiler);
+        depiler_TPile(tmp);
+        empiler_TPile(pile, val_depiler);
     }
 
 
@@ -446,20 +445,20 @@ void supprimer_all_occur_TPILE(TPile *pile, int val, int *status)
 
 
 //supprimer le premier occurence du val
-void supprimer_pos_TPILE(TPile *pile, int pos, int *status)
+void supprimer_pos_TPILE(TPile *pile, int pos )
 {
-    *status = -4;
+
 
     if (!pile)
     {   //pile n'exist pas
         printf("\nListe n'est pas initialisee\n");
-        *status = -1;
+
         return;
     }
 
-    if (est_TPile_vide(*pile))
+    if (est_vide_TPile(*pile))
     {   //pile est vide
-        *status = 0;
+        printf("\n PILE VIDE\n");
         return;
     }
 
@@ -469,26 +468,26 @@ void supprimer_pos_TPILE(TPile *pile, int pos, int *status)
     tmp = createTPile();
 
 
-    while (!est_TPile_vide(*pile))// tant que pile n'est pas vide
+    while (!est_vide_TPile(*pile))// tant que pile n'est pas vide
     {
         val_depiler = getSommet_TPile(*pile);
-        depiler_Tab(pile);
+        depiler_TPile(pile);
 
         if (pos-1 == pile->sommet)
         {
-            *status = 1;
+
             break;
         }
 
-        empiler_Tab(tmp, val_depiler);
+        empiler_TPile(tmp, val_depiler);
 
     }
 
 
-    while (!est_TPile_vide(*tmp)) {
+    while (!est_vide_TPile(*tmp)) {
         val_depiler = getSommet_TPile(*tmp);
-        depiler_Tab(tmp);
-        empiler_Tab(pile, val_depiler);
+        depiler_TPile(tmp);
+        empiler_TPile(pile, val_depiler);
     }
 
 
@@ -497,46 +496,95 @@ void supprimer_pos_TPILE(TPile *pile, int pos, int *status)
 
 
 // fct affiche tout les elements de la pile
-void affiche_TPile(TPile *pile, int *status)
+void affiche_TPile(TPile *pile )
 {
     int i;
     //pile n'exist pas
     if (!pile)
     {
         printf("\nListe n'est pas initialisee\n");
-        *status = -1;
+
         return;
     }
     // TPile est vide
     if (!(pile->sommet+1))
     {
-        *status = 0;
+
         printf("\nla liste est vide\n");
         return;
     }
 
-    TPile *tmp;
+    TPile *tmp ;
     int val_depile;
+
+    tmp=  createTPile();
+
+
+    printf("\nles elements de la pile : \n");
+
+    while ((pile->sommet)!=-1)// tant que la pile n'est pas vide
+    {
+        val_depile = getSommet_TPile(*pile);
+        depiler_TPile(pile);
+        empiler_TPile(tmp, val_depile);
+        printf("%d\t  ", val_depile );
+
+    }
+
+    while ((tmp->sommet)!=-1) {
+        val_depile = getSommet_TPile(*tmp);
+        depiler_TPile(tmp);
+        empiler_TPile(pile, val_depile);
+    }
+}
+
+
+
+//ajouter dans l'element a la position p
+int ajouter_pos_TPILE(TPile *pile,int val, int pos )
+{
+
+    if (!pile)
+    {   //pile n'exist pas
+        printf("\nListe n'est pas initialisee\n");
+        return ((int) -1);
+    }
+
+    //pile existe
+    if ((pile->sommet+1) == MAX_ELEMS) //pile est saturee
+        return ((int) -2);
+    if (pos-1 == (pile->sommet+1))// A LA SOMMET DE LA PILE
+    {
+        empiler_TPile(pile, val);
+        return ((int) 1);
+    }
+    TPile *tmp;
+    int val_depiler;
 
     tmp = createTPile();
 
-    printf("\nle elements de la pile : \n");
 
-    while (!est_TPile_vide(*pile))// tant que la pile n'est pas vide
+    while (!est_vide_TPile(*pile))// tant que pile n'est pas vide
     {
-        val_depile = getSommet_TPile(*pile);
-        depiler_Tab(pile);
-        empiler_Tab(tmp, val_depile);
-        printf("%d\t", val_depile);
+        val_depiler = getSommet_TPile(*pile);
+        depiler_TPile(pile);
+        empiler_TPile(tmp, val_depiler);
+        if (pos-1 == pile->sommet+1)
+        {empiler_TPile(tmp, val);
+        }
+
+
+    }
+    while (!est_vide_TPile(*tmp)) {
+        val_depiler = getSommet_TPile(*tmp);
+        depiler_TPile(tmp);
+        empiler_TPile(pile, val_depiler);
     }
 
 
-    while (!est_TPile_vide(*tmp)) {
-        val_depile = getSommet_TPile(*tmp);
-        depiler_Tab(tmp);
-        empiler_Tab(pile, val_depile);
-    }
-}
+} //FIN de fonction ajouter_pos_TPILE
+
+
 
 // fonction de gestion d'erreurs
 int handle_errors_TPile(int cd)
@@ -567,7 +615,5 @@ int handle_errors_TPile(int cd)
     }
     return 0;
 }// fin fct
-
-
 
 
