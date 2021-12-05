@@ -74,6 +74,15 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="P:/Study/ILISI/S1/SDD/Practice/library/fonctions.c">
+			<Option target="Practice"/>
+		</Unit>
+		<Unit filename="P:/Study/ILISI/S1/SDD/Practice/library/fonctions.h">
+			<Option target="Practice"/>
+		</Unit>
+		<Unit filename="P:/Study/ILISI/S1/SDD/Practice/tp exam1/fonctions_TPile.c">
+			<Option target="Practice"/>
+		</Unit>
 		<Unit filename="P:/Study/ILISI/S1/SDD/Practice/tp exam1/main.c">
 			<Option target="Practice"/>
 		</Unit>

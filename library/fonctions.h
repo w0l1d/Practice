@@ -1,0 +1,205 @@
+//
+// Created by W0L1D on 12/5/2021.
+//
+
+#ifndef PRACTICE_FONCTIONS_H
+#define PRACTICE_FONCTIONS_H
+
+
+#define MAX_ELEMS 30
+
+
+typedef struct Cellule
+{
+    int val;
+    struct Cellule *svt;
+}Cellule;
+
+typedef struct PFile
+{
+    struct Cellule *tete;
+    struct Cellule *queue;
+    int taille;
+}PFile;
+
+
+typedef struct FileTab
+{
+    int tab[MAX_ELEMS]; // les elements de la file
+    int tete; //indique la tete de la file
+    int queue; //indique le queue de la file
+    int taille; //indique la taille de la file
+
+} FileTab;
+
+
+typedef struct TPile
+{
+    int tab[MAX_ELEMS];
+    int sommet; // indique l'index du dernier element
+} TPile;
+
+
+typedef struct TListe
+{
+    int tab[MAX_ELEMS];
+    int nbr_elem;
+} TListe;
+
+
+/******************************     START
+ *  PILE avec POINTEURs
+ *  ***************************
+ */
+Cellule* init_PPile(int val);
+Cellule* empiler_PPile(Cellule *pile, int val);
+Cellule* depiler_PPile(Cellule *pile);
+Cellule* vider_PPile(Cellule *pile);
+int taille_PPile(Cellule *pile);
+Cellule* inverser_PPile(Cellule *pile);
+Cellule* supprimer_pos_PPile(Cellule *pile, int pos);
+Cellule* supprimer_val_PPile(Cellule *pile, int val);
+Cellule* supprimer_all_val_PPile(Cellule *pile, int val);
+Cellule* max_val_PPile(Cellule *pile, int *max);
+Cellule* min_val_PPile(Cellule *pile, int *min);
+Cellule* affiche_PPile(Cellule *pile);
+int handle_errors_PPile(int cd);
+
+/******************************     END
+ *  PILE avec POINTEURs
+ *  ***************************
+ */
+
+//************************************************************************************
+//************************************************************************************
+
+/******************************     START
+ *  PILE avec TABLEAUx
+ *  ***************************
+ */
+
+TPile* createTPile();
+TPile* init_TPile(TPile *pile);
+int taille_TPile(TPile pile);
+int vider_pile(TPile *pile);
+int est_TPile_vide(TPile pile);
+int empiler_Tab(TPile *pile, int val);
+int depiler_Tab(TPile *pile);
+int getSommet_TPile(TPile pile);
+TPile* inverser_TPile(TPile *pile);
+int trouver_val_TPile(TPile *pile, int val, int *status);
+int max_val_TPile(TPile *pile, int *status);
+int min_val_TPile(TPile *pile, int *status);
+int nbr_occur_TPile(TPile *pile, int val, int *status);
+int trouver_pos_TPile(TPile *pile, int pos, int *status);
+void supprimer_val_TPILE(TPile *pile, int val, int *status);
+void supprimer_all_occur_TPILE(TPile *pile, int val, int *status);
+void supprimer_pos_TPILE(TPile *pile, int pos, int *status);
+void affiche_TPile(TPile *pile, int *status);
+int handle_errors_TPile(int cd);
+
+/******************************     END
+ *  PILE avec TABLEAUx
+ *  ***************************
+ */
+
+//************************************************************************************
+//************************************************************************************
+
+/******************************     START
+ *  FILE avec POINTEURS
+ *  ***************************
+ */
+
+
+
+/******************************     END
+ *  FILE avec POINTEURS
+ *  ***************************
+ */
+
+//************************************************************************************
+//************************************************************************************
+
+/******************************     START
+ *  FILE avec TABLEAUx
+ *  ***************************
+ */
+
+
+
+/******************************     END
+ *  FILE avec TABLEAUx
+ *  ***************************
+ */
+
+//************************************************************************************
+//************************************************************************************
+
+/******************************     START
+ *  LIST avec POINTEURS
+ *  ***************************
+ */
+
+
+
+/******************************     END
+ *  LIST avec POINTEURS
+ *  ***************************
+ */
+
+//************************************************************************************
+//************************************************************************************
+
+/******************************     START
+ *  LIST avec TABLEAUx
+ *  ***************************
+ */
+
+
+
+/******************************     END
+ *  LIST avec TABLEAUx
+ *  ***************************
+ */
+
+//************************************************************************************
+//************************************************************************************
+
+/******************************     START
+ *  ARBRE BINAIRE avec POINTEURS
+ *  ***************************
+ */
+
+
+
+/******************************     END
+ *  ARBRE BINAIRE avec POINTEURS
+ *  ***************************
+ */
+
+//************************************************************************************
+//************************************************************************************
+
+/******************************     START
+ *  ARBRE BINAIRE avec TABLEAUx
+ *  ***************************
+ */
+
+
+
+/******************************     END
+ *  ARBRE BINAIRE avec TABLEAUx
+ *  ***************************
+ */
+
+//************************************************************************************
+//************************************************************************************
+
+
+
+
+
+
+
+#endif //PRACTICE_FONCTIONS_H

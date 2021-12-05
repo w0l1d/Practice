@@ -127,7 +127,7 @@ void main() {
     PFile *pfile = NULL;
     pfile = initialiser_PFile();
 
-    trans_PPile_PFile(ppile, pfile);
+    pfile = trans_PPile_PFile(ppile);
 
     printf("\naffichage 10: \n");
     afficher_PFile(pfile);

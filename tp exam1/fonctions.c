@@ -644,15 +644,15 @@ int defiler_PFile(PFile *f)
     return ((int) 1);
 }
 
-void trans_PPile_PFile(Cellule* pile, PFile *file) {
-    if (!pile || !file)
-        return;
-
+PFile *trans_PPile_PFile(Cellule* pile) {
+    if (!pile)
+        return ((PFile *) NULL);
+    PFile *file = initialiser_PFile();
     while (pile) {
         enfiler_PFile(file, pile->val);
         pile = depiler_PPile(pile);
     }
-
+    return ((PFile*) file);
 }
 
 void afficher_PFile (PFile *f)

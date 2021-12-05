@@ -73,7 +73,7 @@ int PFile_existe (PFile *f);
 int PFile_vide (PFile *f);
 int enfiler_PFile(PFile *f, int val);
 int defiler_PFile(PFile *f);
-void trans_PPile_PFile(Cellule* pile, PFile *file);
+PFile *trans_PPile_PFile(Cellule* pile);
 void afficher_PFile (PFile *f);
 int supprimer_val_occur_PFile(PFile *file, int val);
 

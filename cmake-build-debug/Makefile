@@ -128,6 +128,54 @@ Practice/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/build
 .PHONY : Practice/fast
 
+library/fonctions.obj: library/fonctions.c.obj
+.PHONY : library/fonctions.obj
+
+# target to build an object file
+library/fonctions.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/library/fonctions.c.obj
+.PHONY : library/fonctions.c.obj
+
+library/fonctions.i: library/fonctions.c.i
+.PHONY : library/fonctions.i
+
+# target to preprocess a source file
+library/fonctions.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/library/fonctions.c.i
+.PHONY : library/fonctions.c.i
+
+library/fonctions.s: library/fonctions.c.s
+.PHONY : library/fonctions.s
+
+# target to generate assembly for a file
+library/fonctions.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/library/fonctions.c.s
+.PHONY : library/fonctions.c.s
+
+tp_exam1/fonctions_TPile.obj: tp_exam1/fonctions_TPile.c.obj
+.PHONY : tp_exam1/fonctions_TPile.obj
+
+# target to build an object file
+tp_exam1/fonctions_TPile.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/tp_exam1/fonctions_TPile.c.obj
+.PHONY : tp_exam1/fonctions_TPile.c.obj
+
+tp_exam1/fonctions_TPile.i: tp_exam1/fonctions_TPile.c.i
+.PHONY : tp_exam1/fonctions_TPile.i
+
+# target to preprocess a source file
+tp_exam1/fonctions_TPile.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/tp_exam1/fonctions_TPile.c.i
+.PHONY : tp_exam1/fonctions_TPile.c.i
+
+tp_exam1/fonctions_TPile.s: tp_exam1/fonctions_TPile.c.s
+.PHONY : tp_exam1/fonctions_TPile.s
+
+# target to generate assembly for a file
+tp_exam1/fonctions_TPile.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/tp_exam1/fonctions_TPile.c.s
+.PHONY : tp_exam1/fonctions_TPile.c.s
+
 tp_exam1/main.obj: tp_exam1/main.c.obj
 .PHONY : tp_exam1/main.obj
 
@@ -161,6 +209,12 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Practice
+	@echo ... library/fonctions.obj
+	@echo ... library/fonctions.i
+	@echo ... library/fonctions.s
+	@echo ... tp_exam1/fonctions_TPile.obj
+	@echo ... tp_exam1/fonctions_TPile.i
+	@echo ... tp_exam1/fonctions_TPile.s
 	@echo ... tp_exam1/main.obj
 	@echo ... tp_exam1/main.i
 	@echo ... tp_exam1/main.s
