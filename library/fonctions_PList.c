@@ -80,23 +80,28 @@ Cellule * inserer_pos_PList(Cellule* list,int pos, int elem,int *etat)
     int compt;
     //cas ou la liste n'existe pas
     if(!list)
-    { *etat=-2;
+    {
+        *etat=-2;
         return((Cellule*)NULL);
     }
-    // liste existe
-    // si pos==1 (insertion en tete)
-    if(pos==1)
-    {
-        // creer un NE et le donner comme suivant la liste
-        NE=(Cellule*)creer_PListe(elem) ;
-        NE->svt=list;
-        return((Cellule*)NE);
-    }
+
+
     // si une position p est en dehors de la liste
     if ((pos < 1) || (taille_pliste(list)+1 < pos)) {
         *etat=-3;
         return((Cellule*)NULL);
     }
+
+    //creer l'element NE
+    NE=(Cellule*)creer_PListe(elem);
+
+    // si pos==1 (insertion en tete)
+    if(pos==1)
+    {
+        NE->svt=list;
+        return((Cellule*)NE);
+    }
+
     // position est > a 1 et < nombre d'element
     compt=1;
     pt=list;
@@ -106,8 +111,7 @@ Cellule * inserer_pos_PList(Cellule* list,int pos, int elem,int *etat)
         compt++;
     }
 
-    //creer l'element NE
-    NE=(Cellule*)creer_PListe(elem);
+
     NE->svt=pt->svt;
     pt->svt=NE;
     *etat=1;// pour l'utiliser a la fct gestion erreur
@@ -218,7 +222,7 @@ int affiche_pos(Cellule *list,int pos,int *etat)
 }
 
 //fonction qui recherche si un element existe dans la liste
-int recherche_elem(Cellule *list,int elm )
+int recherche_elem(Cellule *list,int elm)
 {
     //liste n'exist pas
     if (!list)
@@ -240,7 +244,7 @@ int recherche_elem(Cellule *list,int elm )
 }
 
 // fct compte le nombre d'occurence d'un element dans une lste
-int nb_occ_elem(Cellule *list,int elm )
+int nb_occ_elem(Cellule *list,int elm)
 {
     Cellule *pt=list;
     int compt=0;
@@ -275,7 +279,7 @@ void supp_first_occ(Cellule * list, int elm,int *etat)
 }
 
 //fct qui supprime la 1er occurence d'un element
-Cellule* supp_pos_PList(Cellule * list, int pos)
+Cellule* supp_pos_PList(Cellule *list, int pos)
 {
     //liste n'exist pas
     if (!list) 	return ((Cellule*) list);

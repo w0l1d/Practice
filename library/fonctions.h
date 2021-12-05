@@ -170,12 +170,16 @@ Cellule * creer_PListe(int elem);
 int taille_pliste(Cellule *list);
 Cellule *inserer_queue_PList(Cellule *list, int val);
 Cellule *inserer_tete_PList(Cellule *list, int val);
-
-
-
-
-
-
+Cellule * inserer_pos_PList(Cellule* list,int pos, int elem,int *etat);
+void gestion_errp(int val);
+int supprimer_pos_PtList(Cellule *list, int pos);
+int afficher_plist(Cellule *list);
+int affiche_pos(Cellule *list,int pos,int *etat);
+int recherche_elem(Cellule *list,int elm);
+int nb_occ_elem(Cellule *list,int elm);
+void supp_first_occ(Cellule * list, int elm,int *etat);
+Cellule* supp_pos_PList(Cellule *list, int pos);
+Cellule* supp_occ_elem_PList(Cellule *list,int val);
 
 
 /******************************     END
