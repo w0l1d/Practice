@@ -1,16 +1,12 @@
 // declaration des Bibliothèques
 #include <stdio.h>
 #include <stdlib.h>
+#include "fonctions.h"
 
 
 
 
 
-
-typedef struct PAPile {
-    struct Nd *node;
-    struct PAPile *svt;
-}PAPile;
 
 
 
