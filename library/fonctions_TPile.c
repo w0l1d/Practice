@@ -401,8 +401,6 @@ void supprimer_val_TPILE(TPile *pile, int val )
 //supprimer toutes les occurences du val
 void supprimer_all_occur_TPILE(TPile *pile, int val )
 {
-
-
     if (!pile)
     {   //pile n'exist pas
         printf("\nListe n'est pas initialisee\n");
@@ -431,14 +429,11 @@ void supprimer_all_occur_TPILE(TPile *pile, int val )
             empiler_TPile(tmp, val_depiler);
     }
 
-
     while (!est_vide_TPile(*tmp)) {
         val_depiler = getSommet_TPile(*tmp);
         depiler_TPile(tmp);
         empiler_TPile(pile, val_depiler);
     }
-
-
 
 } //FIN de fonction supprimer_all_occur_TPILE
 
@@ -452,7 +447,6 @@ void supprimer_pos_TPILE(TPile *pile, int pos )
     if (!pile)
     {   //pile n'exist pas
         printf("\nListe n'est pas initialisee\n");
-
         return;
     }
 
@@ -474,13 +468,9 @@ void supprimer_pos_TPILE(TPile *pile, int pos )
         depiler_TPile(pile);
 
         if (pos-1 == pile->sommet)
-        {
-
             break;
-        }
 
         empiler_TPile(tmp, val_depiler);
-
     }
 
 
@@ -570,9 +560,7 @@ int ajouter_pos_TPILE(TPile *pile,int val, int pos )
         depiler_TPile(pile);
         empiler_TPile(tmp, val_depiler);
         if (pos-1 == pile->sommet+1)
-        {empiler_TPile(tmp, val);
-        }
-
+            empiler_TPile(tmp, val);
 
     }
     while (!est_vide_TPile(*tmp)) {
