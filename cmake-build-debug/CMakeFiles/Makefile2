@@ -80,12 +80,12 @@ clean: CMakeFiles/Practice.dir/clean
 CMakeFiles/Practice.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=P:\Study\ILISI\S1\SDD\Practice\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4 "Built target Practice"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=P:\Study\ILISI\S1\SDD\Practice\cmake-build-debug\CMakeFiles --progress-num=1,2 "Built target Practice"
 .PHONY : CMakeFiles/Practice.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Practice.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start P:\Study\ILISI\S1\SDD\Practice\cmake-build-debug\CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start P:\Study\ILISI\S1\SDD\Practice\cmake-build-debug\CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/Practice.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start P:\Study\ILISI\S1\SDD\Practice\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/Practice.dir/rule

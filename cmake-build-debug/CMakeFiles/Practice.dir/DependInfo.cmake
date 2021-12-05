@@ -8,8 +8,6 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "P:/Study/ILISI/S1/SDD/Practice/library/fonctions.c" "P:/Study/ILISI/S1/SDD/Practice/cmake-build-debug/CMakeFiles/Practice.dir/library/fonctions.c.obj"
-  "P:/Study/ILISI/S1/SDD/Practice/tp exam1/fonctions_TPile.c" "P:/Study/ILISI/S1/SDD/Practice/cmake-build-debug/CMakeFiles/Practice.dir/tp_exam1/fonctions_TPile.c.obj"
   "P:/Study/ILISI/S1/SDD/Practice/tp exam1/main.c" "P:/Study/ILISI/S1/SDD/Practice/cmake-build-debug/CMakeFiles/Practice.dir/tp_exam1/main.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "GNU")

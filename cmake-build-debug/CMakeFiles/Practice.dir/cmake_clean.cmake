@@ -1,6 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Practice.dir/library/fonctions.c.obj"
-  "CMakeFiles/Practice.dir/tp_exam1/fonctions_TPile.c.obj"
   "CMakeFiles/Practice.dir/tp_exam1/main.c.obj"
   "Practice.exe"
   "Practice.exe.manifest"
