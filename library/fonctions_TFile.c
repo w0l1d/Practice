@@ -23,9 +23,9 @@ TFile* createTFile()
 
     return tFile;
 }
-{
 
-TFile* init_TFile(TFile *tFile)
+
+TFile* init_TFile(TFile *tFile) {
 if (tFile) // si la file existe
         free(tFile);
     tFile = createTFile();
@@ -114,70 +114,6 @@ int defiler_TFile(TFile *tFile)
     return 1;
 }
 
-//
-////ajouter une valeur dans une position
-//int enfiler_pos_TFile(TFile *tFile, int val, int *status, int pos)
-//{
-//    int cmpt1,cmpt2,cmpt3,defil_val;
-//    *status=1;
-//    //tFile n'exist pas
-//    if (!tFile)
-//    {
-//        *status=-1;
-//        return ((int)-1);
-//    }
-//
-//    //TFile est saturee
-//    if (est_saturee_TFile(*tFile))
-//    {
-//        *status=-1;
-//        return ((int)-2);
-//    }
-//
-//    if (tFile->taille == 0)
-//    {
-//        enfiler_TFile(tFile, val);
-//        *status=1;
-//        return ((int)1);
-//    }
-//
-//    if ((tFile->queue + 1) == MAX_ELEMS)
-//        tasser_TFile(tFile, 0);
-//
-//
-//
-//    if((pos<1)||(pos>tFile->taille+1))
-//    {
-//        *status = -4;
-//        return ((int)-4);
-//    }
-//    else
-//    {
-//        cmpt1=1;
-//        cmpt2=tFile->taille;
-//        cmpt3=tFile->tete;// stocker l'indice de la tete pour avoir le meme apres l ajout
-//        while(pos!= cmpt1)
-//        {
-//            defil_val=tFile->tab[tFile->tete];
-//            defiler_TFile(tFile);
-//            enfiler_TFile(tFile, defil_val);
-//            cmpt2--;
-//            cmpt1++;
-//        }
-//        enfiler_TFile(tFile,val);
-//        while(cmpt2)
-//        {
-//            defil_val=tFile->tab[tFile->tete];
-//            defiler_TFile(tFile);
-//            enfiler_TFile(tFile, defil_val);
-//            cmpt2--;
-//        }
-//        tasser_TFile( tFile,cmpt3) ;
-//        *status = 1;
-//        return ((int)1);
-//    }
-//
-//}
 
 
 int enfiler_pos_TFile(TFile *file, int pos, int val) {
@@ -196,8 +132,7 @@ int enfiler_pos_TFile(TFile *file, int pos, int val) {
     }
 
 
-
-    while ((cpt++) <= size) {
+    while ((cpt++) < size) {
         val_defile = get_tete_TFile(file);
         defiler_TFile(file);
         if (cpt == pos) {
@@ -350,7 +285,7 @@ int supp_pos_TFile(TFile *file, int pos) {
             cpt = 0,
             status = -3; // valeur n'est pas trouve
 
-    while ((cpt++) <= size) {
+    while ((cpt++) < size) {
         val_defile = get_tete_TFile(file);
         defiler_TFile(file);
         if (cpt != pos) {

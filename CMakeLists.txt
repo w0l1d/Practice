@@ -5,5 +5,5 @@ set(CMAKE_C_STANDARD 11)
 
 
 add_executable(Practice
-        "tp exam1/main.c")
+        library/test.c)
 

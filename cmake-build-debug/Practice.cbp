@@ -74,7 +74,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="P:/Study/ILISI/S1/SDD/Practice/tp exam1/main.c">
+		<Unit filename="P:/Study/ILISI/S1/SDD/Practice/library/test.c">
 			<Option target="Practice"/>
 		</Unit>
 		<Unit filename="P:/Study/ILISI/S1/SDD/Practice/CMakeLists.txt">

@@ -128,29 +128,29 @@ Practice/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/build
 .PHONY : Practice/fast
 
-tp_exam1/main.obj: tp_exam1/main.c.obj
-.PHONY : tp_exam1/main.obj
+library/test.obj: library/test.c.obj
+.PHONY : library/test.obj
 
 # target to build an object file
-tp_exam1/main.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/tp_exam1/main.c.obj
-.PHONY : tp_exam1/main.c.obj
+library/test.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/library/test.c.obj
+.PHONY : library/test.c.obj
 
-tp_exam1/main.i: tp_exam1/main.c.i
-.PHONY : tp_exam1/main.i
+library/test.i: library/test.c.i
+.PHONY : library/test.i
 
 # target to preprocess a source file
-tp_exam1/main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/tp_exam1/main.c.i
-.PHONY : tp_exam1/main.c.i
+library/test.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/library/test.c.i
+.PHONY : library/test.c.i
 
-tp_exam1/main.s: tp_exam1/main.c.s
-.PHONY : tp_exam1/main.s
+library/test.s: library/test.c.s
+.PHONY : library/test.s
 
 # target to generate assembly for a file
-tp_exam1/main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/tp_exam1/main.c.s
-.PHONY : tp_exam1/main.c.s
+library/test.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/library/test.c.s
+.PHONY : library/test.c.s
 
 # Help Target
 help:
@@ -161,9 +161,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Practice
-	@echo ... tp_exam1/main.obj
-	@echo ... tp_exam1/main.i
-	@echo ... tp_exam1/main.s
+	@echo ... library/test.obj
+	@echo ... library/test.i
+	@echo ... library/test.s
 .PHONY : help
 
 

@@ -194,8 +194,26 @@ Cellule* supp_occ_elem_PList(Cellule *list,int val);
  *  LIST avec TABLEAUx
  *  ***************************
  */
-
-
+TListe* create_TListe();
+TListe* init_TListe(TListe *liste);
+int taille_TListe(TListe liste);
+int vider_TListe(TListe *liste);
+int inserer_queue_TListe(TListe *liste, int val);
+int inserer_tete_TListe(TListe *liste, int val);
+int inserer_position_TListe(TListe *liste, int val, int pos);
+int supprimer_position_TListe(TListe *liste, int pos);
+int supprimer_first_elem_TListe(TListe *liste, int val);
+int supprimer_elems_TListe(TListe *liste, int val);
+int inverser_TListe(TListe *liste);
+int get_max_val_TListe(TListe *liste);
+int get_max_pos_TListe(TListe *liste);
+int get_min_val_TListe(TListe *liste);
+int get_min_pos_TListe(TListe *liste);
+int get_nbr_repetition_TListe(TListe *liste, int val);
+int acceder_val_TListe(TListe *liste, int pos);
+int affiche_TListe(TListe *liste);
+int gestion_err_TListe(int val);
+int rechercher_elem_TListe(TListe liste,int elem);
 
 /******************************     END
  *  LIST avec TABLEAUx

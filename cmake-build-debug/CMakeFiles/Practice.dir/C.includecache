@@ -8,7 +8,7 @@
 
 P:/Study/ILISI/S1/SDD/Practice/library/fonctions.h
 
-P:/Study/ILISI/S1/SDD/Practice/library/fonctions_PPile.c
+P:/Study/ILISI/S1/SDD/Practice/library/fonctions_TFile.c
 stdio.h
 -
 stdlib.h
@@ -16,11 +16,13 @@ stdlib.h
 fonctions.h
 P:/Study/ILISI/S1/SDD/Practice/library/fonctions.h
 
-P:/Study/ILISI/S1/SDD/Practice/library/fonctions_TPile.c
+P:/Study/ILISI/S1/SDD/Practice/library/test.c
 stdio.h
 -
 stdlib.h
 -
-fonctions.h
-P:/Study/ILISI/S1/SDD/Practice/library/fonctions.h
+conio.h
+-
+fonctions_TFile.c
+P:/Study/ILISI/S1/SDD/Practice/library/fonctions_TFile.c
 

@@ -107,7 +107,6 @@ int defiler_PFile(PFile *f)
 
 int enfiler_pos_PFIle(PFile* file, int val, int pos)
 {
-
     //File est vide
     if (!file)
         return ((int) -1);
@@ -119,11 +118,9 @@ int enfiler_pos_PFIle(PFile* file, int val, int pos)
     if (pos == file->taille+1)
         return enfiler_PFile(file, val);
 
-
     while (cmp++ <= size)
     {
         val_defile = file->tete->val;
-
         if (pos == cmp-1)
         {
             status = 1;
@@ -131,10 +128,7 @@ int enfiler_pos_PFIle(PFile* file, int val, int pos)
         }
         enfiler_PFile(file, val_defile);
         defiler_PFile(file);
-
-
     }
-
     return ((int) status);
 }
 
