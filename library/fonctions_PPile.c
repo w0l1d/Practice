@@ -7,12 +7,10 @@
 #include "fonctions.h"
 
 
-Cellule* init_PPile(int val)
-{
+Cellule* init_PPile(int val) {
     Cellule *pile = (Cellule*) malloc(sizeof(Cellule));
 
-    if (!pile)
-    {
+    if (!pile) {
         printf("\n\nErreur d'allocation de la memoire\n\n");
         exit(0);
     }
@@ -137,6 +135,8 @@ Cellule* supprimer_pos_PPile(Cellule *pile, int pos)
 }
 
 
+
+
 Cellule* supprimer_val_PPile(Cellule *pile, int val)
 {
 
@@ -217,6 +217,74 @@ Cellule* supprimer_all_val_PPile(Cellule *pile, int val)
     return ((Cellule*) pile);
 }
 
+
+
+Cellule* empiler_pos_PPile(Cellule *pile, int pos, int val)
+{
+    //pile n'exist pas
+    if (!pile) {
+        printf("\nPile n'existe pas\n");
+        return ((Cellule*) pile);
+    }
+
+    int indice = 1, size;
+    Cellule *tmp = NULL;
+
+    size = taille_PPile(pile);
+    if ((pos < 1) || (size+1 < pos)) {
+        printf("\nPosition est incorrecte\n");
+        return ((Cellule*)pile);
+    }
+
+    while (indice < pos) {
+        tmp = empiler_PPile(tmp, pile->val);
+        pile = depiler_PPile(pile);
+        indice++;
+    }
+
+    pile = empiler_PPile(pile, val);
+
+    while (tmp) {
+        pile = empiler_PPile(pile, tmp->val);
+        tmp = depiler_PPile(tmp);
+    }
+
+    return ((Cellule*) pile);
+}
+
+
+
+Cellule* empiler_bon_pos_Decr_PPile(Cellule *pile, int val)
+{
+    //pile est vide
+    if (!pile) {
+        printf("\nPile est vide\n");
+        return ((Cellule*) pile);
+    }
+
+    Cellule *tmp = NULL;
+
+    if (val > pile->val) {
+        pile = empiler_PPile(pile, val);
+        return ((Cellule*)pile);
+    }
+
+    while (val < pile->val) {
+        tmp = empiler_PPile(tmp, pile->val);
+        pile = depiler_PPile(pile);
+        if (!pile)
+            break;
+    }
+
+    pile = empiler_PPile(pile, val);
+
+    while (tmp) {
+        pile = empiler_PPile(pile, tmp->val);
+        tmp = depiler_PPile(tmp);
+    }
+
+    return ((Cellule*) pile);
+}
 
 
 

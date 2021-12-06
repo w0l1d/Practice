@@ -31,9 +31,9 @@ TPile* init_TPile(TPile *pile)
 }//fin fct
 
 // taille pile  
-int taille_TPile(TPile pile)
-  { return ((int)pile.sommet+1);
-  }//fin fct
+int taille_TPile(TPile pile) {
+    return ((int)pile.sommet+1);
+}//fin fct
 
 // fct qui vide la pile
 int vider_pile(TPile *pile, int *status)

@@ -8,7 +8,7 @@
 
 P:/Study/ILISI/S1/SDD/Practice/library/fonctions.h
 
-P:/Study/ILISI/S1/SDD/Practice/library/fonctions_TList.c
+P:/Study/ILISI/S1/SDD/Practice/library/fonctions_PPile.c
 stdio.h
 -
 stdlib.h
@@ -23,6 +23,6 @@ stdlib.h
 -
 conio.h
 -
-fonctions_TList.c
-P:/Study/ILISI/S1/SDD/Practice/library/fonctions_TList.c
+fonctions_PPile.c
+P:/Study/ILISI/S1/SDD/Practice/library/fonctions_PPile.c
 

@@ -751,7 +751,6 @@ PNode* trans_PFile_Arb(PFile *file) {
     while (!PFile_vide(file)) {
         arb = insert_Pt(arb, file->tete->val);
         defiler_PFile(file);
-
     }
     return ((PNode*) arb);
 

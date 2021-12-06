@@ -73,6 +73,7 @@ Cellule* inverser_PPile(Cellule *pile);
 Cellule* supprimer_pos_PPile(Cellule *pile, int pos);
 Cellule* supprimer_val_PPile(Cellule *pile, int val);
 Cellule* supprimer_all_val_PPile(Cellule *pile, int val);
+Cellule* empiler_pos_PPile(Cellule *pile, int pos, int val);
 Cellule* max_val_PPile(Cellule *pile, int *max);
 Cellule* min_val_PPile(Cellule *pile, int *min);
 Cellule* affiche_PPile(Cellule *pile);

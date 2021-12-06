@@ -6,10 +6,6 @@
 
 
 
-
-
-
-
 PAPile* init_PAPile(struct Nd *node)
 {
     PAPile *pile = (PAPile*) malloc(sizeof(PAPile));
