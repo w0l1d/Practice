@@ -254,8 +254,7 @@ Cellule* empiler_pos_PPile(Cellule *pile, int pos, int val)
 
 
 
-Cellule* empiler_bon_pos_Decr_PPile(Cellule *pile, int val)
-{
+Cellule* empiler_bon_pos_Decr_PPile(Cellule *pile, int val) {
     //pile est vide
     if (!pile) {
         printf("\nPile est vide\n");
