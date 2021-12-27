@@ -564,6 +564,7 @@ void affiche_arbre_Real(PNode *root) {
         for (int j = 0; j < segma; ++j)
             matrice[i][j] = -99;
 
+
     assign_val_to_Mtx(root, pt, segma,  0, (segma/2), (segma/2+1)/2);
 
     printf("\n*******************************\n");
