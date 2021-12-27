@@ -581,6 +581,19 @@ void affiche_arbre_Real(PNode *root) {
 
 
 
+void aff_ord_borne(PNode *root, int sup, int inf) {
+    if (!root) // Noeud n'existe pas
+        return;
+
+    if (inf <= root->info)
+        aff_ord_borne(root->gch, sup, inf);
+    if ((inf <= root->info) && (root->info <= sup))
+        printf("%d (%d)\t", root->info, root->cpt);
+    if (sup >= root->info)
+        aff_ord_borne(root->drt, sup, inf);
+}
+
+
 
 
 //**********************************************************************************
@@ -612,6 +625,7 @@ void affiche_arbre_Real(PNode *root) {
                    "\n10 --> Taille de l'arbre"
                    "\n11 --> Maximum de l'arbre"
                    "\n12 --> Minimum de l'arbre"
+                   "\n13 --> Minimum de l'arbre"
                    "\n0  --> Retourner"
                    );
             printf("\n\n>>>>  ");
@@ -698,6 +712,12 @@ void affiche_arbre_Real(PNode *root) {
                 case 12:
                     tmp = min_val_arbrePt(root);
                     printf("\n\nLe Minimum de l'arbre : %d\n\n", tmp);
+                    break;
+                case 13:
+                    printf("Entrer les bornes : ");
+                    scanf("%d%d", &tmp, &tmp2);
+                    printf("\n\nLes element de l'arbre : %d <= X <= %d\n\n", tmp, tmp2);
+                    aff_ord_borne(root, tmp2, tmp);
                     break;
                 default:
                     printf("\n\nErreur: Choix Invalide!\n");

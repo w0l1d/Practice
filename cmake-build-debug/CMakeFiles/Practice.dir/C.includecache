@@ -6,23 +6,51 @@
 
 #IncludeRegexTransform: 
 
-P:/Study/ILISI/S1/SDD/Practice/library/fonctions.h
-
-P:/Study/ILISI/S1/SDD/Practice/library/fonctions_PPile.c
+P:/Study/ILISI/S1/SDD/Practice/TP3 arbre/B_arbre_horiz_Pt.c
 stdio.h
 -
 stdlib.h
 -
-fonctions.h
-P:/Study/ILISI/S1/SDD/Practice/library/fonctions.h
+math.h
+-
+conio.h
+-
+fonction_Pile_Pt.c
+P:/Study/ILISI/S1/SDD/Practice/TP3 arbre/fonction_Pile_Pt.c
 
-P:/Study/ILISI/S1/SDD/Practice/library/test.c
+P:/Study/ILISI/S1/SDD/Practice/TP3 arbre/B_arbre_horiz_tab.c
 stdio.h
 -
 stdlib.h
 -
 conio.h
 -
-fonctions_PPile.c
-P:/Study/ILISI/S1/SDD/Practice/library/fonctions_PPile.c
+
+P:/Study/ILISI/S1/SDD/Practice/TP3 arbre/Main_arbre.c
+stdio.h
+-
+stdlib.h
+-
+B_arbre_horiz_Pt.c
+P:/Study/ILISI/S1/SDD/Practice/TP3 arbre/B_arbre_horiz_Pt.c
+B_arbre_horiz_tab.c
+P:/Study/ILISI/S1/SDD/Practice/TP3 arbre/B_arbre_horiz_tab.c
+arbre_non_ordonne.c
+P:/Study/ILISI/S1/SDD/Practice/TP3 arbre/arbre_non_ordonne.c
+
+P:/Study/ILISI/S1/SDD/Practice/TP3 arbre/arbre_non_ordonne.c
+stdio.h
+-
+stdlib.h
+-
+conio.h
+-
+math.h
+-
+
+P:/Study/ILISI/S1/SDD/Practice/TP3 arbre/fonction_Pile_Pt.c
+stdio.h
+-
+stdlib.h
+-
 

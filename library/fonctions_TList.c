@@ -191,6 +191,7 @@ int supprimer_elems_TListe(TListe *liste, int val)
 
 }// fin fct supprimer_elems
 
+/*****************************************/
 
 // fonction qui inverse l'ordre d'une liste
 int inverser_TListe(TListe *liste)

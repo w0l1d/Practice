@@ -5,5 +5,5 @@ set(CMAKE_C_STANDARD 11)
 
 
 add_executable(Practice
-        library/test.c)
+        "TP3 arbre/Main_arbre.c" )
 

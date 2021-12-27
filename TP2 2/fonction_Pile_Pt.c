@@ -412,7 +412,7 @@ int menu_TPile_Pt()
                "\n 9   : Supprimer un element par position \n "
                "\n 10  : Supprimer un element par valeur \n "
                "\n 11  : Supprimer les occurrences d'une valeur \n "
-               "\n 11  : Afficher la pile en respectant le principe \n "
+               "\n 12  : Afficher la pile en respectant le principe \n "
                "\n 0   : retour vers menu principal \n"
                "\n **********************************************************************************************************************\n "
                "\n >>>>>\t");

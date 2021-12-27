@@ -128,29 +128,29 @@ Practice/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/build
 .PHONY : Practice/fast
 
-library/test.obj: library/test.c.obj
-.PHONY : library/test.obj
+TP3_arbre/Main_arbre.obj: TP3_arbre/Main_arbre.c.obj
+.PHONY : TP3_arbre/Main_arbre.obj
 
 # target to build an object file
-library/test.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/library/test.c.obj
-.PHONY : library/test.c.obj
+TP3_arbre/Main_arbre.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/TP3_arbre/Main_arbre.c.obj
+.PHONY : TP3_arbre/Main_arbre.c.obj
 
-library/test.i: library/test.c.i
-.PHONY : library/test.i
+TP3_arbre/Main_arbre.i: TP3_arbre/Main_arbre.c.i
+.PHONY : TP3_arbre/Main_arbre.i
 
 # target to preprocess a source file
-library/test.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/library/test.c.i
-.PHONY : library/test.c.i
+TP3_arbre/Main_arbre.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/TP3_arbre/Main_arbre.c.i
+.PHONY : TP3_arbre/Main_arbre.c.i
 
-library/test.s: library/test.c.s
-.PHONY : library/test.s
+TP3_arbre/Main_arbre.s: TP3_arbre/Main_arbre.c.s
+.PHONY : TP3_arbre/Main_arbre.s
 
 # target to generate assembly for a file
-library/test.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/library/test.c.s
-.PHONY : library/test.c.s
+TP3_arbre/Main_arbre.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Practice.dir\build.make CMakeFiles/Practice.dir/TP3_arbre/Main_arbre.c.s
+.PHONY : TP3_arbre/Main_arbre.c.s
 
 # Help Target
 help:
@@ -161,9 +161,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Practice
-	@echo ... library/test.obj
-	@echo ... library/test.i
-	@echo ... library/test.s
+	@echo ... TP3_arbre/Main_arbre.obj
+	@echo ... TP3_arbre/Main_arbre.i
+	@echo ... TP3_arbre/Main_arbre.s
 .PHONY : help
 
 
